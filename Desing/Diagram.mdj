@@ -2310,7 +2310,7 @@
 											"top": 491,
 											"width": 383.30322265625,
 											"height": 13,
-											"text": "+unSubcribe(User, ReproductionList): boolean",
+											"text": "+unSubcribe(UserDTO, ReproductionList): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2327,7 +2327,7 @@
 											"top": 506,
 											"width": 383.30322265625,
 											"height": 13,
-											"text": "+RemoveSong(int idSong)",
+											"text": "+removeSong(int idSong, int idReproductionList, UserDTO user)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2392,6 +2392,7 @@
 											"model": {
 												"$ref": "AAAAAAGLiCJhOsE0Gms="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 429,
 											"top": 536,
@@ -2399,13 +2400,47 @@
 											"height": 13,
 											"text": "+getAllComments(ReproductionList): set<comment>",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGLlpOa8Zzx7Lg=",
+											"_parent": {
+												"$ref": "AAAAAAGLgL9zy11viKA="
+											},
+											"model": {
+												"$ref": "AAAAAAGLlpOa1pzu9bE="
+											},
+											"font": "Arial;13;0",
+											"left": 429,
+											"top": 536,
+											"width": 383.30322265625,
+											"height": 13,
+											"text": "+addSong(idSong, idReproductionList, UserDTO): boolean",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGLlpPpsJ0A7tw=",
+											"_parent": {
+												"$ref": "AAAAAAGLgL9zy11viKA="
+											},
+											"model": {
+												"$ref": "AAAAAAGLlpPpmpz9V7M="
+											},
+											"font": "Arial;13;0",
+											"left": 429,
+											"top": 551,
+											"width": 383.30322265625,
+											"height": 13,
+											"text": "+searchSongById(idSong, idReproductionList): Song",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 424,
 									"top": 411,
 									"width": 393.30322265625,
-									"height": 143
+									"height": 158
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2448,7 +2483,7 @@
 							"left": 424,
 							"top": 376,
 							"width": 393.30322265625,
-							"height": 178,
+							"height": 193,
 							"nameCompartment": {
 								"$ref": "AAAAAAGLgL9zyl1pStM="
 							},
@@ -4365,7 +4400,7 @@
 											"top": 611,
 											"width": 233.7333984375,
 											"height": 13,
-											"text": "+id: int",
+											"text": "-id: int",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10679,7 +10714,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 622,
+									"left": 623,
 									"top": 346,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -10700,8 +10735,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 607,
-									"top": 343,
+									"left": 608,
+									"top": 344,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -10721,7 +10756,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 651,
+									"left": 652,
 									"top": 351,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -10740,7 +10775,7 @@
 								"$ref": "AAAAAAGLgL9zyl1oO70="
 							},
 							"lineStyle": 1,
-							"points": "635:375;640.7368421052631:335",
+							"points": "636:375;640.7368421052631:335",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGLjIn8DK+ZGXQ="
@@ -13950,8 +13985,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGLh9+dVsBSVZ4="
 													},
-													"name": "User",
-													"type": ""
+													"name": "UserDTO"
 												},
 												{
 													"_type": "UMLParameter",
@@ -13959,8 +13993,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGLh9+dVsBSVZ4="
 													},
-													"name": "ReproductionList",
-													"type": ""
+													"name": "ReproductionList"
 												},
 												{
 													"_type": "UMLParameter",
@@ -13979,7 +14012,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGLgL9zyl1mM6w="
 											},
-											"name": "RemoveSong",
+											"name": "removeSong",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -13987,7 +14020,24 @@
 													"_parent": {
 														"$ref": "AAAAAAGLiAv4TsCfclM="
 													},
-													"name": "int idSong",
+													"name": "int idSong"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpNUOJzpBbM=",
+													"_parent": {
+														"$ref": "AAAAAAGLiAv4TsCfclM="
+													},
+													"name": "int idReproductionList",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpNUOZzqfTM=",
+													"_parent": {
+														"$ref": "AAAAAAGLiAv4TsCfclM="
+													},
+													"name": "UserDTO user",
 													"type": ""
 												}
 											]
@@ -14060,6 +14110,91 @@
 														"$ref": "AAAAAAGLiCJhOsE0Gms="
 													},
 													"type": "set<comment>",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAGLlpOa1pzu9bE=",
+											"_parent": {
+												"$ref": "AAAAAAGLgL9zyl1mM6w="
+											},
+											"name": "addSong",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpPorJz1z3Y=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpOa1pzu9bE="
+													},
+													"name": "idSong",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpPorJz26y8=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpOa1pzu9bE="
+													},
+													"name": "idReproductionList",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpPorZz3hCA=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpOa1pzu9bE="
+													},
+													"name": "UserDTO",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpPorZz4qNU=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpOa1pzu9bE="
+													},
+													"type": "boolean",
+													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAGLlpPpmpz9V7M=",
+											"_parent": {
+												"$ref": "AAAAAAGLgL9zyl1mM6w="
+											},
+											"name": "searchSongById",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpRDJ50E9/w=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpPpmpz9V7M="
+													},
+													"name": "idSong",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpRDKJ0F6KE=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpPpmpz9V7M="
+													},
+													"name": "idReproductionList",
+													"type": ""
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAGLlpRDKJ0Gx0U=",
+													"_parent": {
+														"$ref": "AAAAAAGLlpPpmpz9V7M="
+													},
+													"type": {
+														"$ref": "AAAAAAGLgLv3ElwZakA="
+													},
 													"direction": "return"
 												}
 											]
@@ -14702,6 +14837,7 @@
 												"$ref": "AAAAAAGLgL1PxlxyRKo="
 											},
 											"name": "id",
+											"visibility": "private",
 											"type": "int"
 										}
 									],
