@@ -288,3 +288,4 @@ ALTER TABLE `artist`
     ADD CONSTRAINT `FK ARTIST_USER` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `commentlistusers` ADD Column `description` varchar(256) DEFAULT NULL;
+
