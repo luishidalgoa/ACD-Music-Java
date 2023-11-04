@@ -9,5 +9,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     exports dev.iesfranciscodelosrios.acdmusic;
     exports dev.iesfranciscodelosrios.acdmusic.PRUEBA;
     opens dev.iesfranciscodelosrios.acdmusic.PRUEBA to javafx.fxml;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.GenericForm;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.GenericForm;
 
 }
