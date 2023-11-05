@@ -34,7 +34,10 @@ public class Login implements iLogin {
     }
 
     public UserDTO getCurrentUser() {
-        return new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "test", "1234"));
+        return currentUser;
+    }
+    public void setCurrentUser(UserDTO currentUser) {
+        this.currentUser = currentUser;
     }
 
     public static Login getInstance() {

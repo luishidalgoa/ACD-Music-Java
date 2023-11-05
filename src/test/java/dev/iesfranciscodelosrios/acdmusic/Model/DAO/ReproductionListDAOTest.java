@@ -3,6 +3,7 @@ package dev.iesfranciscodelosrios.acdmusic.Model.DAO;
 import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -16,7 +17,11 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReproductionListDAOTest {
-
+    @Test
+    @Order(0)
+    void initialize(){
+        Login.getInstance().setCurrentUser(new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "test", "1234")));
+    }
     @Test
     @Order(1)
     void add() {
