@@ -37,4 +37,7 @@ public class Login implements iLogin {
     public static UserDTO getCurrentUser() {
         return currentUser;
     }
+    public static void setCurrentUser(UserDTO currentUser) {
+        Login.currentUser = currentUser;
+    }
 }
