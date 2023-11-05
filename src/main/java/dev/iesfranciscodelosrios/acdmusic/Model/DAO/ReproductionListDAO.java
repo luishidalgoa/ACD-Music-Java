@@ -6,7 +6,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Comment;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
-import dev.iesfranciscodelosrios.acdmusic.Service.Login;
+import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -21,6 +21,8 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String getUserSubcriptionQuery = "SELECT id_user,id_reproductionList FROM rythm.usersubscriptionlist WHERE id_user=?;";
     String getSubcribeToListByUserQuery = "SELECT id_user,id_reproductionList FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
     String addSongQuery = "INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);";
+    String searchSongByIdQuery = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
+    String unsubscribeQuery = "DELETE FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
 
     private ReproductionListDAO() {
     }
@@ -130,10 +132,10 @@ public class ReproductionListDAO implements iReproductionListDAO {
     }
 
     @Override
-    public boolean Subcribe(UserDTO user, int idList) {
+    public boolean Subcribe(int idUser, int idList) {
         Connection conn = ConnectionData.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(SubcribeQuery)) {
-            ps.setInt(1, user.getId());
+            ps.setInt(1, idUser);//Login.getInstance().getCurrentUser().getId()
             ps.setInt(2, idList);
             if (ps.executeUpdate() == 1) {
                 ConnectionData.close();
@@ -187,7 +189,19 @@ public class ReproductionListDAO implements iReproductionListDAO {
     }
 
     @Override
-    public boolean unSubcribe(UserDTO user, ReproductionList reproductionList) {
+    public boolean unSubcribe(int idUser, ReproductionList reproductionList) {
+        Connection conn = ConnectionData.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(unsubscribeQuery)) {
+            ps.setInt(1, idUser);
+            ps.setInt(2, reproductionList.getId());
+            if (ps.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionData.close();
+        }
         return false;
     }
 
@@ -204,7 +218,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ps.setInt(2, idReproductionList);
             if (ps.executeUpdate() == 1) {
                 ConnectionData.close();
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -216,6 +229,21 @@ public class ReproductionListDAO implements iReproductionListDAO {
 
     @Override
     public Song searchSongById(int idSong, int idReproductionList) {
+        ConnectionData.getConnection();
+        try(PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)){
+            ps.setInt(1,idSong);
+            ps.setInt(2,idReproductionList);
+            if(ps.execute()){
+                try(ResultSet rs = ps.getResultSet()){
+                    if(rs.next()){
+                        ConnectionData.close();
+                        return null;//SongDAO.getInstance().searchSongById(rs.getInt("id_song"))
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

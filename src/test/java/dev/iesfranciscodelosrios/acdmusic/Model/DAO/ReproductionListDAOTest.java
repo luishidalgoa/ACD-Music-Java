@@ -3,7 +3,7 @@ package dev.iesfranciscodelosrios.acdmusic.Model.DAO;
 import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
-import dev.iesfranciscodelosrios.acdmusic.Service.Login;
+import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -33,12 +33,12 @@ class ReproductionListDAOTest {
     void searchReproductionListById() {
         assertNotNull(ReproductionListDAO.getInstance().searchReproductionListById(1));
     }
-    /*@Test
+    @Test
     @Order(3)
     void Subcribe() {
         ReproductionListDAO dao = ReproductionListDAO.getInstance();
-        assertTrue(dao.Subcribe(UserDAO.getInstance().searchUserById(1), 1));
-    }*/
+        assertTrue(dao.Subcribe(2, 1));
+    }
 
     @Test
     @Order(4)
@@ -52,11 +52,15 @@ class ReproductionListDAOTest {
     @Test
     @Order(5)
     void getSubcribeToListByUser() {
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertTrue(dao.getSubcribeToListByUser(2,1));
     }
 
     @Test
     @Order(6)
     void unSubcribe() {
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertTrue(dao.unSubcribe(2, dao.searchReproductionListById(1)));
     }
 
     @Test

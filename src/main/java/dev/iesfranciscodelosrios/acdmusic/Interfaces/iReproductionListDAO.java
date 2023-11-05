@@ -44,19 +44,19 @@ public interface iReproductionListDAO {
 
     /**
      * Subcribira un usuario a una lista de reproduccion
-     * @param user recivira el usuario logueado que va a seguir la lista
+     * @param idUser ID del usuario que va a seguir la lista
      * @param idList ID de la lista que van a seguir
      * @return Devolvera un boolean en base si se encuentra la relacion con el metodo getSubcribeToListByUser()
      */
-    public boolean Subcribe(UserDTO user,int idList);
+    public boolean Subcribe(int idUser,int idList);
 
     /**
      * eliminara la relacion entre usuario y la lista de reproduccion indicada
-     * @param user usuario del cual eliminaremos la relacion de la subcripcion de la bbdd
+     * @param idUser id del usuario que se desuscribira de la lista
      * @param reproductionList Lista de reproduccion de la que se desuscribira el usuario
      * @return Devolvera true o false en base a si cuando se comprueba
      */
-    public boolean unSubcribe(UserDTO user,ReproductionList reproductionList);
+    public boolean unSubcribe(int idUser,ReproductionList reproductionList);
 
     /**
      * eliminara una cancion de una lista de reproduccion
