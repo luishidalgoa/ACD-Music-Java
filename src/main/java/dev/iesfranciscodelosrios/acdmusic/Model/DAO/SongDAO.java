@@ -1,5 +1,6 @@
 package dev.iesfranciscodelosrios.acdmusic.Model.DAO;
 
+import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Interfaces.iSongDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
@@ -24,7 +25,7 @@ public class SongDAO implements iSongDAO{
     private Connection conn;
 
     private SongDAO() {
-        conn = dev.iesfranciscodelosrios.acdmusic.Connection.Connection.getConnection();
+        conn = ConnectionData.getConnection();
     }
 
     public static SongDAO getInstance() {
