@@ -1,5 +1,6 @@
 package dev.iesfranciscodelosrios.acdmusic.Model.DAO;
 
+import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Interfaces.iAlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
@@ -25,7 +26,7 @@ public class AlbumDAO implements iAlbumDAO {
     private Connection conn;
 
     private AlbumDAO() {
-        conn = dev.iesfranciscodelosrios.acdmusic.Connection.Connection.getConnection();
+        conn = ConnectionData.getConnection();
     }
 
     public static AlbumDAO getInstance() {
