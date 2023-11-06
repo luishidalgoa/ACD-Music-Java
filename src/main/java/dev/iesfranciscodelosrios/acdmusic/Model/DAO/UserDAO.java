@@ -31,4 +31,9 @@ public class UserDAO implements iUserDAO {
     public Set<UserDTO> searchByName(String filterWord) {
         return null;
     }
+
+    @Override
+    public UserDTO searchById(int idUser) {
+        return null;
+    }
 }

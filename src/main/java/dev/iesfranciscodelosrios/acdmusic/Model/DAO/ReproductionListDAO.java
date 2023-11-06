@@ -107,8 +107,9 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }
         return null;
     }
+
     @Override
-    public ReproductionList searchReproductionListById(int id,boolean isConnClosed) {
+    public ReproductionList searchReproductionListById(int id, boolean isConnClosed) {
         ReproductionList result = new ReproductionList();
 
         Connection conn = ConnectionData.getConnection();
@@ -156,12 +157,12 @@ public class ReproductionListDAO implements iReproductionListDAO {
     @Override
     public Set<ReproductionList> getUserSubcriptions(int idUser) {
         Connection conn = ConnectionData.getConnection();
-        Set<ReproductionList> result= new HashSet<>();
+        Set<ReproductionList> result = new HashSet<>();
         try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
             ps.setInt(1, idUser);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(searchReproductionListById(rs.getInt("id_reproductionList"),false));
+                result.add(searchReproductionListById(rs.getInt("id_reproductionList"), false));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -228,7 +229,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
             e.printStackTrace();
         } finally {
             ConnectionData.close();
-            return searchSongById(idSong, idReproductionList)!= null;
+            return searchSongById(idSong, idReproductionList) != null;
         }
 
     }
@@ -236,12 +237,12 @@ public class ReproductionListDAO implements iReproductionListDAO {
     @Override
     public Song searchSongById(int idSong, int idReproductionList) {
         ConnectionData.getConnection();
-        try(PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)){
-            ps.setInt(1,idSong);
-            ps.setInt(2,idReproductionList);
-            if(ps.execute()){
-                try(ResultSet rs = ps.getResultSet()){
-                    if(rs.next()){
+        try (PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)) {
+            ps.setInt(1, idSong);
+            ps.setInt(2, idReproductionList);
+            if (ps.execute()) {
+                try (ResultSet rs = ps.getResultSet()) {
+                    if (rs.next()) {
                         ConnectionData.close();
                         return null;//SongDAO.getInstance().searchSongById(rs.getInt("id_song"))
                     }
@@ -252,3 +253,14 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }
         return null;
     }
+    @Override
+    public boolean removeSong(int idSong, int idReproductionList, UserDTO user) {
+        return false;
+    }
+    public static ReproductionListDAO getInstance() {
+        if (instance == null) {
+            instance = new ReproductionListDAO();
+        }
+        return instance;
+    }
+}
