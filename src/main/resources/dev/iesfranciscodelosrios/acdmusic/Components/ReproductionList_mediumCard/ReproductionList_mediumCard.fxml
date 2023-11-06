@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_mediumCard.ReproductionList_mediumCard"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="597.0" layoutY="-1.0" prefHeight="139.0" prefWidth="121.0">
+         <children>
+            <SVGPath fx:id="svg_like" content="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z" layoutX="-195.0" layoutY="-192.0" scaleX="0.1" scaleY="0.1" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="107.0" fitWidth="107.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/pictures/app/image_not_Found.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="158.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="262.1367950439453">
+         <font>
+            <Font name="SansSerif Regular" size="29.0" />
+         </font>
+      </Text>
+      <Text layoutX="158.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By: " wrappingWidth="41.200000000000045">
+         <font>
+            <Font name="SansSerif Regular" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="199.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" wrappingWidth="169.86670227050786">
+         <font>
+            <Font name="SansSerif Regular" size="22.0" />
+         </font>
+      </Text>
+   </children>
 </AnchorPane>
