@@ -316,6 +316,28 @@ ALTER TABLE `commentlistusers`
 
 
 -- TRIGGERS
+
+-- [UserSubcriptionList]
+-- crearemos un trigger en el que cuando un usuario cree una lista de reproduccion se le relacione en la tabla usersubscriptionlist
+CREATE TRIGGER `ownerSubcriptionList`
+    AFTER INSERT
+    ON `reproductionlist`
+    FOR EACH ROW INSERT INTO usersubscriptionlist (id_user, id_reproductionList)
+                 VALUES (NEW.id_user, NEW.id_reproductionList);
+
+
+-- SELECTS
+-- [UserSubcriptionList]
+-- buscaremos el usuario dueño de la lista de reproduccion 1
+select u.nickname
+from usersubscriptionlist r
+         JOIN reproductionlist l ON r.id_reproductionList = l.id_reproductionList
+         JOIN user u ON r.id_user = u.id_user
+WHERE l.id_reproductionList = ?;
+
+-- vamos a poner el autoincrement de reproductionlist a 1
+ALTER TABLE reproductionlist AUTO_INCREMENT = 1;
+
     -- [UserSubcriptionList]
         -- crearemos un trigger en el que cuando un usuario cree una lista de reproduccion se le relacione en la tabla usersubscriptionlist
         CREATE TRIGGER `ownerSubcriptionList`
@@ -325,14 +347,3 @@ ALTER TABLE `commentlistusers`
                          VALUES (NEW.id_user, NEW.id_reproductionList);
 
 
--- SELECTS
-    -- [UserSubcriptionList]
-        -- buscaremos el usuario dueño de la lista de reproduccion 1
-        select u.nickname
-        from usersubscriptionlist r
-                 JOIN reproductionlist l ON r.id_reproductionList = l.id_reproductionList
-                 JOIN user u ON r.id_user = u.id_user
-        WHERE l.id_reproductionList = ?;
-
-
-INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);
