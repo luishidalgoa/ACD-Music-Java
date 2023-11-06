@@ -20,6 +20,15 @@ public class UserDTO {
         this.email = user.getEmail();
     }
 
+    public UserDTO() {
+        id = -1;
+        nickName = "";
+        name = "";
+        lastName = "";
+        picture = "";
+        email = "";
+    }
+
     public int getId() {
         return id;
     }
