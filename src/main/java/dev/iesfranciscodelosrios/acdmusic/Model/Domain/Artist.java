@@ -1,4 +1,4 @@
 package dev.iesfranciscodelosrios.acdmusic.Model.Domain;
 
-public class Artist {
+public class Artist extends User{
 }
