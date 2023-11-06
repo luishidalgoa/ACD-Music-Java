@@ -307,7 +307,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 ALTER TABLE `artist`
-DROP FOREIGN KEY `FK ARTIST_USER`;
+    DROP FOREIGN KEY `FK ARTIST_USER`;
 ALTER TABLE `artist`
     ADD CONSTRAINT `FK ARTIST_USER` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -316,6 +316,7 @@ ALTER TABLE `commentlistusers`
 
 
 -- TRIGGERS
+
 -- [UserSubcriptionList]
 -- crearemos un trigger en el que cuando un usuario cree una lista de reproduccion se le relacione en la tabla usersubscriptionlist
 CREATE TRIGGER `ownerSubcriptionList`
@@ -336,3 +337,13 @@ WHERE l.id_reproductionList = ?;
 
 -- vamos a poner el autoincrement de reproductionlist a 1
 ALTER TABLE reproductionlist AUTO_INCREMENT = 1;
+
+    -- [UserSubcriptionList]
+        -- crearemos un trigger en el que cuando un usuario cree una lista de reproduccion se le relacione en la tabla usersubscriptionlist
+        CREATE TRIGGER `ownerSubcriptionList`
+            AFTER INSERT
+            ON `reproductionlist`
+            FOR EACH ROW INSERT INTO usersubscriptionlist (id_user, id_reproductionList)
+                         VALUES (NEW.id_user, NEW.id_reproductionList);
+
+

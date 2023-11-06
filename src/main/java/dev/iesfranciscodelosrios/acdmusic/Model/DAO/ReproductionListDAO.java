@@ -8,6 +8,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 
+
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +54,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -73,6 +75,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
@@ -146,6 +149,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
@@ -202,6 +206,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
@@ -225,6 +230,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ConnectionData.close();
             return searchSongById(idSong, idReproductionList)!= null;
         }
+
     }
 
     @Override
@@ -246,16 +252,3 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }
         return null;
     }
-
-    @Override
-    public boolean removeSong(int idSong, int idReproductionList, UserDTO user) {
-        return false;
-    }
-
-    public static ReproductionListDAO getInstance() {
-        if (instance == null) {
-            instance = new ReproductionListDAO();
-        }
-        return instance;
-    }
-}
