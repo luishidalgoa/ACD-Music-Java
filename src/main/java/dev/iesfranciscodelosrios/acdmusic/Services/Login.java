@@ -6,12 +6,14 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
 
 public class Login implements iLogin {
 
+
     private static Login instance;
 
     private Login() {
     }
 
     UserDTO currentUser;
+
 
     @Override
     public UserDTO Auth(User user) {
@@ -33,6 +35,7 @@ public class Login implements iLogin {
         return false;
     }
 
+
     public UserDTO getCurrentUser() {
         return currentUser;
     }
@@ -45,4 +48,5 @@ public class Login implements iLogin {
         };
         return instance;
     }
+
 }

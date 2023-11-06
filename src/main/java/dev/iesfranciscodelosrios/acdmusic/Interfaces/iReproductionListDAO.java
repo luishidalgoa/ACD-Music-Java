@@ -12,10 +12,12 @@ public interface iReproductionListDAO {
     /**
      * creara una lista de reproduccion nueva en base a un objeto
      *
+
      * @param reproductionList lista de reproduccion que se quiere agregar a la bbdd
      * @return devolvera un DTO de la lista de reproduccion en caso de que se haya encontrado en la base de datos si no devolvera null
      */
     public ReproductionList add(ReproductionList reproductionList);
+
 
     /**
      * eliminara una lista de reproduccion y devolvera true o false en base a si se encuetra o no la lista de reproduccion
@@ -27,6 +29,7 @@ public interface iReproductionListDAO {
     public boolean removeReproductionList(int id);
 
     /**
+
      * buscara una lista de reproduccion a partir de su id
      * @param id id de la lista que se quiere buscar
      * @return lista de reproduccion buscada si no se encuentra devolvera null
@@ -58,6 +61,7 @@ public interface iReproductionListDAO {
      */
     public boolean unSubcribe(int idUser,ReproductionList reproductionList);
 
+
     /**
      * eliminara una cancion de una lista de reproduccion
      * @param idSong  de una cancion y eliminara la cancion  de la tabla Lista_Reproduccion_cancion
@@ -72,7 +76,9 @@ public interface iReproductionListDAO {
      * @param idUser del usuario que se quiere extraer las listas a las que esta subcrito
      * @return lista de reproduccion a las que esta subcrito el usuario
      */
+
     public Set<ReproductionList> getUserSubcriptions(int idUser);
+
 
     /**
      * este metodo su funcion es verificar que existe la relacion entre un usuario y una lista buscada y
