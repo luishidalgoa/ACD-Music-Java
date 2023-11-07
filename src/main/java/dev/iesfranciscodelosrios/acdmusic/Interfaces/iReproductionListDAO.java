@@ -12,9 +12,10 @@ public interface iReproductionListDAO {
     /**
      * creara una lista de reproduccion nueva en base a un objeto
      *
-     * @param album album que se agregara a la base de datos
+     * @param reproductionList lista de reproduccion que se quiere agregar a la bbdd
+     * @return devolvera un DTO de la lista de reproduccion en caso de que se haya encontrado en la base de datos si no devolvera null
      */
-    public ReproductionList add(Album album);
+    public ReproductionList add(ReproductionList reproductionList);
 
     /**
      * eliminara una lista de reproduccion y devolvera true o false en base a si se encuetra o no la lista de reproduccion
@@ -26,20 +27,36 @@ public interface iReproductionListDAO {
     public boolean removeReproductionList(int id);
 
     /**
+     * buscara una lista de reproduccion a partir de su id
+     * @param id id de la lista que se quiere buscar
+     * @return lista de reproduccion buscada si no se encuentra devolvera null
+     */
+    public ReproductionList searchReproductionListById(int id);
+
+    /**
+     * buscara una lista de reproduccion a partir de su id
+     * @param id id de la lista que se quiere buscar
+     * @param isConnClosed si es true cerrara la conexion si es false no la cerrara . De esta forma nos permite
+     *                     no cerrar la conexion y por ende evitar errores de conexion en otros metodos
+     * @return
+     */
+    public ReproductionList searchReproductionListById(int id,boolean isConnClosed);
+
+    /**
      * Subcribira un usuario a una lista de reproduccion
-     * @param user recivira el usuario logueado que va a seguir la lista
+     * @param idUser ID del usuario que va a seguir la lista
      * @param idList ID de la lista que van a seguir
      * @return Devolvera un boolean en base si se encuentra la relacion con el metodo getSubcribeToListByUser()
      */
-    public boolean Subcribe(UserDTO user,int idList);
+    public boolean Subcribe(int idUser,int idList);
 
     /**
      * eliminara la relacion entre usuario y la lista de reproduccion indicada
-     * @param user usuario del cual eliminaremos la relacion de la subcripcion de la bbdd
+     * @param idUser id del usuario que se desuscribira de la lista
      * @param reproductionList Lista de reproduccion de la que se desuscribira el usuario
      * @return Devolvera true o false en base a si cuando se comprueba
      */
-    public boolean unSubcribe(UserDTO user,ReproductionList reproductionList);
+    public boolean unSubcribe(int idUser,ReproductionList reproductionList);
 
     /**
      * eliminara una cancion de una lista de reproduccion
@@ -55,7 +72,9 @@ public interface iReproductionListDAO {
      * @param idUser del usuario que se quiere extraer las listas a las que esta subcrito
      * @return lista de reproduccion a las que esta subcrito el usuario
      */
-    public Set<ReproductionList> getUserSubcription(int idUser);
+
+    public Set<ReproductionList> getUserSubcriptions(int idUser);
+
 
     /**
      * este metodo su funcion es verificar que existe la relacion entre un usuario y una lista buscada y

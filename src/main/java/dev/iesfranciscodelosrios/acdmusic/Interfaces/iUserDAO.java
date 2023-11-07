@@ -42,4 +42,12 @@ public interface iUserDAO{
      * @return lista de usuarios que coinciden con la palabra clave
      */
     public Set<UserDTO> searchByName(String filterWord);
+
+    /**
+     * se buscara un usuario en base a su id.
+     * @param idUser id del usuario a buscar
+     * @return devolvera un objeto UserDTO, si la base de datos no se encuentra se devolvera null
+     */
+
+    public UserDTO searchById(int idUser);
 }
