@@ -24,6 +24,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String addSongQuery = "INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);";
     String searchSongByIdQuery = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String unsubscribeQuery = "DELETE FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
+    String searchAllCommentsQuery = "SELECT c.id_comment FROM reproductionlist JOIN commentlistusers c on reproductionlist.id_reproductionList = c.id_reproductionList WHERE c.id_reproductionList LIKE ?";
 
     private ReproductionListDAO() {
     }
@@ -210,6 +211,24 @@ public class ReproductionListDAO implements iReproductionListDAO {
 
     @Override
     public Set<Comment> getAllComments(int idList) {
+        try {
+            if(searchReproductionListById(idList)==null)
+                return null;
+            Connection conn= ConnectionData.getConnection();
+            PreparedStatement ps = conn.prepareStatement(searchAllCommentsQuery);
+            ps.setInt(1,idList);
+            ResultSet rs = ps.executeQuery();
+            Set<Comment> result = new HashSet<>();
+            while (rs.next()){
+                result.add(CommentDAO.getInstance().searchComment(rs.getInt("id_comment")));
+            }
+            if (!result.isEmpty())
+                return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionData.close();
+        }
         return null;
     }
 

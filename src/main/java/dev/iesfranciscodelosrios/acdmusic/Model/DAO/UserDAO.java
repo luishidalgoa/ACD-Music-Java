@@ -18,33 +18,24 @@ public class UserDAO extends User implements iUserDAO  {
     private static final String SELECTBYNICKNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE nickname=?";
     private static final String SEARCHBYNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE name LIKE CONCAT('%','?','%') LIMIT 3";
 
-    /**
-     * Metodo para setear un user con el que vamos a trabajar
-     * @param id_user id del user
-     * @param name nombre del user
-     * @param email email del user
-     * @param picture url de la imagen de perfil del user
-     * @param password contraseña del user
-     * @param lastname apellidos del user
-     */
-    public UserDAO(int id_user, String name, String email, String picture, String password, String lastname) {
-        super(id_user,name,email,picture,password,lastname);
-    }
+    private static UserDAO instance;
+    private UserDAO() {}
 
     /**
-     * Metodo para obtener un user a través de su id
-     * @param id_user Id del user a buscar
+     * Metodo que obtiene todos los datos de un objeto User y devuelve un objeto UserDTO relleno con
+     * los datos del objeto User proporcionado
+     * @param user objeto User que se quiere pasar a UserDTO
+     * @return
      */
-    public UserDAO(int id_user){
-        getById(id_user);
-    }
-
-    /**
-     * Metodo para setear un user con el que vamos a trabajar y conocemos previamente
-     * @param u Usuario que se va a tratar en el DAO
-     */
-    public UserDAO(User u){
-        super(u.getId(), u.getName(), u.getEmail(), u.getPicture(), u.getPassword(), u.getNickName(), u.getLastName());
+    private UserDTO setUserToUserDTO(User user){
+        UserDTO result = new UserDTO();
+        result.setId(user.getId());
+        result.setName(user.getName());
+        result.setEmail(user.getName());
+        result.setPicture(user.getPicture());
+        result.setNickName(user.getNickName());
+        result.setLastName(user.getLastName());
+        return result;
     }
 
     /**
@@ -52,59 +43,60 @@ public class UserDAO extends User implements iUserDAO  {
      * @return true si la consulta SQL a tenido exito false si no ha tenido exito
      */
     @Override
-    public boolean addUser() {
-        if(getId()!=-1){
-            return update();
+    public UserDTO addUser(User user) {
+        if(update(user)!=false){
+            System.out.println("El usuario ya existe");
+            return null;
         } else {
             Connection conn = ConnectionData.getConnection();
-            if(conn==null) return false;
+            if(conn==null) return null;
 
             try(PreparedStatement ps = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)){
-                ps.setString(1, getName());
-                ps.setString(2, getEmail());
-                ps.setString(3, getPicture());
-                ps.setString(4, getPassword());
-                ps.setString(5, getNickName());
-                ps.setString(6, getLastName());
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getEmail());
+                ps.setString(3, user.getPicture());
+                ps.setString(4, user.getPassword());
+                ps.setString(5, user.getNickName());
+                ps.setString(6, user.getLastName());
 
                 if(ps.executeUpdate()==1){
                     try(ResultSet rs = ps.getGeneratedKeys()) {
                         if (rs.next()) {
                             setId(rs.getInt(1));
-                            return true; //MODIFICAR PARA RELLENAR EL DTO
+                            return setUserToUserDTO(user);
                         } else {
-                            return false;
+                            return null;
                         }
                     }
                 }
                 setId(-1);
-                return false;
+                return null;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
     }
 
     /**
      * Metodo para actualizar un user de la base de datos
+     * @param user Usuario del que se desea hacer un update
      * @return true si la consulta SQL a tenido exito false si no ha tenido exito
      */
-    private boolean update() {
-        if(getId() ==-1) return false;
+    private boolean update(User user) {
         Connection conn = ConnectionData.getConnection();
-        if(conn==null) return false;
+        if(conn==null || user==null) return false;
 
         try(PreparedStatement ps = conn.prepareStatement(UPDATE)){
-            ps.setString(1,getName());
-            ps.setString(2,getEmail());
-            ps.setString(3,getPicture());
-            ps.setString(4,getPassword());
-            ps.setString(5, getNickName());
-            ps.setString(6, getLastName());
+            ps.setString(1,user.getName());
+            ps.setString(2,user.getEmail());
+            ps.setString(3,user.getPicture());
+            ps.setString(4,user.getPassword());
+            ps.setString(5,user.getNickName());
+            ps.setString(6,user.getLastName());
             if(ps.executeUpdate()==1)
-                return true;
-            setId(-1);
+                return false;
+            user.setId(-1);
             return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -112,49 +104,20 @@ public class UserDAO extends User implements iUserDAO  {
     }
 
     /**
-     * Metodo para obetener un usuario del que ya conocemos sus id
-     * @param id del usuari que queremos obtener
-     * @return si la consulta SQL a tenido exito false si no ha tenido exito
-     */
-    public boolean getById(int id){
-        Connection conn = ConnectionData.getConnection();
-        if (conn==null) return false;
-        try(PreparedStatement ps = conn.prepareStatement(SELECTBYID)){
-            ps.setInt(1,id);
-            if(ps.execute()){
-                try(ResultSet rs = ps.getResultSet()){
-                    if(rs.next()){
-                        setId(rs.getInt("id"));
-                        setName(rs.getString("name"));
-                        setEmail(rs.getString("email"));
-                        setPicture(rs.getString("picture"));
-                        setPassword(rs.getString("password"));
-                        setNickName(rs.getString("nickname"));
-                        setLastName(rs.getString("lastname"));
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     *
-     * @param idUser id del usuario a eliminar
+     * Metodo que reciba un usuario y devuelve true en caso de que se haya borrado con exito o falso
+     * en caso de que la conexión falle, user sea null o la consulta sql falle.
+     * @param user usuario a eliminar
      * @return
      */
     @Override
-    public boolean delete(int idUser) {
-        if(getId()==-1) return false;
+    public boolean delete(User user) {
+        if(user == null) return false;
 
         Connection conn = ConnectionData.getConnection();
         if(conn==null) return false;
 
         try(PreparedStatement ps = conn.prepareStatement(DELETE)){
-            ps.setInt(1,getId());
+            ps.setInt(1,user.getId());
             if(ps.executeUpdate()==1) return true;
             return false;
         } catch (SQLException e) {
@@ -313,5 +276,12 @@ public class UserDAO extends User implements iUserDAO  {
             }
         }
         return null;
+    }
+
+    public static UserDAO getInstance() {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
     }
 }

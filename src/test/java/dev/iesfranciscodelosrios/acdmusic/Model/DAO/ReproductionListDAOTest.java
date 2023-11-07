@@ -2,6 +2,7 @@ package dev.iesfranciscodelosrios.acdmusic.Model.DAO;
 
 import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Comment;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
@@ -26,11 +27,12 @@ class ReproductionListDAOTest {
     @Order(1)
     void add() {
         ReproductionListDAO dao = ReproductionListDAO.getInstance();
-
         ReproductionList list = new ReproductionList("testName", "testDescription", Login.getInstance().getCurrentUser(), null, null);
         ReproductionList result = dao.add(list);
-
         assertNotNull(result);
+
+        //creamos un comentario para el test getAllComments
+        CommentDAO.getInstance().add(new Comment(Login.getInstance().getCurrentUser(), result.getId(), "testComment"));
     }
 
     @Test
@@ -71,6 +73,8 @@ class ReproductionListDAOTest {
     @Test
     @Order(7)
     void getAllComments() {
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertNotNull(dao.getAllComments(1));
     }
 
     @Test
@@ -105,6 +109,7 @@ class ReproductionListDAOTest {
         Connection conn = ConnectionData.getConnection();
         try {
             conn.createStatement().executeUpdate("ALTER TABLE rythm.reproductionlist AUTO_INCREMENT = 1;");
+            conn.createStatement().executeUpdate("ALTER TABLE rythm.commentlistusers AUTO_INCREMENT = 1;");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
