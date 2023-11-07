@@ -337,3 +337,6 @@ ALTER TABLE reproductionlist AUTO_INCREMENT = 1;
             ON `reproductionlist`
             FOR EACH ROW INSERT INTO usersubscriptionlist (id_user, id_reproductionList)
                          VALUES (NEW.id_user, NEW.id_reproductionList);
+
+ALTER TABLE rythm.commentlistusers AUTO_INCREMENT = 1;
+ALTER TABLE rythm.reproductionlist AUTO_INCREMENT = 1;
