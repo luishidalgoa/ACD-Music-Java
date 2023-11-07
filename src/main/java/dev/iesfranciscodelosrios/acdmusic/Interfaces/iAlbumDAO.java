@@ -27,7 +27,7 @@ public interface iAlbumDAO {
      * @Param artist artista del cual se quiere buscar los albumes
      * @return lista de albumes de un artista
      */
-    public Set<Album> searchAllAlbumesByArtist(ArtistDTO artist);
+    public Set<Album> searchAllAlbumsByArtist(ArtistDTO artist);
 
     /**
      * consultara a la bbdd los albumes subidos mas recientemente. Devolviendo asi una lista
@@ -41,6 +41,6 @@ public interface iAlbumDAO {
      * @param id id del album a actualizar
      * @return album actualizado
      */
-    public Album updateAlbum(int id);
+    public Album updateAlbum(int id, String newName);
 
 }
