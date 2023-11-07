@@ -7,6 +7,9 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
 import java.util.Set;
 
 public class UserDAO implements iUserDAO {
+    private static UserDAO instance;
+    private UserDAO() {
+    }
     @Override
     public UserDTO addUser(User user) {
         return null;
@@ -35,5 +38,12 @@ public class UserDAO implements iUserDAO {
     @Override
     public UserDTO searchById(int idUser) {
         return null;
+    }
+
+    public static UserDAO getInstance() {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
     }
 }
