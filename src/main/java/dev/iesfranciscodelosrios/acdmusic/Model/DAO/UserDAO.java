@@ -6,6 +6,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserDAO extends User implements iUserDAO  {
@@ -13,7 +14,9 @@ public class UserDAO extends User implements iUserDAO  {
     private static final String UPDATE ="UPDATE user SET name=?, email=?, picture=?, password=?, nickname=?, lastname=? WHERE id_user=?";
     private static final String DELETE ="DELETE FROM user WHERE id_user=?";
     private static final String SELECTBYID ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE id_user=?";
-    private static final String SELECTALL ="SELECT id_user,name,email,picture,password,nickname,lastaname FROM user";
+    private static final String SELECTBYEMAIL ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE email=?";
+    private static final String SELECTBYNICKNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE nickname=?";
+    private static final String SEARCHBYNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE name LIKE CONCAT('%','?','%') LIMIT 3";
 
     /**
      * Metodo para setear un user con el que vamos a trabajar
@@ -30,7 +33,7 @@ public class UserDAO extends User implements iUserDAO  {
 
     /**
      * Metodo para obtener un user a través de su id
-     * @param id_user Id del user a busccar
+     * @param id_user Id del user a buscar
      */
     public UserDAO(int id_user){
         getById(id_user);
@@ -160,23 +163,155 @@ public class UserDAO extends User implements iUserDAO  {
         }
     }
 
+    /**
+     * Este metodo buscca un objeto user dentro de la base de datos el cual lo devolvera si existe
+     * puede devolver null en caso de que email sea null, la conexion falle o la base de datos
+     * devuelva cualquier tipo de error(Como no encontrado).
+     * @param email email del usuario a buscar
+     * @return un objeto UserDTO si ha sido satisfactorio o null sino
+     */
     @Override
     public UserDTO searchByEmail(String email) {
+        Connection conn = ConnectionData.getConnection();
+        if (conn==null || email==null) {
+            return null;
+        } else{
+            UserDTO searchedUser = new UserDTO();
+            searchedUser.setEmail(email);
+
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYEMAIL)){
+                ps.setString(1,email);
+                if(ps.execute()){
+                    try(ResultSet rs = ps.getResultSet()){
+                        if(rs.next()){
+                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setName((rs.getString("name")));
+                            searchedUser.setLastName((rs.getString("lastName")));
+                            searchedUser.setNickName((rs.getString("nickName")));
+                            searchedUser.setPicture((rs.getString("picture")));
+                            searchedUser.setEmail((rs.getString("email")));
+                            return searchedUser;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         return null;
     }
 
+    /**
+     * Este metodo buscca un objeto user dentro de la base de datos el cual lo devolvera si existe
+     * puede devolver null en caso de que nickname sea null, la conexion falle o la base de datos
+     * devuelva cualquier tipo de error(Como no encontrado).
+     * @param nickname nickname del usuario a buscar
+     * @return un objeto UserDTO si ha sido satisfactorio o null sino
+     */
     @Override
     public UserDTO searchByNickname(String nickname) {
+        Connection conn = ConnectionData.getConnection();
+        if (conn==null || nickname==null) {
+            return null;
+        } else{
+            UserDTO searchedUser = new UserDTO();
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYNICKNAME)){
+                ps.setString(1,nickname);
+                if(ps.execute()){
+                    try(ResultSet rs = ps.getResultSet()){
+                        if(rs.next()){
+                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setName((rs.getString("name")));
+                            searchedUser.setLastName((rs.getString("lastName")));
+                            searchedUser.setNickName((rs.getString("nickName")));
+                            searchedUser.setPicture((rs.getString("picture")));
+                            searchedUser.setEmail((rs.getString("email")));
+                            return searchedUser;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         return null;
     }
 
+    /**
+     * Metodo que busca coincidencias con un máximo de tres usuarios y los devuelve.
+     * Por defecto y en caso de que la conexion con la base de datos falle o la constula
+     * no sea existosa devolvera null
+     * @param filterWord palabra clave del nombre del usuario que se quiere buscar
+     * @return Set de tres usuarios
+     */
     @Override
     public Set<UserDTO> searchByName(String filterWord) {
+        Connection conn = ConnectionData.getConnection();
+        if (conn==null || filterWord==null) {
+            return null;
+        } else{
+            Set<UserDTO> searchedUSers = new HashSet<UserDTO>();
+            try (PreparedStatement ps = conn.prepareStatement(SEARCHBYNAME)){
+                ps.setString(1, filterWord);
+                if (ps.execute()) {
+                    try(ResultSet rs = ps.executeQuery()){
+                        while (rs.next()) {
+                            UserDTO su = new UserDTO();
+                            su.setId((rs.getInt("id")));
+                            su.setName((rs.getString("name")));
+                            su.setLastName((rs.getString("lastName")));
+                            su.setNickName((rs.getString("nickName")));
+                            su.setPicture((rs.getString("picture")));
+                            su.setEmail((rs.getString("email")));
+                            searchedUSers.add(su);
+                        }
+                    }
+                    return searchedUSers;
+                }
+        } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         return null;
     }
 
+    /**
+     * Este metodo buscca un objeto user dentro de la base de datos el cual lo devolvera si existe
+     * puede devolver null en caso de que nickname sea null, la conexion falle o la base de datos
+     * devuelva cualquier tipo de error(Como no encontrado).
+     * @param idUser nickname del usuario a buscar
+     * @return un objeto UserDTO si ha sido satisfactorio o null sino
+     */
     @Override
     public UserDTO searchById(int idUser) {
+        Connection conn = ConnectionData.getConnection();
+        if (conn==null || idUser==-1) {
+            return null;
+        } else{
+            UserDTO searchedUser = new UserDTO();
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYID)){
+                ps.setInt(1,idUser);
+                if(ps.execute()){
+                    try(ResultSet rs = ps.getResultSet()){
+                        if(rs.next()){
+                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setName((rs.getString("name")));
+                            searchedUser.setLastName((rs.getString("lastName")));
+                            searchedUser.setNickName((rs.getString("nickName")));
+                            searchedUser.setPicture((rs.getString("picture")));
+                            searchedUser.setEmail((rs.getString("email")));
+                            return searchedUser;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
         return null;
     }
 }
