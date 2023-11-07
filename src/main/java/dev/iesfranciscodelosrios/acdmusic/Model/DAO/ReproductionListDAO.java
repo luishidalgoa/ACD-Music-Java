@@ -24,6 +24,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String addSongQuery = "INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);";
     String searchSongByIdQuery = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String unsubscribeQuery = "DELETE FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
+    String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
 
     private ReproductionListDAO() {
     }
@@ -210,7 +211,10 @@ public class ReproductionListDAO implements iReproductionListDAO {
 
         return false;
     }
-
+    @Override
+    public Set<Comment> addComment(int idList, Comment comment) {
+        return null;
+    }
     @Override
     public Set<Comment> getAllComments(int idList) {
         return null;
@@ -229,6 +233,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
             e.printStackTrace();
         } finally {
             ConnectionData.close();
+            System.out.println(searchSongById(idSong, idReproductionList)+"BOOL: "+searchSongById(idSong, idReproductionList) != null);
             return searchSongById(idSong, idReproductionList) != null;
         }
 
@@ -243,20 +248,36 @@ public class ReproductionListDAO implements iReproductionListDAO {
             if (ps.execute()) {
                 try (ResultSet rs = ps.getResultSet()) {
                     if (rs.next()) {
-                        ConnectionData.close();
-                        return null;//SongDAO.getInstance().searchSongById(rs.getInt("id_song"))
+                        return SongDAO.getInstance().searchById(rs.getInt("id_song"));
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionData.close();
         }
         return null;
     }
+
     @Override
     public boolean removeSong(int idSong, int idReproductionList, UserDTO user) {
+        if (user.getId() != searchReproductionListById(idReproductionList).getOwner().getId()) return false;
+        Connection conn = ConnectionData.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(removeSongQuery);
+            ps.setInt(1, idSong);
+            ps.setInt(2, idReproductionList);
+            if (ps.executeUpdate() == 1) {
+                ConnectionData.close();
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return false;
     }
+
     public static ReproductionListDAO getInstance() {
         if (instance == null) {
             instance = new ReproductionListDAO();

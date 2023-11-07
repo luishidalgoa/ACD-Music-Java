@@ -88,6 +88,7 @@ public interface iReproductionListDAO {
      */
     public boolean getSubcribeToListByUser(int idUser,int idList);
 
+    public Set<Comment> addComment(int idList, Comment comment);
     /**
      * Extraera una lista de reproduccion a partir de su id
      * @param idList id de la lista que se quiere extraer los comentarios

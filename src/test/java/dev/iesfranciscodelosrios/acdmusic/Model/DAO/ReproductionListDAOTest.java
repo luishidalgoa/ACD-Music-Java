@@ -89,6 +89,8 @@ class ReproductionListDAOTest {
     @Test
     @Order(10)
     void removeSong() {
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertTrue(dao.removeSong(1,1,Login.getInstance().getCurrentUser()));
     }
     @Test
     @Order(11)
