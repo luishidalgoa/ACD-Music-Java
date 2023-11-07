@@ -21,7 +21,7 @@ class ReproductionListDAOTest {
     @Test
     @Order(0)
     void initialize(){
-        Login.getInstance().setCurrentUser(new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "test", "1234")));
+        Login.getInstance().setCurrentUser(new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "raul@gmail.com", "1234")));
     }
     @Test
     @Order(1)
@@ -87,12 +87,15 @@ class ReproductionListDAOTest {
     @Test
     @Order(9)
     void searchSongById() {
-
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertNotNull(dao.searchSongById(1,1));
     }
 
     @Test
     @Order(10)
     void removeSong() {
+        ReproductionListDAO dao = ReproductionListDAO.getInstance();
+        assertTrue(dao.removeSong(1,1,Login.getInstance().getCurrentUser()));
     }
     @Test
     @Order(11)
