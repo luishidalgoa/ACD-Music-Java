@@ -19,7 +19,7 @@ public class UserDAO extends User implements iUserDAO  {
     private static final String SEARCHBYNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE name LIKE CONCAT('%','?','%') LIMIT 3";
 
     private static UserDAO instance;
-    private UserDAO() {}
+    public UserDAO() {}
 
     /**
      * Metodo que obtiene todos los datos de un objeto User y devuelve un objeto UserDTO relleno con
@@ -40,41 +40,37 @@ public class UserDAO extends User implements iUserDAO  {
 
     /**
      * Metodo para insertar un user en la base de datos
+     * @param user Objeto User a instertar
      * @return true si la consulta SQL a tenido exito false si no ha tenido exito
      */
     @Override
     public UserDTO addUser(User user) {
-        if(update(user)!=false){
-            System.out.println("El usuario ya existe");
-            return null;
-        } else {
-            Connection conn = ConnectionData.getConnection();
-            if(conn==null) return null;
+        Connection conn = ConnectionData.getConnection();
+        if(conn==null) return null;
 
-            try(PreparedStatement ps = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)){
-                ps.setString(1, user.getName());
-                ps.setString(2, user.getEmail());
-                ps.setString(3, user.getPicture());
-                ps.setString(4, user.getPassword());
-                ps.setString(5, user.getNickName());
-                ps.setString(6, user.getLastName());
+        try(PreparedStatement ps = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)){
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPicture());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getNickName());
+            ps.setString(6, user.getLastName());
 
-                if(ps.executeUpdate()==1){
-                    try(ResultSet rs = ps.getGeneratedKeys()) {
-                        if (rs.next()) {
-                            setId(rs.getInt(1));
-                            return setUserToUserDTO(user);
-                        } else {
-                            return null;
-                        }
+            if(ps.executeUpdate()==1){
+                try(ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        setId(rs.getInt(1));
+                        return setUserToUserDTO(user);
+                    } else {
+                        return null;
                     }
                 }
-                setId(-1);
-                return null;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
             }
+            setId(-1);
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -94,6 +90,7 @@ public class UserDAO extends User implements iUserDAO  {
             ps.setString(4,user.getPassword());
             ps.setString(5,user.getNickName());
             ps.setString(6,user.getLastName());
+            ps.setInt(7,user.getId());
             if(ps.executeUpdate()==1)
                 return false;
             user.setId(-1);
@@ -260,7 +257,7 @@ public class UserDAO extends User implements iUserDAO  {
                 if(ps.execute()){
                     try(ResultSet rs = ps.getResultSet()){
                         if(rs.next()){
-                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setId((rs.getInt("id_user")));
                             searchedUser.setName((rs.getString("name")));
                             searchedUser.setLastName((rs.getString("lastName")));
                             searchedUser.setNickName((rs.getString("nickName")));
