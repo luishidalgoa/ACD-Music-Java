@@ -86,9 +86,9 @@ class ReproductionListDAOTest {
 
     @Test
     @Order(9)
-    void searchSongById() {
+    void searchSongsById() {
         ReproductionListDAO dao = ReproductionListDAO.getInstance();
-        assertNotNull(dao.searchSongById(1,1));
+        assertNotNull(dao.searchSongsById(1));
     }
 
     @Test
