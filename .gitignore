@@ -49,3 +49,8 @@ src/main/resources/dev/iesfranciscodelosrios/acdmusic/PRUEBA/
 src/main/java/dev/iesfranciscodelosrios/acdmusic/App.java
 src/main/java/dev/iesfranciscodelosrios/acdmusic/Services/Login.java
 src/main/java/dev/iesfranciscodelosrios/acdmusic/
+src/main/java/dev/iesfranciscodelosrios/acdmusic/Model/DAO/ReproductionListDAO.java
+src/main/java/dev/iesfranciscodelosrios/acdmusic/Interfaces/iReproductionListDAO.java
+src/main/java/dev/iesfranciscodelosrios/acdmusic/Connection/
+./Desing/
+./SQL/
