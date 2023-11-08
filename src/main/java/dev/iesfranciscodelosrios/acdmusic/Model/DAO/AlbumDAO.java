@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AlbumDAO implements iAlbumDAO {
-
     private static final String INSERT_ALBUM = "INSERT INTO album (id_artist, name, date, picture, reproductions) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALBUM_BY_NAME = "SELECT id_album, id_artist, name, date, picture, reproductions FROM album WHERE name LIKE ? LIMIT 3";
     private static final String SELECT_ALL_ALBUMS_BY_ARTIST = "SELECT id_album, id_artist, name, date, picture, reproductions FROM album WHERE id_artist = ?";
@@ -23,10 +22,8 @@ public class AlbumDAO implements iAlbumDAO {
 
 
     private static AlbumDAO instance;
-    private Connection conn;
 
     private AlbumDAO() {
-        conn = ConnectionData.getConnection();
     }
 
     public static AlbumDAO getInstance() {
@@ -38,6 +35,7 @@ public class AlbumDAO implements iAlbumDAO {
 
     @Override
     public boolean addAlbum(Album album) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(INSERT_ALBUM);
             preparedStatement.setInt(1, album.getIdArtist());
@@ -51,12 +49,15 @@ public class AlbumDAO implements iAlbumDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            ConnectionData.close();
         }
     }
 
 
     @Override
     public Set<Album> searchAlbumByName(String filterWord) {
+        Connection conn = ConnectionData.getConnection();
         Set<Album> albums = new HashSet<>();
 
         try {
@@ -78,6 +79,8 @@ public class AlbumDAO implements iAlbumDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionData.close();
         }
 
         return albums;
@@ -91,6 +94,7 @@ public class AlbumDAO implements iAlbumDAO {
 
     @Override
     public Set<Album> searchMoreRecent() {
+        Connection conn = ConnectionData.getConnection();
         Set<Album> albums = new HashSet<>();
 
         try {
@@ -110,6 +114,8 @@ public class AlbumDAO implements iAlbumDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionData.close();
         }
 
         return albums;
@@ -117,6 +123,7 @@ public class AlbumDAO implements iAlbumDAO {
 
     @Override
     public Album updateAlbum(int id, String newName) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_ALBUM_NAME);
             preparedStatement.setString(1, newName);
@@ -130,6 +137,8 @@ public class AlbumDAO implements iAlbumDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionData.close();
         }
 
         return null;
@@ -137,6 +146,7 @@ public class AlbumDAO implements iAlbumDAO {
 
 
     private Album getAlbumById(int id) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ALBUM_BY_ID);
             preparedStatement.setInt(1, id);
@@ -154,6 +164,8 @@ public class AlbumDAO implements iAlbumDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionData.close();
         }
 
         return null;
