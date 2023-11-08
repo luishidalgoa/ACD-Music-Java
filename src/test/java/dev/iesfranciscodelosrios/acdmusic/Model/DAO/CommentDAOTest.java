@@ -23,7 +23,7 @@ class CommentDAOTest {
     @Test
     @Order(0)
     void initialize(){
-        Login.getInstance().setCurrentUser(new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "test", "1234")));
+        Login.getInstance().setCurrentUser(new UserDTO(new User(3, "RaulNapias", "Raul", "Test", "test", "raul@gmail.com", "1234")));
         ReproductionListDAO.getInstance().add(new ReproductionList("testName", "testDescription", Login.getInstance().getCurrentUser(), null, null)).getId();
     }
     @Test

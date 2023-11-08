@@ -91,7 +91,7 @@ public class CommentDAO implements iCommentDAO {
             while (rs.next()){
                 Comment result= new Comment();
                 result.setId(rs.getInt("id_comment"));
-                result.setUser(UserDAO.getInstance().searchUserById(rs.getInt("id_user")));
+                result.setUser(UserDAO.getInstance().searchById(rs.getInt("id_user")));
                 result.setReproductionListId(rs.getInt("id_reproductionList"));
                 result.setDate(Timestamp.valueOf(rs.getString("date")).toLocalDateTime());
                 result.setDescription(rs.getString("description"));

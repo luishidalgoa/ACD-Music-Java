@@ -10,22 +10,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SongDAO implements iSongDAO{
-
-    private static final String INSERT_SONG = "INSERT INTO song (id_album, name, url, length, genre, reproductions) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_SONG = "INSERT INTO song (id_album, name, url, lenght, genre, reproductions) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_SONG = "DELETE FROM song WHERE id_song = ?";
-    private static final String SELECT_BY_GENRE = "SELECT id_song, id_album, name, url, length, reproductions FROM song WHERE genre = ?";
-    private static final String SELECT_BY_ID = "SELECT id_song, id_album, name, url, length, genre, reproductions FROM song WHERE id_song = ?";
-    private static final String SELECT_BY_ALBUM_ID = "SELECT id_song, name, url, length, genre, reproductions FROM song WHERE id_album = ?";
-    private static final String SELECT_TOP_SONGS = "SELECT id_song, id_album, name, url, length, genre, reproductions FROM song ORDER BY reproductions DESC LIMIT 4";
-    private static final String SELECT_RECENT_SONGS = "SELECT id_song, id_album, name, url, length, genre, reproductions FROM song ORDER BY id_song DESC LIMIT 4";
-    private static final String SELECT_BY_NAME = "SELECT id_song, id_album, name, url, length, genre, reproductions FROM song WHERE name LIKE ?";
+    private static final String SELECT_BY_GENRE = "SELECT id_song, id_album, name, url, lenght, reproductions FROM song WHERE genre = ?";
+    private static final String SELECT_BY_ID = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song WHERE id_song = ?";
+    private static final String SELECT_BY_ALBUM_ID = "SELECT id_song, name, url, lenght, genre, reproductions FROM song WHERE id_album = ?";
+    private static final String SELECT_TOP_SONGS = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song ORDER BY reproductions DESC LIMIT 4";
+    private static final String SELECT_RECENT_SONGS = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song ORDER BY id_song DESC LIMIT 4";
+    private static final String SELECT_BY_NAME = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song WHERE name LIKE ?";
 
 
     private static SongDAO instance;
-    private Connection conn;
 
     private SongDAO() {
-        conn = ConnectionData.getConnection();
     }
 
     public static SongDAO getInstance() {
@@ -37,6 +34,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public Song addSong(Song song) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(INSERT_SONG, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, song.getId_album());
@@ -57,6 +55,8 @@ public class SongDAO implements iSongDAO{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return null;
     }
@@ -64,6 +64,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public boolean removeSong(int idSong) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(DELETE_SONG);
             preparedStatement.setInt(1, idSong);
@@ -72,6 +73,8 @@ public class SongDAO implements iSongDAO{
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return false;
     }
@@ -79,6 +82,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public Set<Song> searchByGenre(Genre genre) {
+        Connection conn = ConnectionData.getConnection();
         Set<Song> songs = new HashSet<>();
 
         try {
@@ -91,14 +95,16 @@ public class SongDAO implements iSongDAO{
                 int id_album = resultSet.getInt("id_album");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 int reproductions = resultSet.getInt("reproductions");
 
-                Song song = new Song(id_song, id_album, name, url, length.toLocalTime(), genre, reproductions);
+                Song song = new Song(id_song, id_album, name, url, lenght.toLocalTime(), genre, reproductions);
                 songs.add(song);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
 
         return songs;
@@ -107,6 +113,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public Song searchById(int idSong) {
+        Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SELECT_BY_ID);
             preparedStatement.setInt(1, idSong);
@@ -116,20 +123,23 @@ public class SongDAO implements iSongDAO{
                 int id_album = resultSet.getInt("id_album");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 Genre genre = Genre.valueOf(resultSet.getString("genre"));
                 int reproductions = resultSet.getInt("reproductions");
 
-                return new Song(idSong, id_album, name, url, length.toLocalTime(), genre, reproductions);
+                return new Song(idSong, id_album, name, url, lenght.toLocalTime(), genre, reproductions);
             }
         } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return null;
     }
 
     @Override
     public Set<Song> searchByAlbumId(int idAlbum) {
+        Connection conn = ConnectionData.getConnection();
         Set<Song> songs = new HashSet<>();
 
         try {
@@ -141,21 +151,24 @@ public class SongDAO implements iSongDAO{
                 int id_song = resultSet.getInt("id_song");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 Genre genre = Genre.valueOf(resultSet.getString("genre"));
                 int reproductions = resultSet.getInt("reproductions");
 
-                Song song = new Song(id_song, idAlbum, name, url, length.toLocalTime(), genre, reproductions);
+                Song song = new Song(id_song, idAlbum, name, url, lenght.toLocalTime(), genre, reproductions);
                 songs.add(song);
             }
         } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return songs;
     }
 
     @Override
     public Set<Song> searchTopSongs() {
+        Connection conn = ConnectionData.getConnection();
         Set<Song> topSongs = new HashSet<>();
 
         try {
@@ -167,15 +180,17 @@ public class SongDAO implements iSongDAO{
                 int id_album = resultSet.getInt("id_album");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 Genre genre = Genre.valueOf(resultSet.getString("genre"));
                 int reproductions = resultSet.getInt("reproductions");
 
-                Song song = new Song(id_song, id_album, name, url, length.toLocalTime(), genre, reproductions);
+                Song song = new Song(id_song, id_album, name, url, lenght.toLocalTime(), genre, reproductions);
                 topSongs.add(song);
             }
         } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
 
         return topSongs;
@@ -183,6 +198,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public Set<Song> searchRecientSongs() {
+        Connection conn = ConnectionData.getConnection();
         Set<Song> recentSongs = new HashSet<>();
 
         try {
@@ -194,15 +210,17 @@ public class SongDAO implements iSongDAO{
                 int id_album = resultSet.getInt("id_album");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 Genre genre = Genre.valueOf(resultSet.getString("genre"));
                 int reproductions = resultSet.getInt("reproductions");
 
-                Song song = new Song(id_song, id_album, name, url, length.toLocalTime(), genre, reproductions);
+                Song song = new Song(id_song, id_album, name, url, lenght.toLocalTime(), genre, reproductions);
                 recentSongs.add(song);
             }
         } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
 
         return recentSongs;
@@ -210,6 +228,7 @@ public class SongDAO implements iSongDAO{
 
     @Override
     public Set<Song> searchByNombre(String filterWord) {
+        Connection conn = ConnectionData.getConnection();
         Set<Song> songs = new HashSet<>();
 
         try {
@@ -222,15 +241,17 @@ public class SongDAO implements iSongDAO{
                 int id_album = resultSet.getInt("id_album");
                 String name = resultSet.getString("name");
                 String url = resultSet.getString("url");
-                Time length = resultSet.getTime("length");
+                Time lenght = resultSet.getTime("lenght");
                 Genre genre = Genre.valueOf(resultSet.getString("genre"));
                 int reproductions = resultSet.getInt("reproductions");
 
-                Song song = new Song(id_song, id_album, name, url, length.toLocalTime(), genre, reproductions);
+                Song song = new Song(id_song, id_album, name, url, lenght.toLocalTime(), genre, reproductions);
                 songs.add(song);
             }
         } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return songs;
     }
