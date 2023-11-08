@@ -144,7 +144,7 @@ public class UserDAO extends User implements iUserDAO  {
                 if(ps.execute()){
                     try(ResultSet rs = ps.getResultSet()){
                         if(rs.next()){
-                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setId((rs.getInt("id_user")));
                             searchedUser.setName((rs.getString("name")));
                             searchedUser.setLastName((rs.getString("lastName")));
                             searchedUser.setNickName((rs.getString("nickName")));
@@ -181,7 +181,7 @@ public class UserDAO extends User implements iUserDAO  {
                 if(ps.execute()){
                     try(ResultSet rs = ps.getResultSet()){
                         if(rs.next()){
-                            searchedUser.setId((rs.getInt("id")));
+                            searchedUser.setId((rs.getInt("id_user")));
                             searchedUser.setName((rs.getString("name")));
                             searchedUser.setLastName((rs.getString("lastName")));
                             searchedUser.setNickName((rs.getString("nickName")));

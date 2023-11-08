@@ -15,10 +15,11 @@ class UserDAOTest {
     @Order(1)
     void addUser() {
         UserDAO udao = new UserDAO();
-        User user = new User(18,"Nick", "Nick", "kol", "test", "nick@gmail.com", "1234");
+        User user = new User("Nick", "Nick", "kol", "test", "nick@gmail.com", "1234");
+        UserDTO userDTO = udao.searchByNickname(user.getNickName());
 
         assertNotNull(udao.addUser(user));
-        assertNotNull(udao.searchById(user.getId()));
+        assertNotNull(udao.searchById(userDTO.getId()));
     }
 
     @Test
