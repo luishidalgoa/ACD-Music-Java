@@ -22,11 +22,11 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String getUserSubcriptionQuery = "SELECT id_user,id_reproductionList FROM rythm.usersubscriptionlist WHERE id_user=?;";
     String getSubcribeToListByUserQuery = "SELECT id_user,id_reproductionList FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
     String addSongQuery = "INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);";
-    String searchSongByIdQuery = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
+    String searchSonsByIdQuery = "select s.id_song, s.id_album, s.name, s.url, s.lenght, s.genre, s.reproductions from reproductionsonglist rsl JOIN song s on rsl.id_song = s.id_song where rsl.id_reproductionList = ?;";
     String unsubscribeQuery = "DELETE FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
     String searchAllCommentsQuery = "SELECT c.id_comment FROM reproductionlist JOIN commentlistusers c on reproductionlist.id_reproductionList = c.id_reproductionList WHERE c.id_reproductionList LIKE ?";
     String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
-
+    String searchSongOnList = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     private ReproductionListDAO() {
     }
 
@@ -45,16 +45,15 @@ public class ReproductionListDAO implements iReproductionListDAO {
                     if (rs.next()) {
                         //extraemos el id autoincremental
                         int id = rs.getInt(1);
-                        ConnectionData.close();
                         // Devolvemos el objeto recien insertado con el id correspondiente
                         return searchReproductionListById(id);
                     }
                 }
             }
-            ConnectionData.close();
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
 
         return null;
@@ -96,38 +95,12 @@ public class ReproductionListDAO implements iReproductionListDAO {
                         result.setName(rs.getString("name"));
                         result.setDescription(rs.getString("description"));
                         result.setOwner(UserDAO.getInstance().searchById(rs.getInt("id_user")));
+                        // Obtenemos las canciones de la lista
+                        result.setSongs(searchSongsById(id));
                     }
                 }
             }
-            if(result!=null)return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            ConnectionData.close();
-        }
-        return null;
-    }
-    @Override
-    public ReproductionList searchReproductionListById(int id, boolean isConnClosed) {
-        ReproductionList result = new ReproductionList();
-
-        Connection conn = ConnectionData.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(searchByIdQuery)) {
-            ps.setInt(1, id);
-
-            if (ps.execute()) {
-                try (ResultSet rs = ps.getResultSet()) {
-                    if (rs.next()) {
-                        result.setId(rs.getInt("id_reproductionList"));
-                        result.setName(rs.getString("name"));
-                        result.setDescription(rs.getString("description"));
-                        result.setOwner(UserDAO.getInstance().searchById(rs.getInt("id_user")));
-                    }
-                }
-            }
-            if (isConnClosed)
-                ConnectionData.close();
-            return result;
+            if (result != null) return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -161,7 +134,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ps.setInt(1, idUser);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(searchReproductionListById(rs.getInt("id_reproductionList"), false));
+                result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,21 +186,21 @@ public class ReproductionListDAO implements iReproductionListDAO {
     @Override
     public Set<Comment> getAllComments(int idList) {
         try {
-            if(searchReproductionListById(idList)==null)
+            if (searchReproductionListById(idList) == null)
                 return null;
-            Connection conn= ConnectionData.getConnection();
+            Connection conn = ConnectionData.getConnection();
             PreparedStatement ps = conn.prepareStatement(searchAllCommentsQuery);
-            ps.setInt(1,idList);
+            ps.setInt(1, idList);
             ResultSet rs = ps.executeQuery();
             Set<Comment> result = new HashSet<>();
-            while (rs.next()){
+            while (rs.next()) {
                 result.add(CommentDAO.getInstance().searchComment(rs.getInt("id_comment")));
             }
             if (!result.isEmpty())
                 return result;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             ConnectionData.close();
         }
         return null;
@@ -246,22 +219,24 @@ public class ReproductionListDAO implements iReproductionListDAO {
             e.printStackTrace();
         } finally {
             ConnectionData.close();
-            return searchSongById(idSong, idReproductionList) != null;
+            return existSongOnList(idReproductionList, idSong);
         }
 
     }
 
     @Override
-    public Song searchSongById(int idSong, int idReproductionList) {
-        try (PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)) {
-            ps.setInt(1, idSong);
-            ps.setInt(2, idReproductionList);
+    public Set<Song> searchSongsById(int idReproductionList) {
+        try (PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSonsByIdQuery)) {
+            ps.setInt(1, idReproductionList);
             if (ps.execute()) {
+                Set<Song>result=new HashSet<>();
                 try (ResultSet rs = ps.getResultSet()) {
-                    if (rs.next()) {
-                        return SongDAO.getInstance().searchById(rs.getInt("id_song"));
+                    while (rs.next()) {
+                        result.add(SongDAO.getInstance().searchById(rs.getInt("id_song")));
                     }
                 }
+                if (!result.isEmpty())
+                    return result;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -269,23 +244,44 @@ public class ReproductionListDAO implements iReproductionListDAO {
         return null;
     }
     @Override
+    public boolean existSongOnList(int idList, int idSong) {
+        Connection conn = ConnectionData.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(searchSongOnList)) {
+            ps.setInt(1, idSong);
+            ps.setInt(2, idList);
+            if (ps.execute()) {
+                try (ResultSet rs = ps.getResultSet()) {
+                    if (rs.next()) {
+                        ConnectionData.close();
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
     public boolean removeSong(int idSong, int idReproductionList, UserDTO user) {
-        if(!user.equals(Login.getInstance().getCurrentUser()))return false;
+        if (!user.equals(Login.getInstance().getCurrentUser())) return false;
         Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement ps = conn.prepareStatement(removeSongQuery);
             ps.setInt(1, idSong);
             ps.setInt(2, idReproductionList);
             if (ps.executeUpdate() == 1) {
-                return searchSongById(idSong, idReproductionList) == null;
+                return !existSongOnList(idReproductionList, idSong);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             ConnectionData.close();
         }
         return false;
     }
+
     public static ReproductionListDAO getInstance() {
         if (instance == null) {
             instance = new ReproductionListDAO();
