@@ -9,7 +9,6 @@ import java.time.LocalTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class SongDAOTest {
 
     @Test

@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AlbumDAOTest {
 
-
-
     @Test
     @Order(0)
     void getInstance() {
