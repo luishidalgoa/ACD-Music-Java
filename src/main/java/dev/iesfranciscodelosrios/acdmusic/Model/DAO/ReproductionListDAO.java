@@ -8,6 +8,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 
+
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,8 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String addSongQuery = "INSERT INTO rythm.reproductionsonglist (id_song, id_reproductionList) VALUES (?,?);";
     String searchSongByIdQuery = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String unsubscribeQuery = "DELETE FROM rythm.usersubscriptionlist WHERE id_user=? AND id_reproductionList=?;";
+    String searchAllCommentsQuery = "SELECT c.id_comment FROM reproductionlist JOIN commentlistusers c on reproductionlist.id_reproductionList = c.id_reproductionList WHERE c.id_reproductionList LIKE ?";
+    String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
 
     private ReproductionListDAO() {
     }
@@ -53,6 +56,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -73,6 +77,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
@@ -90,22 +95,20 @@ public class ReproductionListDAO implements iReproductionListDAO {
                         result.setId(rs.getInt("id_reproductionList"));
                         result.setName(rs.getString("name"));
                         result.setDescription(rs.getString("description"));
-                        result.setOwner(Login.getInstance().getCurrentUser());//UserDAO.getInstance().searchById(rs.getInt("id_user"))
+                        result.setOwner(UserDAO.getInstance().searchById(rs.getInt("id_user")));
                     }
                 }
-            } else {
-                ConnectionData.close();
-                return null;
             }
-            ConnectionData.close();
-            return result;
+            if(result!=null)return result;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            ConnectionData.close();
         }
         return null;
     }
     @Override
-    public ReproductionList searchReproductionListById(int id,boolean isConnClosed) {
+    public ReproductionList searchReproductionListById(int id, boolean isConnClosed) {
         ReproductionList result = new ReproductionList();
 
         Connection conn = ConnectionData.getConnection();
@@ -118,7 +121,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
                         result.setId(rs.getInt("id_reproductionList"));
                         result.setName(rs.getString("name"));
                         result.setDescription(rs.getString("description"));
-                        result.setOwner(Login.getInstance().getCurrentUser());//UserDAO.getInstance().searchById(rs.getInt("id_user"))
+                        result.setOwner(UserDAO.getInstance().searchById(rs.getInt("id_user")));
                     }
                 }
             }
@@ -135,7 +138,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
     public boolean Subcribe(int idUser, int idList) {
         Connection conn = ConnectionData.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(SubcribeQuery)) {
-            ps.setInt(1, idUser);//Login.getInstance().getCurrentUser().getId()
+            ps.setInt(1, idUser);
             ps.setInt(2, idList);
             if (ps.executeUpdate() == 1) {
                 ConnectionData.close();
@@ -146,18 +149,19 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
     @Override
     public Set<ReproductionList> getUserSubcriptions(int idUser) {
         Connection conn = ConnectionData.getConnection();
-        Set<ReproductionList> result= new HashSet<>();
+        Set<ReproductionList> result = new HashSet<>();
         try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
             ps.setInt(1, idUser);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(searchReproductionListById(rs.getInt("id_reproductionList"),false));
+                result.add(searchReproductionListById(rs.getInt("id_reproductionList"), false));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -202,11 +206,30 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
+
         return false;
     }
 
     @Override
     public Set<Comment> getAllComments(int idList) {
+        try {
+            if(searchReproductionListById(idList)==null)
+                return null;
+            Connection conn= ConnectionData.getConnection();
+            PreparedStatement ps = conn.prepareStatement(searchAllCommentsQuery);
+            ps.setInt(1,idList);
+            ResultSet rs = ps.executeQuery();
+            Set<Comment> result = new HashSet<>();
+            while (rs.next()){
+                result.add(CommentDAO.getInstance().searchComment(rs.getInt("id_comment")));
+            }
+            if (!result.isEmpty())
+                return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionData.close();
+        }
         return null;
     }
 
@@ -223,21 +246,20 @@ public class ReproductionListDAO implements iReproductionListDAO {
             e.printStackTrace();
         } finally {
             ConnectionData.close();
-            return searchSongById(idSong, idReproductionList)!= null;
+            return searchSongById(idSong, idReproductionList) != null;
         }
+
     }
 
     @Override
     public Song searchSongById(int idSong, int idReproductionList) {
-        ConnectionData.getConnection();
-        try(PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)){
-            ps.setInt(1,idSong);
-            ps.setInt(2,idReproductionList);
-            if(ps.execute()){
-                try(ResultSet rs = ps.getResultSet()){
-                    if(rs.next()){
-                        ConnectionData.close();
-                        return null;//SongDAO.getInstance().searchSongById(rs.getInt("id_song"))
+        try (PreparedStatement ps = ConnectionData.getConnection().prepareStatement(searchSongByIdQuery)) {
+            ps.setInt(1, idSong);
+            ps.setInt(2, idReproductionList);
+            if (ps.execute()) {
+                try (ResultSet rs = ps.getResultSet()) {
+                    if (rs.next()) {
+                        return SongDAO.getInstance().searchById(rs.getInt("id_song"));
                     }
                 }
             }
@@ -246,12 +268,24 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }
         return null;
     }
-
     @Override
     public boolean removeSong(int idSong, int idReproductionList, UserDTO user) {
+        if(!user.equals(Login.getInstance().getCurrentUser()))return false;
+        Connection conn = ConnectionData.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(removeSongQuery);
+            ps.setInt(1, idSong);
+            ps.setInt(2, idReproductionList);
+            if (ps.executeUpdate() == 1) {
+                return searchSongById(idSong, idReproductionList) == null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionData.close();
+        }
         return false;
     }
-
     public static ReproductionListDAO getInstance() {
         if (instance == null) {
             instance = new ReproductionListDAO();
