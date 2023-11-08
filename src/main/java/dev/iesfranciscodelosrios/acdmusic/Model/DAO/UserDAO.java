@@ -41,7 +41,7 @@ public class UserDAO extends User implements iUserDAO  {
     /**
      * Metodo para insertar un user en la base de datos
      * @param user Objeto User a instertar
-     * @return true si la consulta SQL a tenido exito false si no ha tenido exito
+     * @return UserDTO si la consulta SQL ha tenido exito, false si no ha tenido exito
      */
     @Override
     public UserDTO addUser(User user) {
@@ -101,17 +101,15 @@ public class UserDAO extends User implements iUserDAO  {
     }
 
     /**
-     * Metodo que reciba un usuario y devuelve true en caso de que se haya borrado con exito o falso
-     * en caso de que la conexión falle, user sea null o la consulta sql falle.
+     * Metodo que recibe un usuario y lo elimina de la base de datos
      * @param user usuario a eliminar
-     * @return
+     * @return True en caso de que se haya borrado con exito o falso
+     * en caso de que la conexión falle, user sea null o la consulta sql falle.
      */
     @Override
     public boolean delete(User user) {
-        if(user == null) return false;
-
         Connection conn = ConnectionData.getConnection();
-        if(conn==null) return false;
+        if(conn==null || user==null) return false;
 
         try(PreparedStatement ps = conn.prepareStatement(DELETE)){
             ps.setInt(1,user.getId());
@@ -239,11 +237,10 @@ public class UserDAO extends User implements iUserDAO  {
     }
 
     /**
-     * Este metodo buscca un objeto user dentro de la base de datos el cual lo devolvera si existe
-     * puede devolver null en caso de que nickname sea null, la conexion falle o la base de datos
-     * devuelva cualquier tipo de error(Como no encontrado).
+     * Este metodo busca un objeto user dentro de la base de datos
      * @param idUser nickname del usuario a buscar
-     * @return un objeto UserDTO si ha sido satisfactorio o null sino
+     * @return Objeto UserDTO si ha sido satisfactorio y null en caso de que idUser sea null,
+     * la conexion falle o la base de datos devuelva cualquier tipo de error(Como no encontrado).
      */
     @Override
     public UserDTO searchById(int idUser) {
