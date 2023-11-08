@@ -11,10 +11,9 @@ import java.util.Set;
 public interface iReproductionListDAO {
     /**
      * creara una lista de reproduccion nueva en base a un objeto
-     *
-
      * @param reproductionList lista de reproduccion que se quiere agregar a la bbdd
      * @return devolvera un DTO de la lista de reproduccion en caso de que se haya encontrado en la base de datos si no devolvera null
+     * <h3>NOTA: Devolvera las canciones con Lazy Loading</h3>
      */
     public ReproductionList add(ReproductionList reproductionList);
 
@@ -35,15 +34,6 @@ public interface iReproductionListDAO {
      * @return lista de reproduccion buscada si no se encuentra devolvera null
      */
     public ReproductionList searchReproductionListById(int id);
-
-    /**
-     * buscara una lista de reproduccion a partir de su id
-     * @param id id de la lista que se quiere buscar
-     * @param isConnClosed si es true cerrara la conexion si es false no la cerrara . De esta forma nos permite
-     *                     no cerrar la conexion y por ende evitar errores de conexion en otros metodos
-     * @return
-     */
-    public ReproductionList searchReproductionListById(int id,boolean isConnClosed);
 
     /**
      * Subcribira un usuario a una lista de reproduccion
@@ -88,7 +78,6 @@ public interface iReproductionListDAO {
      */
     public boolean getSubcribeToListByUser(int idUser,int idList);
 
-    public Set<Comment> addComment(int idList, Comment comment);
     /**
      * Extraera una lista de reproduccion a partir de su id
      * @param idList id de la lista que se quiere extraer los comentarios
@@ -106,10 +95,16 @@ public interface iReproductionListDAO {
     public boolean addSong(int idSong,int idReproductionList);
 
     /**
-     * buscara una cancion en una lista de reproduccion a partir de su id
-     * @param idSong id de la cancion que se quiere buscar
-     * @param idReproductionList id de la lista en la que se quiere buscar la cancion
+     * buscara una lista de canciones dentro de una lista de reproduccion a traves de una consulta Entre 3 tablas (Song y reproductionSongList)
+     * @param idReproductionList id de la lista en la que se quiere buscar las canciones que tiene
      * @return cancion buscada si no se encuentra devolvera null
      */
-    public Song searchSongById(int idSong,int idReproductionList);
+    public Set<Song> searchSongsById(int idReproductionList);
+    /**
+     * buscara si existe la relacion entre una cancion y una lista de reproduccion
+     * @param idList id de la lista de reproduccion
+     * @param idSong id de la cancion
+     * @return true si existe la relacion
+     */
+    public boolean existSongOnList(int idList,int idSong);
 }
