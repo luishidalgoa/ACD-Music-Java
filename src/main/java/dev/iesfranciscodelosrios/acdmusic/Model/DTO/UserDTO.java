@@ -19,6 +19,16 @@ public class UserDTO {
         this.picture = user.getPicture();
         this.email = user.getEmail();
     }
+    public UserDTO(int id, String nickName, String name, String lastName, String picture, String email) {
+        this.id = id;
+        this.nickName = nickName;
+        this.name = name;
+        this.lastName = lastName;
+        this.picture = picture;
+        this.email = email;
+    }
+    public UserDTO() {
+    }
 
     public int getId() {
         return id;
