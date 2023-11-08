@@ -16,4 +16,13 @@ public class TestController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void ReproductionList_minCard() {
+
+        try {
+            TestViews.newStage(TestViews.getFXML("Components/ReproductionList_minCard/","ReproductionList_minCard").load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
