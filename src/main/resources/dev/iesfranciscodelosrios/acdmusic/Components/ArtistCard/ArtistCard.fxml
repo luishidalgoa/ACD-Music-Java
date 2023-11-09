@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadArtistView" prefHeight="139.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadArtistView" prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: #565656; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController">
     <children>
         <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
             <image>

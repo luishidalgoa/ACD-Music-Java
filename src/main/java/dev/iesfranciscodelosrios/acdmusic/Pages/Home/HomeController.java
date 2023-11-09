@@ -27,6 +27,8 @@ public class HomeController {
     private String titleStyle="-fx-font-size: 24px;fx-font-weight: bold;-fx-font-family: 'SansSerif'";
 
     public void initialize() {
+        //agregaremos una separacion entre los elementos del vbox con gap-y
+        vbox_container.setSpacing(20);
         loadHome();
     }
 
@@ -48,6 +50,7 @@ public class HomeController {
         setReproductionList(rl);
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
+        System.out.println(artist.size());
         Label artistLabel=new Label("Artists Recommend");
         artistLabel.setStyle(titleStyle);
         vbox_container.getChildren().add(artistLabel);
@@ -72,7 +75,7 @@ public class HomeController {
     public void setReproductionList(Set<ReproductionList> rl){
         if (!rl.isEmpty()){
             for (ReproductionList aux : rl) {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_Card/ReproductionList_mediumCard.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_mediumCard/ReproductionList_mediumCard.fxml"));
                 try {
                     Node card = fxmlLoader.load();
                     ReproductionList_mediumCard controller = fxmlLoader.getController();
