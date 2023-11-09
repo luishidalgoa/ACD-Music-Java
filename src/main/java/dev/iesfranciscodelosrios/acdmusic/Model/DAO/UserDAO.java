@@ -16,7 +16,7 @@ public class UserDAO extends User implements iUserDAO  {
     private static final String SELECTBYID ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE id_user=?";
     private static final String SELECTBYEMAIL ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE email=?";
     private static final String SELECTBYNICKNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE nickname=?";
-    private static final String SEARCHBYNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE name LIKE CONCAT('%','?','%') LIMIT 3";
+    private static final String SEARCHBYNAME ="SELECT id_user,name,email,picture,password,nickname,lastname FROM user WHERE name LIKE CONCAT('%',?,'%') LIMIT 3";
 
     private static UserDAO instance;
     public UserDAO() {}
@@ -217,7 +217,7 @@ public class UserDAO extends User implements iUserDAO  {
                     try(ResultSet rs = ps.executeQuery()){
                         while (rs.next()) {
                             UserDTO su = new UserDTO();
-                            su.setId((rs.getInt("id")));
+                            su.setId((rs.getInt("id_user")));
                             su.setName((rs.getString("name")));
                             su.setLastName((rs.getString("lastName")));
                             su.setNickName((rs.getString("nickName")));
@@ -228,7 +228,7 @@ public class UserDAO extends User implements iUserDAO  {
                     }
                     return searchedUSers;
                 }
-        } catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 return null;
             }
