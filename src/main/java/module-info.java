@@ -16,5 +16,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card to javafx.fxml;
     exports dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer;
     opens  dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.Search;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.Search;
 
 }

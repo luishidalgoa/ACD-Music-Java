@@ -39,4 +39,13 @@ public class TestController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void loadSearch() {
+
+        try {
+            TestViews.newStage(TestViews.getFXML("Components/Search/","Search").load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
