@@ -27,6 +27,8 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String searchAllCommentsQuery = "SELECT c.id_comment FROM reproductionlist JOIN commentlistusers c on reproductionlist.id_reproductionList = c.id_reproductionList WHERE c.id_reproductionList LIKE ?";
     String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String searchSongOnList = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
+    //Hazme un Like que devuelva varias Listas con un nombre parecido
+    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE %?%;";
     private ReproductionListDAO() {
     }
 
@@ -280,6 +282,29 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ConnectionData.close();
         }
         return false;
+    }
+
+    @Override
+    public Set<ReproductionList> searchByName(String filter){
+        Connection conn = ConnectionData.getConnection();
+        Set<ReproductionList> result=null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(searchByNameQuery);
+            ps.setString(1, filter);
+            if(ps.execute()){
+                try (ResultSet rs = ps.getResultSet()) {
+                    result = new HashSet<>();
+                    while (rs.next()) {
+                        result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionData.close();
+        }
+        return result;
     }
 
     public static ReproductionListDAO getInstance() {
