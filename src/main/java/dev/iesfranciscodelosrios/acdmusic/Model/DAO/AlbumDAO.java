@@ -145,7 +145,7 @@ public class AlbumDAO implements iAlbumDAO {
     }
 
 
-    private Album getAlbumById(int id) {
+    public Album getAlbumById(int id) {
         Connection conn = ConnectionData.getConnection();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ALBUM_BY_ID);
