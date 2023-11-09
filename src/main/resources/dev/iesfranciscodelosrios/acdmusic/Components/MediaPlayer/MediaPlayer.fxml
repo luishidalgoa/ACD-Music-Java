@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="138.0" prefWidth="1064.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController">
+   <children>
+      <ProgressBar fx:id="songProgressBar" layoutX="209.0" layoutY="106.0" prefHeight="18.0" prefWidth="646.0" progress="0.0" />
+      <Slider fx:id="volumeSlider" layoutX="898.0" layoutY="108.0" />
+      <Pane layoutX="860.0" layoutY="99.0" prefHeight="31.0" prefWidth="33.0">
+         <children>
+            <SVGPath content="M41.813,59.319a1.156,1.156,0,0,1-.779-.3L29.8,48.753H25.466A1.156,1.156,0,0,1,24.31,47.6V36.035a1.156,1.156,0,0,1,1.156-1.156H29.8L41.034,24.616a1.156,1.156,0,0,1,1.936.853V58.163A1.156,1.156,0,0,1,41.813,59.319ZM26.622,46.441h3.628a1.156,1.156,0,0,1,.779.3l9.627,8.787V28.091L31.03,36.879a1.156,1.156,0,0,1-.779.312H26.622Z" layoutX="-27.0" layoutY="-25.0" scaleX="0.8" scaleY="0.8" />
+            <SVGPath content="M115.552,87.886a1.156,1.156,0,0,1-.819-1.973,4.583,4.583,0,0,0,0-6.475,1.156,1.156,0,1,1,1.635-1.635,6.9,6.9,0,0,1,0,9.745A1.156,1.156,0,0,1,115.552,87.886Z" layoutX="-97.0" layoutY="-66.0" scaleX="0.8" scaleY="0.8" />
+            <SVGPath content="M133.229,78.391a1.156,1.156,0,0,1-.819-1.975,10.355,10.355,0,0,0,0-14.647,1.156,1.156,0,1,1,1.635-1.635,12.668,12.668,0,0,1,0,17.917A1.156,1.156,0,0,1,133.229,78.391Z" layoutX="-109.0" layoutY="-52.0" scaleX="0.8" scaleY="0.8" />
+            <SVGPath content="M148.152,70.364a1.156,1.156,0,0,1-.819-1.973,15.242,15.242,0,0,0,0-21.552,1.156,1.156,0,1,1,1.635-1.635,17.552,17.552,0,0,1,0,24.822A1.156,1.156,0,0,1,148.152,70.364Z" layoutX="-118.0" layoutY="-41.0" scaleX="0.8" scaleY="0.8" />
+         </children>
+      </Pane>
+      <Pane layoutX="489.0" layoutY="3.0" onMouseClicked="#handleTogglePlay" prefHeight="86.0" prefWidth="86.0">
+         <children>
+            <SVGPath content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="35.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+            <SVGPath content="M6 4v8l6-4z" layoutX="37.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="403.0" layoutY="3.0" onMouseClicked="#handlePrevious" prefHeight="86.0" prefWidth="86.0">
+         <children>
+            <SVGPath content="M47.94,103.247a3.338,3.338,0,0,0,5.477-2.567V67.295a3.338,3.338,0,0,0-5.477-2.567L30.047,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,0-5.477-2.567L1.2,81.421a3.345,3.345,0,0,0,0,5.133l20.031,16.693a3.338,3.338,0,0,0,5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="575.0" layoutY="3.0" onMouseClicked="#handleNext" prefHeight="86.0" prefWidth="86.0">
+         <children>
+            <SVGPath content="M5.477,103.247A3.338,3.338,0,0,1,0,100.681V67.295a3.338,3.338,0,0,1,5.477-2.567L23.37,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,1,5.477-2.567L52.217,81.421a3.345,3.345,0,0,1,0,5.133L32.186,103.247a3.338,3.338,0,0,1-5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
+         </children>
+      </Pane>
+      <Label fx:id="SongName" ellipsisString=".." layoutX="148.0" layoutY="25.0" text="SongName">
+         <font>
+            <Font name="SansSerif Regular" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="SongImage" fitHeight="107.0" fitWidth="107.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/pictures/app/image_not_Found.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="label_next" layoutX="148.0" layoutY="69.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="NextSongName" layoutX="195.0" layoutY="69.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
