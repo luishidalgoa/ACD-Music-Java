@@ -107,4 +107,11 @@ public interface iReproductionListDAO {
      * @return true si existe la relacion
      */
     public boolean existSongOnList(int idList,int idSong);
+
+    /**
+     * filtrara una lista de reproduccion a partir de su nombre de maximo 4 listras
+     * @param filter nombre de la lista que se quiere buscar
+     * @return listas de reproducciones filtrada
+     */
+    public Set<ReproductionList> searchByName(String filter);
 }
