@@ -2365,7 +2365,7 @@
 											"top": 503,
 											"width": 383.30322265625,
 											"height": 13,
-											"text": "+unSubcribe(UserDTO, ReproductionList): boolean",
+											"text": "+unSubcribe(User, ReproductionList): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2382,7 +2382,7 @@
 											"top": 518,
 											"width": 383.30322265625,
 											"height": 13,
-											"text": "+removeSong(int idSong, int idReproductionList, UserDTO user)",
+											"text": "+RemoveSong(int idSong)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2447,47 +2447,12 @@
 											"model": {
 												"$ref": "AAAAAAGLiCJhOsE0Gms="
 											},
-											"visible": false,
 											"font": "Arial;13;0",
 											"left": 437,
 											"top": 548,
 											"width": 383.30322265625,
 											"height": 13,
 											"text": "+getAllComments(ReproductionList): set<comment>",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAGLlpOa8Zzx7Lg=",
-											"_parent": {
-												"$ref": "AAAAAAGLgL9zy11viKA="
-											},
-											"model": {
-												"$ref": "AAAAAAGLlpOa1pzu9bE="
-											},
-											"font": "Arial;13;0",
-											"left": 429,
-											"top": 536,
-											"width": 383.30322265625,
-											"height": 13,
-											"text": "+addSong(idSong, idReproductionList, UserDTO): boolean",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAGLlpPpsJ0A7tw=",
-											"_parent": {
-												"$ref": "AAAAAAGLgL9zy11viKA="
-											},
-											"model": {
-												"$ref": "AAAAAAGLlpPpmpz9V7M="
-											},
-											"font": "Arial;13;0",
-											"left": 429,
-											"top": 551,
-											"width": 383.30322265625,
-											"height": 13,
-											"text": "+searchSongById(idSong, idReproductionList): Song",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2538,11 +2503,7 @@
 							"left": 432,
 							"top": 360,
 							"width": 393.30322265625,
-<<<<<<< HEAD
-							"height": 193,
-=======
 							"height": 206,
->>>>>>> 1ade952b069e205f0fe47492f2b1d89e3a8683f0
 							"nameCompartment": {
 								"$ref": "AAAAAAGLgL9zyl1pStM="
 							},
@@ -4459,7 +4420,7 @@
 											"top": 611,
 											"width": 233.7333984375,
 											"height": 13,
-											"text": "-id: int",
+											"text": "+id: int",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10793,13 +10754,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-<<<<<<< HEAD
-									"left": 623,
-									"top": 346,
-=======
 									"left": 570,
 									"top": 340,
->>>>>>> 1ade952b069e205f0fe47492f2b1d89e3a8683f0
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -10819,11 +10775,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-<<<<<<< HEAD
-									"left": 608,
-=======
 									"left": 555,
->>>>>>> 1ade952b069e205f0fe47492f2b1d89e3a8683f0
 									"top": 344,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -10844,13 +10796,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-<<<<<<< HEAD
-									"left": 652,
-									"top": 351,
-=======
 									"left": 599,
 									"top": 333,
->>>>>>> 1ade952b069e205f0fe47492f2b1d89e3a8683f0
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -10868,11 +10815,7 @@
 								"$ref": "AAAAAAGLgL9zyl1oO70="
 							},
 							"lineStyle": 1,
-<<<<<<< HEAD
-							"points": "636:375;640.7368421052631:335",
-=======
 							"points": "590:359;580.8421052631579:327",
->>>>>>> 1ade952b069e205f0fe47492f2b1d89e3a8683f0
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGLjIn8DK+ZGXQ="
@@ -14346,7 +14289,8 @@
 													"_parent": {
 														"$ref": "AAAAAAGLh9+dVsBSVZ4="
 													},
-													"name": "UserDTO"
+													"name": "User",
+													"type": ""
 												},
 												{
 													"_type": "UMLParameter",
@@ -14354,7 +14298,8 @@
 													"_parent": {
 														"$ref": "AAAAAAGLh9+dVsBSVZ4="
 													},
-													"name": "ReproductionList"
+													"name": "ReproductionList",
+													"type": ""
 												},
 												{
 													"_type": "UMLParameter",
@@ -14373,7 +14318,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGLgL9zyl1mM6w="
 											},
-											"name": "removeSong",
+											"name": "RemoveSong",
 											"parameters": [
 												{
 													"_type": "UMLParameter",
@@ -14381,24 +14326,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGLiAv4TsCfclM="
 													},
-													"name": "int idSong"
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpNUOJzpBbM=",
-													"_parent": {
-														"$ref": "AAAAAAGLiAv4TsCfclM="
-													},
-													"name": "int idReproductionList",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpNUOZzqfTM=",
-													"_parent": {
-														"$ref": "AAAAAAGLiAv4TsCfclM="
-													},
-													"name": "UserDTO user",
+													"name": "int idSong",
 													"type": ""
 												}
 											]
@@ -14471,91 +14399,6 @@
 														"$ref": "AAAAAAGLiCJhOsE0Gms="
 													},
 													"type": "set<comment>",
-													"direction": "return"
-												}
-											]
-										},
-										{
-											"_type": "UMLOperation",
-											"_id": "AAAAAAGLlpOa1pzu9bE=",
-											"_parent": {
-												"$ref": "AAAAAAGLgL9zyl1mM6w="
-											},
-											"name": "addSong",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpPorJz1z3Y=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpOa1pzu9bE="
-													},
-													"name": "idSong",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpPorJz26y8=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpOa1pzu9bE="
-													},
-													"name": "idReproductionList",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpPorZz3hCA=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpOa1pzu9bE="
-													},
-													"name": "UserDTO",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpPorZz4qNU=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpOa1pzu9bE="
-													},
-													"type": "boolean",
-													"direction": "return"
-												}
-											]
-										},
-										{
-											"_type": "UMLOperation",
-											"_id": "AAAAAAGLlpPpmpz9V7M=",
-											"_parent": {
-												"$ref": "AAAAAAGLgL9zyl1mM6w="
-											},
-											"name": "searchSongById",
-											"parameters": [
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpRDJ50E9/w=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpPpmpz9V7M="
-													},
-													"name": "idSong",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpRDKJ0F6KE=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpPpmpz9V7M="
-													},
-													"name": "idReproductionList",
-													"type": ""
-												},
-												{
-													"_type": "UMLParameter",
-													"_id": "AAAAAAGLlpRDKJ0Gx0U=",
-													"_parent": {
-														"$ref": "AAAAAAGLlpPpmpz9V7M="
-													},
-													"type": {
-														"$ref": "AAAAAAGLgLv3ElwZakA="
-													},
 													"direction": "return"
 												}
 											]
@@ -15198,7 +15041,6 @@
 												"$ref": "AAAAAAGLgL1PxlxyRKo="
 											},
 											"name": "id",
-											"visibility": "private",
 											"type": "int"
 										}
 									],
