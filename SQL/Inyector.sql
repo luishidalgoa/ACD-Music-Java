@@ -338,5 +338,9 @@ ALTER TABLE reproductionlist AUTO_INCREMENT = 1;
             FOR EACH ROW INSERT INTO usersubscriptionlist (id_user, id_reproductionList)
                          VALUES (NEW.id_user, NEW.id_reproductionList);
 
-ALTER TABLE rythm.commentlistusers AUTO_INCREMENT = 1;
-ALTER TABLE rythm.reproductionlist AUTO_INCREMENT = 1;
+-- Crearemos un trigger para que cuando se haya ejecutado un Update en la tabla song en la columna reproductions. entonces las reproducciones del album sera = a la suma de las reproducciones de las canciones que pertenecen a ese album
+CREATE TRIGGER `updateReproductionsAlbum`
+    AFTER UPDATE
+    ON `song`
+    FOR EACH ROW UPDATE album SET reproductions = (SELECT SUM(reproductions) FROM song WHERE id_album = NEW.id_album) WHERE id_album = NEW.id_album;
+UPDATE song SET reproductions=reproductions+1 WHERE id_song=2;

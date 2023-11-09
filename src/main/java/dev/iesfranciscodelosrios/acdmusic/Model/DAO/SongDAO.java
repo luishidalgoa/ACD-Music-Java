@@ -256,4 +256,17 @@ public class SongDAO implements iSongDAO {
 
         return null;
     }
+    public boolean updateReproductions(int idSong) {
+        Connection conn= ConnectionData.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE song SET reproductions=reproductions+1 WHERE id_song=?");
+            ps.setInt(1, idSong);
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 }
