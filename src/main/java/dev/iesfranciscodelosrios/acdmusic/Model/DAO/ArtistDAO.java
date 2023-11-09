@@ -119,6 +119,13 @@ public class ArtistDAO extends Artist implements iArtistDAO {
         return null;
     }
 
+    /**
+     * Metodo que busca coincidencias con un máximo de tres usuarios y los devuelve.
+     * Por defecto y en caso de que la conexion con la base de datos falle o la constula
+     * no sea existosa devolvera null
+     * @param filterWord palabra clave del nombre del artista que se quiere buscar
+     * @return Set de tres usuarios
+     */
     @Override
     public Set<ArtistDTO> searchArtistByName(String filterWord) {
         if (conn==null || filterWord==null){
