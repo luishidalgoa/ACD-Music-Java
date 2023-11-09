@@ -8,17 +8,17 @@ import java.util.Set;
 public interface iUserDAO{
     /**
      * Agregara en la bbdd un usuario nuevo
-     * @param user sera el usuario que se agregara a la bbdd
+     *
      * @return devolvera un boolean segun la operacion haya sido satisfactoria (se puede hacer comprobando que searchUser no devuelve Null)
      */
     public UserDTO addUser(User user);
 
     /**
      *  elimina un usuario a partir de su id
-     * @param idUser id del usuario a eliminar
+     * @param user usuario a eliminar
      * @return true si se ha eliminado correctamente (se puede hacer comprobando que searchUser no devuelve Null)
      */
-    public boolean delete(int idUser);
+    public boolean delete(User user);
 
     /**
      * se buscara un usuario en base a su email.
