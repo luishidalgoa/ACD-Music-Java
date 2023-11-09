@@ -11,7 +11,8 @@ public class ConnectionData {
     private final static String uri="jdbc:mysql://localhost:3306/rythm";
     private final static String user= "root";
     private final static String password="";
-    private ConnectionData(){ }
+
+    public ConnectionData(){ }
     public static java.sql.Connection getConnection(){
         if(conn==null){
             try {

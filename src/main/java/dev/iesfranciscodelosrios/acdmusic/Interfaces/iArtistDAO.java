@@ -17,10 +17,10 @@ public interface iArtistDAO {
     /**
      * a partir del id del usuario lo eliminara de la base de datos como artista. Sin embargo podra seguir existiendo
      * como Usuario. (Nota para ser eliminado por completo deberia ser borrado de la tabla User)
-     * @param idUser id del usuario a eliminar
+     * @param artist artista a eliminar
      * @return true si se ha eliminado correctamente
      */
-    public  boolean removeArtist(int idUser);
+    public  boolean removeArtist(Artist artist);
 
     /**
      *  a partir del id de un usuario se buscara el artista que le corresponde

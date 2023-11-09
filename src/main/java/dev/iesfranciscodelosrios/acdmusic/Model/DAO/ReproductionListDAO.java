@@ -57,7 +57,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }finally {
             ConnectionData.close();
         }
-
         return null;
     }
 
@@ -78,7 +77,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
-
         return false;
     }
 
@@ -181,7 +179,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
-
         return false;
     }
 
@@ -223,7 +220,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ConnectionData.close();
             return existSongOnList(idReproductionList, idSong);
         }
-
     }
 
     @Override

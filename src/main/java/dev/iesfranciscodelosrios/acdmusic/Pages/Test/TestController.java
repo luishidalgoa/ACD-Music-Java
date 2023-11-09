@@ -1,6 +1,8 @@
 package dev.iesfranciscodelosrios.acdmusic.Pages.Test;
 
+import dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
@@ -44,6 +46,27 @@ public class TestController {
 
         try {
             TestViews.newStage(TestViews.getFXML("Components/Search/","Search").load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void loadArtistCard() {
+        try {
+            FXMLLoader fxmlLoader= TestViews.getFXML("Components/ArtistCard/","ArtistCard");
+            TestViews.newStage(fxmlLoader.load());
+            ArtistCardController artistCardController=fxmlLoader.getController();
+            artistCardController.setData(ArtistDAO.getInstance().searchArtistByIdUser(2));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void loadHome() {
+
+        try {
+            TestViews.newStage(TestViews.getFXML("Pages/Home/","Home").load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

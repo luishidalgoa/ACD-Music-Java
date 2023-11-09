@@ -18,5 +18,9 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens  dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer;
     exports dev.iesfranciscodelosrios.acdmusic.Components.Search;
     opens dev.iesfranciscodelosrios.acdmusic.Components.Search;
+    exports dev.iesfranciscodelosrios.acdmusic.Pages.Home;
+    opens dev.iesfranciscodelosrios.acdmusic.Pages.Home;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard;
 
 }
