@@ -3,6 +3,7 @@ package dev.iesfranciscodelosrios.acdmusic.Model.Domain;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 public class ReproductionList {
@@ -37,5 +38,78 @@ public class ReproductionList {
         this.owner = null;
         this.Songs = null;
         this.comments = null;
+    }
+
+    @Override
+    public String toString() {
+        return "ReproductionList{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", owner=" + owner +
+                ", Songs=" + Songs +
+                ", comments=" + comments +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReproductionList that = (ReproductionList) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UserDTO getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserDTO owner) {
+        this.owner = owner;
+    }
+
+    public Set<Song> getSongs() {
+        return Songs;
+    }
+
+    public void setSongs(Set<Song> songs) {
+        Songs = songs;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 }

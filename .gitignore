@@ -42,5 +42,10 @@ build/
 mvnw
 mvnw.cmd
 target/
-src/main/java/dev/iesfranciscodelosrios/acdmusic/PRUEBA/
-src/main/resources/dev/iesfranciscodelosrios/acdmusic/PRUEBA/
+
+### REPRODUCTIONLISTDAO
+src/main/java/dev/iesfranciscodelosrios/acdmusic/App.java
+src/main/java/dev/iesfranciscodelosrios/acdmusic/Services/Login.java
+src/main/java/dev/iesfranciscodelosrios/acdmusic/
+./SQL/Inyector.sql
+./Desing/Views

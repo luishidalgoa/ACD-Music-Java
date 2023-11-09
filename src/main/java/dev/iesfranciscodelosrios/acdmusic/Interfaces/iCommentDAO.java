@@ -2,6 +2,9 @@ package dev.iesfranciscodelosrios.acdmusic.Interfaces;
 
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Comment;
 
+import java.util.List;
+import java.util.Set;
+
 public interface iCommentDAO {
     /**
      * a partir del id de una lista y el id del usuario que crea la lista (el id del usuario se extrae desde el DAO con
@@ -27,5 +30,12 @@ public interface iCommentDAO {
      * @param idList id de la lista de reproduccion a buscar
      * @return objeto Comment con los datos del comentario
      */
-    public Comment searchByIdList(int idList);
+    public List<Comment> searchAllByIdList(int idList);
+
+    /**
+     * Buscara un comentario a partir del id del usuario recivido por parametro. Devolviendo de este modo un objeto Comment
+     * @param idComment id del comentario a buscar
+     * @return objeto Comment con los datos del comentario
+     */
+    public Comment searchComment(int idComment);
 }

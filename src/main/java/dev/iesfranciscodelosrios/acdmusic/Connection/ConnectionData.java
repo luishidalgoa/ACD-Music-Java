@@ -3,7 +3,7 @@ package dev.iesfranciscodelosrios.acdmusic.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Connection {
+public class ConnectionData {
     //Es opcional porque podria interesarnos cerrar la conexion
     private static java.sql.Connection conn =null;
     //read config from xml file
@@ -11,7 +11,8 @@ public class Connection {
     private final static String uri="jdbc:mysql://localhost:3306/rythm";
     private final static String user= "root";
     private final static String password="";
-    public Connection(){ }
+
+    public ConnectionData(){ }
     public static java.sql.Connection getConnection(){
         if(conn==null){
             try {
