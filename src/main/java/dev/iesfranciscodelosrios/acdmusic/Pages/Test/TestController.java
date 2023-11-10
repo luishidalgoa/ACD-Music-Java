@@ -2,9 +2,12 @@ package dev.iesfranciscodelosrios.acdmusic.Pages.Test;
 
 import dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
+import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_mediumCard;
+import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
+import dev.iesfranciscodelosrios.acdmusic.Pages.Hub.HubController;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
@@ -21,16 +24,21 @@ public class TestController {
     public void ReproductionList_mediumCard() {
 
         try {
-            TestViews.newStage(TestViews.getFXML("Components/ReproductionList_mediumCard/","ReproductionList_mediumCard").load());
+            FXMLLoader fxmlLoader = TestViews.getFXML("Components/ReproductionList_mediumCard/","ReproductionList_mediumCard");
+            TestViews.newStage(fxmlLoader.load());
+            ReproductionList_mediumCard controller = fxmlLoader.getController();
+            controller.setData(ReproductionListDAO.getInstance().searchReproductionListById(1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     @FXML
     public void ReproductionList_minCard() {
-
         try {
-            TestViews.newStage(TestViews.getFXML("Components/ReproductionList_minCard/","ReproductionList_minCard").load());
+            FXMLLoader fxmlLoader = TestViews.getFXML("Components/ReproductionList_minCard/","ReproductionList_minCard");
+            TestViews.newStage(fxmlLoader.load());
+            ReproductionList_minCard controller = fxmlLoader.getController();
+            controller.setData(ReproductionListDAO.getInstance().searchReproductionListById(1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -72,6 +80,17 @@ public class TestController {
 
         try {
             TestViews.newStage(TestViews.getFXML("Pages/Home/","Home").load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void loadHub() {
+        try {
+            FXMLLoader fxmlLoader= TestViews.getFXML("Pages/Hub/","Hub");
+            TestViews.newStage(fxmlLoader.load());
+            HubController hubController=fxmlLoader.getController();
+            hubController.setData(ReproductionListDAO.getInstance().searchSongsById(1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
