@@ -50,7 +50,6 @@ public class HomeController {
         setReproductionList(rl);
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
-        System.out.println(artist.size());
         Label artistLabel=new Label("Artists Recommend");
         artistLabel.setStyle(titleStyle);
         vbox_container.getChildren().add(artistLabel);
