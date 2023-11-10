@@ -109,7 +109,7 @@ public class TestController {
     public void loadGenericForm(){
         GenericFormController controller;
         try {
-            FXMLLoader fxmlLoader=TestViews.getFXML("Components/GenericForm","GenericForm");
+            FXMLLoader fxmlLoader=TestViews.getFXML("Components/GenericForm/","GenericForm");
             TestViews.newStage(fxmlLoader.load());
             controller=fxmlLoader.getController();
         } catch (IOException e) {
