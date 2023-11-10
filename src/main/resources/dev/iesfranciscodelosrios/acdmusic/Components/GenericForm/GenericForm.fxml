@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="464.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormController">
@@ -23,9 +24,10 @@
             </ImageView>
          </children>
       </HBox>
-      <ScrollPane layoutX="94.0" layoutY="96.0" prefHeight="292.0" prefWidth="310.0" style="-fx-background-color: unset;" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="96.0">
+      <Line endX="410.3333740234375" endY="-7.62939453125E-6" layoutX="-1.0" layoutY="96.0" startX="3.0000202655792236" startY="-7.62939453125E-6" />
+      <ScrollPane layoutX="2.0" layoutY="96.0" prefHeight="292.0" prefWidth="402.0" style="-fx-background-color: none;" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="96.0">
          <content>
-            <VBox fx:id="container" prefHeight="284.0" prefWidth="295.0" />
+            <VBox fx:id="container" prefHeight="284.0" prefWidth="400.0" />
          </content>
       </ScrollPane>
       <HBox alignment="CENTER_LEFT" layoutX="-46.0" layoutY="388.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="75.0" prefWidth="457.0">
@@ -40,7 +42,7 @@
                </font>
             </Button>
             <Pane prefHeight="75.0" prefWidth="41.0" />
-            <Button fx:id="btn_cancel" mnemonicParsing="false" prefHeight="43.0" prefWidth="89.0" style="-fx-background-color: gray;" text="Send" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="btn_cancel" mnemonicParsing="false" prefHeight="43.0" prefWidth="89.0" style="-fx-background-color: gray;" text="Cancel" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>

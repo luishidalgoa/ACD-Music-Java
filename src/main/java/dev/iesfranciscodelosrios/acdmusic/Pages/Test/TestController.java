@@ -1,5 +1,6 @@
 package dev.iesfranciscodelosrios.acdmusic.Pages.Test;
 
+import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormController;
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
@@ -19,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -95,7 +97,9 @@ public class TestController {
     public void loadHub() {
         try {
             FXMLLoader fxmlLoader= TestViews.getFXML("Pages/Hub/","Hub");
-            TestViews.newStage(fxmlLoader.load());
+            Stage stage=TestViews.newStage(fxmlLoader.load());
+            stage.setTitle("ACD Music");
+            stage.getIcons().add(new javafx.scene.image.Image(App.class.getResource("assets/pictures/app/Logo.png").toString()));
             HubController hubController=fxmlLoader.getController();
             hubController.setData(ReproductionListDAO.getInstance().searchSongsById(1));
         } catch (IOException e) {

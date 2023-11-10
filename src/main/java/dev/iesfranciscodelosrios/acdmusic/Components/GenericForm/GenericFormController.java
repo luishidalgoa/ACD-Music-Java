@@ -110,6 +110,11 @@ public class GenericFormController {
             functions.function();
         });
     }
+    public void eventBtnCancel(iArrowFunctions functions) {
+        btn_cancel.setOnAction(event -> {
+            functions.function();
+        });
+    }
 
     /**
      * Este metodo se encarga de devolver el nodo que se le pase por parametro
@@ -182,8 +187,4 @@ public class GenericFormController {
         return node;
     }
 
-    @FXML
-    public void cancel(){
-        System.exit(0);
-    }
 }

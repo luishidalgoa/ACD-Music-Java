@@ -3,16 +3,16 @@ package dev.iesfranciscodelosrios.acdmusic.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionData {
+public class MySQLCloudConnection {
     //Es opcional porque podria interesarnos cerrar la conexion
     private static java.sql.Connection conn =null;
     //read config from xml file
     //alpha version
-    private final static String uri="jdbc:mysql://localhost:3306/rythm";
+    private final static String uri="jdbc:mysql.sql://34.155.11.50:3306/rythm";
     private final static String user= "root";
     private final static String password="";
 
-    public ConnectionData(){ }
+    public MySQLCloudConnection(){ }
     public static java.sql.Connection getConnection(){
         if(conn==null){
             try {
