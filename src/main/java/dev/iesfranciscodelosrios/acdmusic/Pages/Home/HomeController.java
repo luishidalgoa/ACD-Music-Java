@@ -10,6 +10,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +21,12 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeController {
     @FXML
     private VBox vbox_container;
-    private String titleStyle="-fx-font-size: 24px;fx-font-weight: bold;-fx-font-family: 'SansSerif'";
 
     public void initialize() {
         //agregaremos una separacion entre los elementos del vbox con gap-y
@@ -37,7 +39,7 @@ public class HomeController {
      */
     public void loadHome(){
         Label albumLabel=new Label("Top Albums");
-        albumLabel.setStyle(titleStyle);
+        albumLabel.setStyle(Style.h1.getStyle());
         vbox_container.getChildren().add(albumLabel);
         Set<Album> albums = AlbumDAO.getInstance().searchMoreRecent();
         setAlbumes(albums);
@@ -45,13 +47,13 @@ public class HomeController {
 
         Set<ReproductionList>rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
         Label rlLabel=new Label("Yours Reproduction Lists");
-        rlLabel.setStyle(titleStyle);
+        rlLabel.setStyle(Style.h1.getStyle());
         vbox_container.getChildren().add(rlLabel);
         setReproductionList(rl);
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
         Label artistLabel=new Label("Artists Recommend");
-        artistLabel.setStyle(titleStyle);
+        artistLabel.setStyle(Style.h1.getStyle());
         vbox_container.getChildren().add(artistLabel);
         setArtist(artist);
     }
@@ -88,7 +90,7 @@ public class HomeController {
         }
     }
     public void setArtist(Set<ArtistDTO> artists){
-        if (!artists.isEmpty()){
+        if (artists!=null && !artists.isEmpty()){
             for (ArtistDTO aux : artists) {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ArtistCard/ArtistCard.fxml"));
                 try {

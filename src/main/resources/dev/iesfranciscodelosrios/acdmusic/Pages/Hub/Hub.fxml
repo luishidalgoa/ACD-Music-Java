@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="920.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Pages.Hub.HubController">
+   <children>
+      <HBox prefHeight="120.0" prefWidth="1400.0">
+         <children>
+            <HBox prefHeight="120.0" prefWidth="335.0" spacing="10.0">
+               <children>
+                  <ImageView fx:id="img_Profile" fitHeight="102.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/pictures/user/default.jpeg" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="label_userName" prefHeight="38.0" prefWidth="167.0" text="UserName">
+                     <font>
+                        <Font name="SansSerif Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="40.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Pane onMouseClicked="#logout" prefHeight="120.0" prefWidth="93.0">
+                     <children>
+                        <SVGPath content="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" layoutX="-229.0" layoutY="-196.0" rotate="180.0" scaleX="0.07" scaleY="0.07" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Pane>
+               </children>
+            </HBox>
+            <Pane fx:id="searchContainer" prefHeight="120.0" prefWidth="956.0" />
+            <Pane fx:id="GoHome" onMouseClicked="#loadPreview" prefHeight="120.0" prefWidth="104.0">
+               <children>
+                  <SVGPath content="M66.837,29.658a3.75,3.75,0,0,1-3.714,3.726H59.408l.081,18.6a8.518,8.518,0,0,1-.058.94v1.869a4.642,4.642,0,0,1-4.643,4.643H52.931c-.128,0-.255,0-.383-.012-.163.012-.325.012-.488.012H45.5a4.642,4.642,0,0,1-4.643-4.643V44.574a3.71,3.71,0,0,0-3.714-3.714H29.716A3.71,3.71,0,0,0,26,44.574V54.788a4.642,4.642,0,0,1-4.643,4.643H14.869c-.174,0-.348-.012-.522-.023-.139.012-.279.023-.418.023H12.072a4.642,4.642,0,0,1-4.643-4.643v-13a3.042,3.042,0,0,1,.012-.325V33.384H3.714A3.67,3.67,0,0,1,0,29.658a3.773,3.773,0,0,1,1.161-2.786L30.923.929A3.349,3.349,0,0,1,33.477,0a3.856,3.856,0,0,1,2.438.813L65.56,26.872A3.18,3.18,0,0,1,66.837,29.658Z" fill="#828282" layoutX="18.0" layoutY="30.0" />
+               </children>
+            </Pane>
+         </children></HBox>
+      <Line endX="1234.0" endY="1.0000076293945312" layoutX="165.0" layoutY="119.0" startX="-165.00001525878906" startY="1.0000076293945312" />
+      <VBox layoutY="121.0" prefHeight="798.0" prefWidth="334.0">
+         <children>
+            <HBox prefHeight="110.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M0,4.048A4.049,4.049,0,0,1,4.048,0V37.223l10.971-7.834a2.013,2.013,0,0,1,2.353,0l10.963,7.834V4.048H4.048V0H28.335a4.049,4.049,0,0,1,4.048,4.048v37.1a2.022,2.022,0,0,1-3.2,1.644l-13-9.276L3.2,42.8A2.022,2.022,0,0,1,0,41.153Z" fill="#747474" />
+                  <Label prefHeight="26.0" prefWidth="165.0" text="Yours PlayLists">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="SansSerif Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <Pane onMouseClicked="#newReproductionList" prefHeight="99.0" prefWidth="51.0">
+                     <HBox.margin>
+                        <Insets top="-30.0" />
+                     </HBox.margin>
+                     <children>
+                        <SVGPath content="M23.687,44.374A20.687,20.687,0,1,1,44.374,23.687,20.687,20.687,0,0,1,23.687,44.374Zm0-38.192a17.5,17.5,0,1,0,17.5,17.5A17.5,17.5,0,0,0,23.687,6.183Z" fill="#6b6b6b" layoutX="12.0" layoutY="25.0" translateX="-10.0" translateY="3.0" />
+                        <SVGPath content="M16.591,31.278A1.591,1.591,0,0,1,15,29.687v-19.1a1.591,1.591,0,0,1,3.183,0v19.1A1.591,1.591,0,0,1,16.591,31.278Z" fill="#6b6b6b" layoutX="19.0" layoutY="28.0" translateX="-10.0" translateY="3.0" />
+                        <SVGPath content="M29.687,18.183h-19.1a1.591,1.591,0,0,1,0-3.183h19.1a1.591,1.591,0,0,1,0,3.183Z" fill="#6b6b6b" layoutX="16.0" layoutY="32.0" translateX="-10.0" translateY="3.0" />
+                     </children>
+                  </Pane>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" top="32.0" />
+               </padding>
+            </HBox>
+            <ScrollPane prefHeight="707.0" prefWidth="334.0">
+               <content>
+                  <VBox fx:id="vbox_reproductionLists" prefHeight="694.0" prefWidth="331.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <AnchorPane layoutX="334.0" layoutY="781.0" prefHeight="138.0" prefWidth="1064.0">
+         <children>
+            <ProgressBar fx:id="songProgressBar" layoutX="209.0" layoutY="106.0" prefHeight="18.0" prefWidth="646.0" progress="0.0" />
+            <Slider fx:id="volumeSlider" layoutX="898.0" layoutY="108.0" />
+            <Pane layoutX="860.0" layoutY="99.0" prefHeight="31.0" prefWidth="33.0">
+               <children>
+                  <SVGPath content="M41.813,59.319a1.156,1.156,0,0,1-.779-.3L29.8,48.753H25.466A1.156,1.156,0,0,1,24.31,47.6V36.035a1.156,1.156,0,0,1,1.156-1.156H29.8L41.034,24.616a1.156,1.156,0,0,1,1.936.853V58.163A1.156,1.156,0,0,1,41.813,59.319ZM26.622,46.441h3.628a1.156,1.156,0,0,1,.779.3l9.627,8.787V28.091L31.03,36.879a1.156,1.156,0,0,1-.779.312H26.622Z" layoutX="-27.0" layoutY="-25.0" scaleX="0.8" scaleY="0.8" />
+                  <SVGPath content="M115.552,87.886a1.156,1.156,0,0,1-.819-1.973,4.583,4.583,0,0,0,0-6.475,1.156,1.156,0,1,1,1.635-1.635,6.9,6.9,0,0,1,0,9.745A1.156,1.156,0,0,1,115.552,87.886Z" layoutX="-97.0" layoutY="-66.0" scaleX="0.8" scaleY="0.8" />
+                  <SVGPath content="M133.229,78.391a1.156,1.156,0,0,1-.819-1.975,10.355,10.355,0,0,0,0-14.647,1.156,1.156,0,1,1,1.635-1.635,12.668,12.668,0,0,1,0,17.917A1.156,1.156,0,0,1,133.229,78.391Z" layoutX="-109.0" layoutY="-52.0" scaleX="0.8" scaleY="0.8" />
+                  <SVGPath content="M148.152,70.364a1.156,1.156,0,0,1-.819-1.973,15.242,15.242,0,0,0,0-21.552,1.156,1.156,0,1,1,1.635-1.635,17.552,17.552,0,0,1,0,24.822A1.156,1.156,0,0,1,148.152,70.364Z" layoutX="-118.0" layoutY="-41.0" scaleX="0.8" scaleY="0.8" />
+               </children>
+            </Pane>
+            <Pane layoutX="489.0" layoutY="3.0" onMouseClicked="#handleTogglePlay" prefHeight="86.0" prefWidth="86.0">
+               <children>
+                  <SVGPath fx:id="svg_reproduction_1" content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="35.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+                  <SVGPath fx:id="svg_reproduction_2" content="M6 4v8l6-4z" layoutX="37.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="403.0" layoutY="3.0" onMouseClicked="#handlePrevious" prefHeight="86.0" prefWidth="86.0">
+               <children>
+                  <SVGPath content="M47.94,103.247a3.338,3.338,0,0,0,5.477-2.567V67.295a3.338,3.338,0,0,0-5.477-2.567L30.047,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,0-5.477-2.567L1.2,81.421a3.345,3.345,0,0,0,0,5.133l20.031,16.693a3.338,3.338,0,0,0,5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="575.0" layoutY="3.0" onMouseClicked="#handleNext" prefHeight="86.0" prefWidth="86.0">
+               <children>
+                  <SVGPath content="M5.477,103.247A3.338,3.338,0,0,1,0,100.681V67.295a3.338,3.338,0,0,1,5.477-2.567L23.37,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,1,5.477-2.567L52.217,81.421a3.345,3.345,0,0,1,0,5.133L32.186,103.247a3.338,3.338,0,0,1-5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
+               </children>
+            </Pane>
+            <Label fx:id="SongName" ellipsisString=".." layoutX="148.0" layoutY="25.0" text="SongName">
+               <font>
+                  <Font name="SansSerif Regular" size="36.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="SongImage" fitHeight="107.0" fitWidth="107.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/pictures/app/image_not_Found.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="label_next" layoutX="148.0" layoutY="69.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="NextSongName" layoutX="195.0" layoutY="69.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Line endX="100.0" endY="-137.6666717529297" layoutX="234.0" layoutY="259.0" startX="100.0" startY="660.0" />
+      <VBox fx:id="VBox_views_container" layoutX="334.0" layoutY="122.0" prefHeight="657.0" prefWidth="1066.0" />
+      <Line endX="1206.0" endY="12.0" layoutX="193.0" layoutY="769.0" startX="141.0" startY="12.0" />
+   </children>
+</AnchorPane>

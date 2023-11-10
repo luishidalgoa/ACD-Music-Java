@@ -18,8 +18,6 @@ public class ArtistDAO extends Artist implements iArtistDAO {
 
     private UserDAO udao= new UserDAO();
 
-    private static Connection conn = ConnectionData.getConnection();
-
     private static ArtistDAO instance;
     public ArtistDAO() {}
 
@@ -37,6 +35,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
      */
     @Override
     public ArtistDTO addArtist(Artist artist) {
+        Connection conn= ConnectionData.getConnection();
         if(conn==null || artist==null) return null;
         ArtistDTO result = new ArtistDTO(artist);
 
@@ -70,6 +69,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
      */
     @Override
     public boolean removeArtist(Artist artist) {
+        Connection conn= ConnectionData.getConnection();
         if(conn==null || artist == null) return false;
 
         try(PreparedStatement ps = conn.prepareStatement(DELETE)){
@@ -90,6 +90,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
      */
     @Override
     public ArtistDTO searchArtistByIdUser(int idUser) {
+        Connection conn= ConnectionData.getConnection();
         if(conn==null || idUser==-1) {
             return null;
         } else {
@@ -128,6 +129,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
      */
     @Override
     public Set<ArtistDTO> searchArtistByName(String filterWord) {
+        Connection conn= ConnectionData.getConnection();
         if (conn==null || filterWord==null){
             return null;
         } else {

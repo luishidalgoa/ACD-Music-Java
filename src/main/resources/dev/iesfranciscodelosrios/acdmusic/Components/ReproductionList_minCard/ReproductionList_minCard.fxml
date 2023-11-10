@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadReproductionListView" prefHeight="139.0" prefWidth="334.0" style="-fx-border-color: #565656; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard">
+<AnchorPane maxHeight="-Infinity" maxWidth="331.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadReproductionListView" prefHeight="139.0" prefWidth="331.0" style="-fx-border-color: #565656;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard">
     <children>
         <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -19,16 +19,16 @@
                 <Font name="SansSerif Regular" size="15.0" />
             </font>
         </Text>
-      <Label fx:id="label_username" ellipsisString=".." layoutX="160.0" layoutY="68.0" text="UserName">
+      <Label fx:id="label_username" ellipsisString=".." layoutX="160.0" layoutY="68.0" maxWidth="173.0" prefHeight="17.0" prefWidth="168.0" text="UserName">
          <font>
             <Font name="SansSerif Regular" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="label_nameList" ellipsisString=".." layoutX="137.0" layoutY="31.0" style="-fx-border-color: 303030;" text="Name">
+      <Label fx:id="label_nameList" ellipsisString=".." layoutX="137.0" layoutY="31.0" maxWidth="195.0" prefHeight="26.0" prefWidth="189.0" text="Name">
          <font>
             <Font name="SansSerif Regular" size="22.0" />
          </font>
       </Label>
-      <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserView" prefHeight="32.0" prefWidth="200.0" />
+      <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserView" prefHeight="32.0" prefWidth="195.0" />
     </children>
 </AnchorPane>

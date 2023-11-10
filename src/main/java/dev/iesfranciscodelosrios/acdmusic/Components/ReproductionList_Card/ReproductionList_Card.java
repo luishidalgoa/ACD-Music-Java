@@ -4,10 +4,13 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 
 import java.io.File;
 
@@ -23,15 +26,9 @@ abstract public class ReproductionList_Card {
 
     @FXML
     public void initialize() {
-        test();
+        img_picture.setStyle(Style.Shadow.getStyle());
     }
 
-    public void test() {
-        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(2));
-
-        //ESTO DEBE BORRARSE
-        setData(ReproductionListDAO.getInstance().searchReproductionListById(1));
-    }
     public void loadReproductionListView(){
 
     }
@@ -45,12 +42,13 @@ abstract public class ReproductionList_Card {
      */
     public void setData(ReproductionList obj){
         rl = obj;
-        //extraemos el id del album de la primera cancion de la lista. Para asi mostrarla como foto principal de la lista
-        int findIdAlbumforFirstSong = rl.getSongs().stream().findFirst().get().getId_album();
         //apuntamos al archivo con la imagen del album de la primera cancion de la lista. Para asi mostrarla como foto principal de la lista
-        File img = new File(AlbumDAO.getInstance().getAlbumById(findIdAlbumforFirstSong).getPicture());
-        if (img.exists()) {
-            img_picture.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+        int findIdAlbumforFirstSong = rl.getSongs()!=null?rl.getSongs().stream().findFirst().get().getId_album():-1;
+        if(findIdAlbumforFirstSong>-1){
+            File img = new File(AlbumDAO.getInstance().getAlbumById(findIdAlbumforFirstSong).getPicture());
+            if (img.exists()) {
+                img_picture.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+            }
         }
         label_nameList.setText(rl.getName());
         label_username.setText(rl.getOwner().getNickName());

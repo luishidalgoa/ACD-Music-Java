@@ -343,4 +343,6 @@ CREATE TRIGGER `updateReproductionsAlbum`
     AFTER UPDATE
     ON `song`
     FOR EACH ROW UPDATE album SET reproductions = (SELECT SUM(reproductions) FROM song WHERE id_album = NEW.id_album) WHERE id_album = NEW.id_album;
-UPDATE song SET reproductions=reproductions+1 WHERE id_song=2;
+
+
+

@@ -11,5 +11,7 @@
       <Button layoutX="335.0" layoutY="39.0" mnemonicParsing="false" onAction="#loadSearch" prefHeight="76.0" prefWidth="244.0" text="Search" />
       <Button layoutX="335.0" layoutY="244.0" mnemonicParsing="false" onAction="#loadHome" prefHeight="76.0" prefWidth="244.0" text="HomeView" />
       <Button layoutX="335.0" layoutY="131.0" mnemonicParsing="false" onAction="#loadArtistCard" prefHeight="76.0" prefWidth="244.0" text="ArtistCard" />
+      <Button layoutX="335.0" layoutY="341.0" mnemonicParsing="false" onAction="#loadHub" prefHeight="76.0" prefWidth="244.0" text="HubView" />
+      <Button layoutX="43.0" layoutY="341.0" mnemonicParsing="false" onAction="#loadGenericForm" prefHeight="76.0" prefWidth="244.0" text="GenericForm" />
    </children>
 </AnchorPane>

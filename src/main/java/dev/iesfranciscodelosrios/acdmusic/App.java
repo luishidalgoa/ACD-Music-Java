@@ -18,6 +18,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Login"),1400,920);//,1400, 920
+        stage.setTitle("ACD Music");
+        stage.getIcons().add(new javafx.scene.image.Image("https://i.imgur.com/4i1JX2p.png"));
         stage.setScene(scene);
         stage.show();
     }
@@ -35,10 +37,14 @@ public class App extends Application {
         Parent root = fxmlLoader.load();
         return root;
     }
-    public static void newStage(Parent p) throws IOException {
+    public static Scene newStage(Parent p) throws IOException {
         Stage stage2=new Stage();
         Scene scene2= new Scene(p);
         stage2.setScene(scene2);
         stage2.show();
+        return scene2;
+    }
+    public static Scene getScene() {
+        return scene;
     }
 }

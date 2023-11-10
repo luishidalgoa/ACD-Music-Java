@@ -19,7 +19,7 @@ public class ArtistCardController {
     public void initialize() {
         Circle clip = new Circle();
         clip.setRadius(50);
-        clip.setCenterX(54);
+        clip.setCenterX(50);
         clip.setCenterY(50);
 
         // Aplicar el recorte circular a la imageView

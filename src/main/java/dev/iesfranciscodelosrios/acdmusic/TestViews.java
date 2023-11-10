@@ -19,6 +19,8 @@ public class TestViews extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxml=getFXML("Test/","Home");
         scene = new Scene(fxml.load());//,1400, 920
+        stage.setTitle("ACD Music");
+        stage.getIcons().add(new javafx.scene.image.Image(App.class.getResource("assets/pictures/app/Logo.png").toString()));
         stage.setScene(scene);
         stage.show();
     }
@@ -35,10 +37,11 @@ public class TestViews extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(rute + fileName + ".fxml"));
         return fxmlLoader;
     }
-    public static void newStage(Parent p) throws IOException {
+    public static Stage newStage(Parent p) throws IOException {
         Stage stage2=new Stage();
         Scene scene2= new Scene(p);
         stage2.setScene(scene2);
         stage2.show();
+        return stage2;
     }
 }
