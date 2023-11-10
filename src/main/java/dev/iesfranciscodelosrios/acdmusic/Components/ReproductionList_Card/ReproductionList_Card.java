@@ -4,10 +4,13 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 
 import java.io.File;
 
@@ -23,6 +26,7 @@ abstract public class ReproductionList_Card {
 
     @FXML
     public void initialize() {
+        img_picture.setStyle(Style.Shadow.getStyle());
     }
 
     public void loadReproductionListView(){

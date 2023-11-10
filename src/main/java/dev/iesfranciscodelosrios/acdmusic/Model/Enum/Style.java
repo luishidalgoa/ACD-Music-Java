@@ -15,7 +15,8 @@ public enum Style {
     h1("-fx-font-size: 30px;-fx-font-weight: bold;-fx-font-family: 'SansSerif'"),
     //le agregamos un wrap al estilo para que asi salte de linea el parrafo
     h3("-fx-font-size: 18px;-fx-font-weight: bold;-fx-font-family: 'SansSerif'"),
-    mx_w_10("-fx-max-width: 200px;");
+    mx_w_10("-fx-max-width: 200px;"),
+    Shadow("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);");
     private String style;
     Style(String style) {
         this.style = style;

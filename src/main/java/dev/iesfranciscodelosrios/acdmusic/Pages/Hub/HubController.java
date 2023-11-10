@@ -66,6 +66,7 @@ public class HubController extends MediaPlayerController {
             File img = new File(Login.getInstance().getCurrentUser().getPicture());
             if (img.exists()) {
                 img_Profile.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+                img_Profile.setStyle(Style.Shadow.getStyle());
             }
             Circle clip = new Circle();
             clip.setRadius(50);

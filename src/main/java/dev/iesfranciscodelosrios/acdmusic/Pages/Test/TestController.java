@@ -101,7 +101,6 @@ public class TestController {
             stage.setTitle("ACD Music");
             stage.getIcons().add(new javafx.scene.image.Image(App.class.getResource("assets/pictures/app/Logo.png").toString()));
             HubController hubController=fxmlLoader.getController();
-            hubController.setData(ReproductionListDAO.getInstance().searchSongsById(1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
