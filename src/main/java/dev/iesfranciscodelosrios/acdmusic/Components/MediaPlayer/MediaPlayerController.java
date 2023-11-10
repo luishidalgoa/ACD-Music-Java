@@ -11,8 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.SVGPath;
 
 import java.io.File;
 import java.sql.Connection;
@@ -33,6 +35,10 @@ public class MediaPlayerController {
     private Label NextSongName;
     @FXML
     private Label label_next;
+    @FXML
+    private SVGPath svg_reproduction_1;
+    @FXML
+    private SVGPath svg_reproduction_2;
 
     private List<Song> Songs=new ArrayList<>();
     private int indexSong=0;
@@ -56,11 +62,29 @@ public class MediaPlayerController {
         });
     }
     public void handleTogglePlay(){
-        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            mediaPlayer.pause();
+        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING ) {
+            handlePause();
         }else{
-            mediaPlayer.play();
+            handlePlay();
         }
+    }
+    private void handlePause(){
+        svg_reproduction_1.setContent("M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z");
+        svg_reproduction_1.setScaleX(4);
+        svg_reproduction_1.setScaleY(4);
+        svg_reproduction_1.setLayoutX(35);
+        svg_reproduction_1.setLayoutY(35);
+        svg_reproduction_2.setContent("M6 4v8l6-4z");
+        mediaPlayer.pause();
+    }
+    public void handlePlay(){
+        svg_reproduction_1.setContent("M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z");
+        svg_reproduction_1.setScaleX(.09);
+        svg_reproduction_1.setScaleY(.1);
+        svg_reproduction_1.setLayoutX(-117);
+        svg_reproduction_1.setLayoutY(-213);
+        svg_reproduction_2.setContent("");
+        mediaPlayer.play();
     }
     @FXML
     public void handleNext(){
@@ -69,6 +93,7 @@ public class MediaPlayerController {
             mediaPlayer=null;
             currentIndex++;
             setSong(Songs.get(currentIndex));
+            handlePlay();
         }
     }
     @FXML
@@ -79,11 +104,11 @@ public class MediaPlayerController {
             mediaPlayer=null;
             currentIndex--;
             setSong(Songs.get(currentIndex));
+            handlePlay();
         }
     }
     public void progressTimer(){
         timer = new Timer();
-
         interval = new TimerTask() {
         boolean reproducido=false;
             public void run() {
@@ -110,9 +135,6 @@ public class MediaPlayerController {
         running = false;
         timer.cancel();
     }
-    public void handleVolume(){
-
-    }
     public void setData(Set<Song> songs){
         if(!songs.isEmpty()){
             Songs.clear();
@@ -127,7 +149,6 @@ public class MediaPlayerController {
     }
 
     public void setSong(Song song){
-        System.out.println(song);
         currentMedia = new Media(new File(song.getUrl()).toURI().toString());
         mediaPlayer= new MediaPlayer(currentMedia);
         progressTimer();

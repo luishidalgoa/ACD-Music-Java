@@ -24,8 +24,8 @@
       </Pane>
       <Pane layoutX="489.0" layoutY="3.0" onMouseClicked="#handleTogglePlay" prefHeight="86.0" prefWidth="86.0">
          <children>
-            <SVGPath content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="35.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
-            <SVGPath content="M6 4v8l6-4z" layoutX="37.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+            <SVGPath fx:id="svg_reproduction_1" content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="35.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
+            <SVGPath fx:id="svg_reproduction_2" content="M6 4v8l6-4z" layoutX="37.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
          </children>
       </Pane>
       <Pane layoutX="403.0" layoutY="3.0" onMouseClicked="#handlePrevious" prefHeight="86.0" prefWidth="86.0">

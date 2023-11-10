@@ -22,5 +22,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens dev.iesfranciscodelosrios.acdmusic.Pages.Home;
     exports dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard;
     opens dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard;
 
 }

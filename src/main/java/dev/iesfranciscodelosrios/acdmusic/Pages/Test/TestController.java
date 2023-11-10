@@ -4,6 +4,8 @@ import dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardContro
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
+import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class TestController {
-
+    @FXML
+    public void initialize() {
+        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(1));
+    }
     @FXML
     public void ReproductionList_mediumCard() {
 
