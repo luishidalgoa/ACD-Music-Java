@@ -27,7 +27,6 @@ public class SearchController {
     }
     @FXML
     private void searched(){
-        System.out.println("HOLAAA");
         String filterWord=input_filter.getText();
 
         Set<ArtistDTO>artists=ArtistDAO.getInstance().searchArtistByName(filterWord);

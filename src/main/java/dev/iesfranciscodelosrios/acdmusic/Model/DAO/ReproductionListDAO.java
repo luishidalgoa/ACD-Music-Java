@@ -308,7 +308,26 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }
         return result;
     }
-
+    public int getAllSubcriptions(int idList){
+        Connection conn = ConnectionData.getConnection();
+        int result=0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT COUNT(id_user) FROM rythm.usersubscriptionlist WHERE id_reproductionList=?;");
+            ps.setInt(1, idList);
+            if(ps.execute()){
+                try (ResultSet rs = ps.getResultSet()) {
+                    if (rs.next()) {
+                        result=rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionData.close();
+        }
+        return result;
+    }
     public static ReproductionListDAO getInstance() {
         if (instance == null) {
             instance = new ReproductionListDAO();

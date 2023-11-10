@@ -12,6 +12,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Pages.Hub.HubController;
+import dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView.ReproductionListViewController;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
@@ -160,5 +161,17 @@ public class TestController extends TestViews{
             });
         }
 
+    }
+
+    @FXML
+    public void loadRL(){
+        try {
+            FXMLLoader fxmlLoader= TestViews.getFXML("Pages/ReproductionList/","ReproductionList");
+            TestViews.newStage(fxmlLoader.load());
+            ReproductionListViewController controller = fxmlLoader.getController();
+            controller.setLoadData(ReproductionListDAO.getInstance().searchReproductionListById(1));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

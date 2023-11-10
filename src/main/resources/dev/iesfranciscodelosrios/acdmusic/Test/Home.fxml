@@ -13,5 +13,6 @@
       <Button layoutX="335.0" layoutY="131.0" mnemonicParsing="false" onAction="#loadArtistCard" prefHeight="76.0" prefWidth="244.0" text="ArtistCard" />
       <Button layoutX="335.0" layoutY="341.0" mnemonicParsing="false" onAction="#loadHub" prefHeight="76.0" prefWidth="244.0" text="HubView" />
       <Button layoutX="43.0" layoutY="341.0" mnemonicParsing="false" onAction="#loadGenericForm" prefHeight="76.0" prefWidth="244.0" text="GenericForm" />
+      <Button layoutX="335.0" layoutY="427.0" mnemonicParsing="false" onAction="#loadRL" prefHeight="76.0" prefWidth="244.0" text="ReproductionList" />
    </children>
 </AnchorPane>

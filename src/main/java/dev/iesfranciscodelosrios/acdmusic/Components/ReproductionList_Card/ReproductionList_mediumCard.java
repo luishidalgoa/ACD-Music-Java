@@ -11,7 +11,7 @@ import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.scene.shape.SVGPath;
 
-public class ReproductionList_mediumCard extends ReproductionList_Card{
+abstract public class ReproductionList_mediumCard extends ReproductionList_Card{
     @FXML
     private SVGPath svg_like;
 
