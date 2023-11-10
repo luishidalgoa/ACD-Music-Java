@@ -1,5 +1,6 @@
 package dev.iesfranciscodelosrios.acdmusic;
 
+import dev.iesfranciscodelosrios.acdmusic.Pages.Hub.HubController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class TestViews extends Application {
     private static Scene scene;
+    public static HubController hubController;
     public static void main(String[] args) {
         launch(args);
     }

@@ -17,7 +17,7 @@ public class SongDAO implements iSongDAO {
     private static final String SELECT_BY_ALBUM_ID = "SELECT id_song, name, url, lenght, genre, reproductions FROM song WHERE id_album = ?";
     private static final String SELECT_TOP_SONGS = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song ORDER BY reproductions DESC LIMIT 4";
     private static final String SELECT_RECENT_SONGS = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song ORDER BY id_song DESC LIMIT 4";
-    private static final String SELECT_BY_NAME = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song WHERE name LIKE ?";
+    private static final String SELECT_BY_NAME = "SELECT id_song, id_album, name, url, lenght, genre, reproductions FROM song WHERE name LIKE ? Limit 3";
 
 
     private static SongDAO instance;

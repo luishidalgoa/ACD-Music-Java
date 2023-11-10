@@ -24,7 +24,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class TestController {
+public class TestController extends TestViews{
+
     @FXML
     public void initialize() {
         Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(1));
@@ -100,7 +101,7 @@ public class TestController {
             Stage stage=TestViews.newStage(fxmlLoader.load());
             stage.setTitle("ACD Music");
             stage.getIcons().add(new javafx.scene.image.Image(App.class.getResource("assets/pictures/app/Logo.png").toString()));
-            HubController hubController=fxmlLoader.getController();
+            hubController=fxmlLoader.getController();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

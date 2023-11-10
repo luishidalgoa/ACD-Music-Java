@@ -38,26 +38,20 @@ public class HomeController {
      * Cargara la vista previa de la ventana. La primera q se le mostrara al usuario como inicio
      */
     public void loadHome(){
-        Label albumLabel=new Label("Top Albums");
-        albumLabel.setStyle(Style.h1.getStyle());
-        vbox_container.getChildren().add(albumLabel);
         Set<Album> albums = AlbumDAO.getInstance().searchMoreRecent();
         setAlbumes(albums);
 
 
         Set<ReproductionList>rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
-        Label rlLabel=new Label("Yours Reproduction Lists");
-        rlLabel.setStyle(Style.h1.getStyle());
-        vbox_container.getChildren().add(rlLabel);
         setReproductionList(rl);
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
-        Label artistLabel=new Label("Artists Recommend");
-        artistLabel.setStyle(Style.h1.getStyle());
-        vbox_container.getChildren().add(artistLabel);
         setArtist(artist);
     }
     public void setAlbumes(Set<Album> albums){
+        Label albumLabel=new Label("Top Albums");
+        albumLabel.setStyle(Style.h1.getStyle());
+        vbox_container.getChildren().add(albumLabel);
         if(!albums.isEmpty()){
             for (Album album : albums) {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/AlbumCard/AlbumCard.fxml"));
@@ -74,6 +68,9 @@ public class HomeController {
         }
     }
     public void setReproductionList(Set<ReproductionList> rl){
+        Label rlLabel=new Label("Yours Reproduction Lists");
+        rlLabel.setStyle(Style.h1.getStyle());
+        vbox_container.getChildren().add(rlLabel);
         if (!rl.isEmpty()){
             for (ReproductionList aux : rl) {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_mediumCard/ReproductionList_mediumCard.fxml"));
@@ -90,13 +87,16 @@ public class HomeController {
         }
     }
     public void setArtist(Set<ArtistDTO> artists){
+        Label artistLabel=new Label("Artists Recommend");
+        artistLabel.setStyle(Style.h1.getStyle());
+        vbox_container.getChildren().add(artistLabel);
         if (artists!=null && !artists.isEmpty()){
             for (ArtistDTO aux : artists) {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ArtistCard/ArtistCard.fxml"));
                 try {
                     Node card = fxmlLoader.load();
                     ArtistCardController controller = fxmlLoader.getController();
-                    //controller.setData(aux);
+                    controller.setData(aux);
                     vbox_container.getChildren().add(card);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -104,6 +104,9 @@ public class HomeController {
 
             }
         }
+    }
+    public void clear(){
+        vbox_container.getChildren().clear();
     }
     public VBox getVbox_container() {
         return vbox_container;

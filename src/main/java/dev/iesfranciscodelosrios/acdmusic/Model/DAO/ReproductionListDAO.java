@@ -28,7 +28,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String searchSongOnList = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     //Hazme un Like que devuelva varias Listas con un nombre parecido
-    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE %?%;";
+    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE '%'?'%'";
     private ReproductionListDAO() {
     }
 
@@ -230,7 +230,10 @@ public class ReproductionListDAO implements iReproductionListDAO {
                 Set<Song>result=new HashSet<>();
                 try (ResultSet rs = ps.getResultSet()) {
                     while (rs.next()) {
-                        result.add(SongDAO.getInstance().searchById(rs.getInt("id_song")));
+                        Song aux;
+                        if((aux=SongDAO.getInstance().searchById(rs.getInt("id_song")))!=null){
+                            result.add(aux);
+                        }
                     }
                 }
                 if (!result.isEmpty())
