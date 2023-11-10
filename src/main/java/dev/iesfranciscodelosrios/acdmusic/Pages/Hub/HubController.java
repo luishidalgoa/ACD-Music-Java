@@ -5,6 +5,7 @@ import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormCont
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard;
 import dev.iesfranciscodelosrios.acdmusic.Components.Search.SearchController;
+import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
@@ -90,15 +91,37 @@ public class HubController extends MediaPlayerController {
         intervalUpdateUserReproductionLists = new TimerTask() {
             @Override
             public void run() {
-                Set<ReproductionList> rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
-                if (!userReproductionList.equals(rl)) {
-                    userReproductionList = rl;
-                    updateReproductionListsThread();
+                try {
+                    Set<ReproductionList> rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
+                    if (!userReproductionList.equals(rl)) {
+                        userReproductionList = rl;
+                        updateReproductionListsThread();
+                    }
+                } catch (Exception e) {
+                    ConnectionData.getConnection();
+                    // Captura la excepción y realiza las acciones necesarias
+                    e.printStackTrace();
+
+                    // Cancela la tarea actual para evitar que se siga ejecutando
+                    intervalUpdateUserReproductionLists.cancel();
+
+                    // Reinicia el hilo creando uno nuevo
+                    intervalUpdateUserReproductionLists = new TimerTask() {
+                        @Override
+                        public void run() {
+                            intervalUpdateUserReproductionLists(); // Llama al método recursivamente
+                        }
+                    };
+                    // Vuelve a programar el hilo con un intervalo de 1 segundo
+                    timer.schedule(intervalUpdateUserReproductionLists, 0, 1000);
                 }
             }
         };
         timer.schedule(intervalUpdateUserReproductionLists, 0, 1000);
     }
+
+
+
 
     /**
      * Recargara completamente las listas de reproduccion del usuario a las que esta suscrito

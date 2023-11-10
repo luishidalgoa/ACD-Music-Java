@@ -33,6 +33,7 @@ public class SearchController {
         Set<ArtistDTO>artists=ArtistDAO.getInstance().searchArtistByName(filterWord);
         Set<Album> albumes=AlbumDAO.getInstance().searchAlbumByName(filterWord);
         Set<ReproductionList> rls=ReproductionListDAO.getInstance().searchByName(filterWord);
+        System.out.println(rls.size());
 
         FXMLLoader fxmlLoader= new FXMLLoader(App.class.getResource("Pages/Home/Home.fxml"));
         try {

@@ -193,7 +193,7 @@ public class MediaPlayerController {
             label_next.setText("Next: ");
             NextSongName.setText(Songs.get(currentIndex + 1).getName());
         }
-        File img = new File(AlbumDAO.getInstance().getAlbumById(song.getId_song()).getPicture());
+        File img = new File(AlbumDAO.getInstance().searchAlbumByIdSong(song.getId_song()).getPicture());
         if (img.exists()) {
             SongImage.setImage(new javafx.scene.image.Image(img.toURI().toString()));
         }

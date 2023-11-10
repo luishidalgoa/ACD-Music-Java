@@ -26,7 +26,7 @@ public class ConnectionData {
     }
 
     public static void close(){
-        if (conn!=null){
+        /*if (conn!=null){
             try {
                 conn.close();
             } catch (SQLException e) {
@@ -34,6 +34,6 @@ public class ConnectionData {
             }finally {
                 conn= null;
             }
-        }
+        }*/
     }
 }

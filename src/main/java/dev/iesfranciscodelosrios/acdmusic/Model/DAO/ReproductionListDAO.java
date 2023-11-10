@@ -28,7 +28,7 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String searchSongOnList = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     //Hazme un Like que devuelva varias Listas con un nombre parecido
-    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE '%'?'%'";
+    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE CONCAT('%',?,'%') LIMIT 6";
     private ReproductionListDAO() {
     }
 
@@ -129,18 +129,21 @@ public class ReproductionListDAO implements iReproductionListDAO {
     @Override
     public Set<ReproductionList> getUserSubcriptions(int idUser) {
         Connection conn = ConnectionData.getConnection();
-        Set<ReproductionList> result = new HashSet<>();
-        try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
-            ps.setInt(1, idUser);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+        if(conn!=null){
+            Set<ReproductionList> result = new HashSet<>();
+            try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
+                ps.setInt(1, idUser);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            ConnectionData.close();
+            return !result.isEmpty() ? result : null;
         }
-        ConnectionData.close();
-        return !result.isEmpty() ? result : null;
+        return null;
     }
 
     @Override
