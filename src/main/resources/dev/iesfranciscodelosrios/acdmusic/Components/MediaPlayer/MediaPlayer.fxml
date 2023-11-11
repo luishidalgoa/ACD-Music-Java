@@ -38,12 +38,7 @@
             <SVGPath content="M5.477,103.247A3.338,3.338,0,0,1,0,100.681V67.295a3.338,3.338,0,0,1,5.477-2.567L23.37,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,1,5.477-2.567L52.217,81.421a3.345,3.345,0,0,1,0,5.133L32.186,103.247a3.338,3.338,0,0,1-5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
          </children>
       </Pane>
-      <Label fx:id="SongName" ellipsisString=".." layoutX="148.0" layoutY="25.0" text="SongName">
-         <font>
-            <Font name="SansSerif Regular" size="36.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="SongImage" fitHeight="107.0" fitWidth="107.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="SongImage" fitHeight="107.0" fitWidth="107.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/pictures/app/image_not_Found.png" />
          </image>
@@ -56,6 +51,11 @@
       <Label fx:id="NextSongName" layoutX="195.0" layoutY="69.0">
          <font>
             <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="SongName" layoutX="133.0" layoutY="16.0" maxWidth="279.0" prefHeight="86.0" prefWidth="279.0" text="SongName" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="20.0" />
          </font>
       </Label>
    </children>

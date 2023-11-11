@@ -46,7 +46,7 @@ public class GenericFormController {
      */
     public void addNode(Node node, String idNode, String description, String gridStyle, iArrowFunctions function) {
         node.setId(idNode);
-        GridPane nodeContainer = getGridPane(description);
+        GridPane nodeContainer = getGridPane();
         nodeContainer.setStyle(nodeContainer.getStyle() + "; " + gridStyle);
         nodeContainer.add(node, 0, 1);
         container.getChildren().add(nodeContainer);
@@ -65,9 +65,9 @@ public class GenericFormController {
      * @param gridPosition posicion en la que se colocara el nodo en la grid [0]= columnas [1]=filas
      * @param function     funcion que se ejecutara cuando se pulse el boton
      */
-    public void addNode(Node node, String idNode, String description,String gridStyle ,int[] gridPosition, iArrowFunctions function) {
+    public void addNode(Node node, String idNode,String description,String gridStyle ,int[] gridPosition, iArrowFunctions function) {
         node.setId(idNode);
-        GridPane nodeContainer = getGridPane(description);
+        GridPane nodeContainer = getGridPane();
 
         nodeContainer.setStyle(nodeContainer.getStyle() + "; "+ gridStyle);
 
@@ -84,10 +84,9 @@ public class GenericFormController {
      * por ejemplo si comprobara que el texto introducido es un email
      *
      * @param idInput     id por el que reconoceremos el input en el fxml
-     * @param description descripcion que se mostrara en el input
      */
-    public void addInput(String idInput, String description, String arial) {
-        GridPane inputContainer = getGridPane(description);
+    public void addInput(String idInput, String arial) {
+        GridPane inputContainer = getGridPane();
 
         TextField textField = new TextField();
         textField.setId(idInput);
@@ -128,10 +127,9 @@ public class GenericFormController {
 
     /**
      * Este metodo se encarga de devolver un gridPane con la descripcion que se le pasa por parametro
-     * @param description descripcion que se le añadira al gridPane
      * @return el gridPane con la descripcion
      */
-    private GridPane getGridPane(String description) {
+    private GridPane getGridPane() {
         GridPane nodeContainer = new GridPane();
         //vamos a estilar el Hbox de modo que tenga forma de un campo para un formulario, ademas de tener decoradores
         nodeContainer.setStyle("-fx-padding: 10px;-fx-spacing: 20px;");

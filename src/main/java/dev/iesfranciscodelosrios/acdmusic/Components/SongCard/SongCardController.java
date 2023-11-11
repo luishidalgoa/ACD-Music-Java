@@ -1,14 +1,18 @@
 package dev.iesfranciscodelosrios.acdmusic.Components.SongCard;
 
+import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
+import dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile.ArtistProfileController;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
@@ -17,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,10 +33,10 @@ public class SongCardController {
     private ImageView img_picture;
 
     @FXML
-    private Text song_name;
+    private Label song_name;
 
     @FXML
-    private Text artist_name;
+    private Label artist_name;
 
     @FXML
     private Label total_view;
@@ -51,7 +56,7 @@ public class SongCardController {
     public void setData(Song song) {
         this.song = song;
         song_name.setText(song.getName());
-        artist_name.setText(ArtistDAO.getInstance().searchArtistByIdSong(song.getId_song()).getName());
+        artist_name.setText(ArtistDAO.getInstance().searchArtistByIdSong(song.getId_song()).getNickName());
         total_view.setText(String.valueOf(song.getReproductions()));
         duration.setText(song.getTime().format(DateTimeFormatter.ofPattern("mm:ss")));
 
@@ -70,6 +75,8 @@ public class SongCardController {
 
     @FXML
     private void showMenu(MouseEvent event) {
+        //limpiamos los elementos del menu
+        menu.getItems().clear();
         if (song != null) {
             Set<ReproductionList> subscriptions = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
             //creamos varios elementos hijos de menuItem para el menu con el mismo nombre que el de las listas de reproduccion
@@ -109,6 +116,14 @@ public class SongCardController {
     }
     @FXML
     public void loadArtistView(){
-
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Pages/ArtistProfile/ArtistProfile.fxml"));
+        try {
+            Node node=fxmlLoader.load();
+            ArtistProfileController controller = fxmlLoader.getController();
+            controller.setData(ArtistDAO.getInstance().searchArtistByIdSong(song.getId_song()));
+            TestViews.hubController.setViewsContainer(node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

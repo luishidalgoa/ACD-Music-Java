@@ -187,8 +187,8 @@ public class HubController extends MediaPlayerController {
                 //Construimos la nueva lista de reproduccion
                 controller.addNode(node, "TextField", "", "", () -> {
                 });
-                controller.addInput("name", "Enter the name of the new list", "new list name");
-                controller.addInput("description", "Enter the description of the new list", "new list description");
+                controller.addInput("name", "new list name");
+                controller.addInput("description", "new list description");
                 controller.eventBtnSend(() -> {
                     String name = ((TextField) controller.getNode("name")).getText();
                     String description = ((TextField) controller.getNode("description")).getText();

@@ -25,7 +25,7 @@ public class UserProfileController {
         img_picture.setClip(clip);
     }
     public void setData(UserDTO user){
-        label_name.setText(user.getName());
+        label_name.setText(user.getNickName());
         File img = new File(user.getPicture());
         if (img.exists()) {
             img_picture.setImage(new javafx.scene.image.Image(img.toURI().toString()));

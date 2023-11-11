@@ -13,9 +13,11 @@ import java.util.Set;
 public class ArtistDAO extends Artist implements iArtistDAO {
     private static final String INSERT ="INSERT INTO artist (nacionality, id_user) VALUES (?, ?)";
     private static final String DELETE ="DELETE FROM artist WHERE id_artist=?";
-    private static final String SELECTBYID ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE a.id_artist = ?";
-    private static final String SEARCHBYNAME ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE name LIKE CONCAT('%',?,'%') LIMIT 3";
-    private static final String SEARCHBYIDSONG= "select a.*,u.* from artist a JOIN user u ON a.id_user = u.id_user JOIN album al on a.id_artist = al.id_artist JOIN song s on al.id_album = s.id_album where s.id_song = ?;";
+    private static final String SELECTBYID ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE a.id_artist = ?";
+    private static final String SEARCHBYNAME ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE name LIKE CONCAT('%',?,'%') LIMIT 3";
+    private static final String SEARCHBYIDSONG= "select a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.nickname, u.lastname from artist a JOIN user u ON a.id_user = u.id_user JOIN album al on a.id_artist = al.id_artist JOIN song s on al.id_album = s.id_album where s.id_song = ?;";
+    private static final String SEARCHARTISTBYIDALBUM="select a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname From artist a JOIN user u ON a.id_user = u.id_user\n" +
+            "JOIN album a2 on a.id_artist = a2.id_artist where a2.id_album = ?;";
 
     private UserDAO udao= new UserDAO();
 
@@ -182,6 +184,20 @@ public class ArtistDAO extends Artist implements iArtistDAO {
                         return searchedArtist;
                     }
                 }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    public ArtistDTO searchArtistByIdAlbum(int idAlbum){
+        Connection conn = ConnectionData.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(SEARCHARTISTBYIDALBUM);
+            ps.setInt(1,idAlbum);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return this.searchArtistByIdArtist(rs.getInt("id_artist"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

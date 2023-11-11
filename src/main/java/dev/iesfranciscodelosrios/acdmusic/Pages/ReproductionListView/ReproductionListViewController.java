@@ -19,10 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -57,6 +54,12 @@ public class ReproductionListViewController extends ReproductionList_mediumCard 
         description.setStyle("-fx-border-width: 0;-fx-background-color: transparent;");
         img_picture.setStyle(Style.Shadow.getStyle());
         Comment.setVisible(false);
+    }
+    @Override
+    public void toggleSubcribe() {
+        super.toggleSubcribe();
+        if(!ReproductionListDAO.getInstance().getSubcribeToListByUser(Login.getInstance().getCurrentUser().getId(),rl.getId()))
+            TestViews.hubController.loadPreview();
     }
 
     public void setData(ReproductionList rl) {
@@ -123,7 +126,7 @@ public class ReproductionListViewController extends ReproductionList_mediumCard 
         }
     }
     private void loadGenericForm(GenericFormController controller,Scene stage){
-        controller.addInput("comment","","Write your comment");
+        controller.addInput("comment","Write your comment");
         controller.eventBtnSend(()->{
             String comment=((TextField)controller.getNode("comment")).getText();
             if(comment.length()>0){

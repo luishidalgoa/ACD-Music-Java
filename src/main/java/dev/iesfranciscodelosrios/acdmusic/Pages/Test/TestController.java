@@ -30,7 +30,7 @@ public class TestController extends TestViews{
 
     @FXML
     public void initialize() {
-        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(5));
+        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(7));
     }
     @FXML
     public void ReproductionList_mediumCard() {
@@ -123,7 +123,7 @@ public class TestController extends TestViews{
         }
         {
             System.out.println(controller==null);
-            controller.addInput("Prueba","","Name for the song");
+            controller.addInput("Prueba","Name for the song");
 
             controller.addNode(new Button(),"fileUpload","File music", Style.gap_2.getStyle() ,new int[]{1, 0},()->{
                 FileChooser fileChooser = new FileChooser();
