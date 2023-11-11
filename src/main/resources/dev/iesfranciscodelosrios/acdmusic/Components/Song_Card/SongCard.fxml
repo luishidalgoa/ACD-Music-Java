@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="139.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController">
+<AnchorPane prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: black; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController">
    <children>
       <ImageView fx:id="song_view" fitHeight="122.0" fitWidth="124.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
       <Text fx:id="song_name" fontSmoothingType="LCD" layoutX="190.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -31,10 +31,10 @@
        <SVGPath fx:id="play_song" content="M19 12L5 21V3z" fill="black" layoutX="561.0" layoutY="43.0" onMouseClicked="#play_song" scaleX="3" scaleY="3" stroke="black" strokeWidth="0.5">
 
        </SVGPath>
-       <SplitMenuButton  fx:id="add_to_repro" layoutX="657.0" layoutY="42.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="...">
+       <SplitMenuButton fx:id="add_to_repro" layoutX="657.0" layoutY="42.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="...">
         <items>
-            <MenuItem mnemonicParsing="false" text="add "  onAction="#addToReproductionList" />
-            <MenuItem mnemonicParsing="false" text="add "  onAction="#addToNewReproductionList" />
+            <MenuItem mnemonicParsing="false" onAction="#addToReproductionList" text="add " />
+            <MenuItem mnemonicParsing="false" onAction="#addToNewReproductionList" text="add " />
         </items>
       </SplitMenuButton>
       <Label layoutX="551.0" layoutY="100.0" prefHeight="18.0" prefWidth="46.0">

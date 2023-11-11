@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.ImageView?>
-<AnchorPane prefHeight="139.0" prefWidth="719.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: black; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController">
     <ImageView fx:id="album_view" fitHeight="122.0" fitWidth="124.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
     <Text fx:id="album_name" fontSmoothingType="LCD" layoutX="190.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0">
         <font>
@@ -18,12 +19,10 @@
             <Font name="Arial Black" size="18.0" />
         </font>
     </Text>
-    <SplitMenuButton  fx:id="add_to_repro" layoutX="657.0" layoutY="42.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="...">
+    <SplitMenuButton fx:id="add_to_repro" layoutX="657.0" layoutY="42.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="...">
         <items>
-            <MenuItem mnemonicParsing="false" text="add "  onAction="#addSongAlbumToReproductionList" />
-            <MenuItem mnemonicParsing="false" text="add "  onAction="#addSongAlbumToNewReproductionList" />
+            <MenuItem mnemonicParsing="false" onAction="#addSongAlbumToReproductionList" text="add " />
+            <MenuItem mnemonicParsing="false" onAction="#addSongAlbumToNewReproductionList" text="add " />
         </items>
     </SplitMenuButton>
 </AnchorPane>
-
-
