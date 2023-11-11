@@ -1,16 +1,16 @@
 package dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card;
 
+import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
-import dev.iesfranciscodelosrios.acdmusic.Services.Login;
+import dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView.ReproductionListViewController;
+import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 
 import java.io.File;
 
@@ -30,7 +30,15 @@ abstract public class ReproductionList_Card {
     }
 
     public void loadReproductionListView(){
-
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Pages/ReproductionList/ReproductionList.fxml"));
+        try {
+            Node node = fxmlLoader.load();
+            ReproductionListViewController controller = fxmlLoader.getController();
+            controller.setData(rl);
+            TestViews.hubController.setViewsContainer(node);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public void loadUserView(){
 
@@ -44,6 +52,9 @@ abstract public class ReproductionList_Card {
         rl = obj;
         //apuntamos al archivo con la imagen del album de la primera cancion de la lista. Para asi mostrarla como foto principal de la lista
         int findIdAlbumforFirstSong = rl.getSongs()!=null?rl.getSongs().stream().findFirst().get().getId_album():-1;
+        if(label_username!=null){
+            label_username.setText(rl.getOwner().getNickName());
+        }
         if(findIdAlbumforFirstSong>-1){
             File img = new File(AlbumDAO.getInstance().getAlbumById(findIdAlbumforFirstSong).getPicture());
             if (img.exists()) {
@@ -51,6 +62,5 @@ abstract public class ReproductionList_Card {
             }
         }
         label_nameList.setText(rl.getName());
-        label_username.setText(rl.getOwner().getNickName());
     }
 }
