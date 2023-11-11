@@ -70,4 +70,5 @@ public class AlbumCardController {
     private void addSongAlbumToNewReproductionList(MouseEvent event) {
         //método que cargue todas las canciones de un album a una lista de reproducción nueva.
     }
+
 }
