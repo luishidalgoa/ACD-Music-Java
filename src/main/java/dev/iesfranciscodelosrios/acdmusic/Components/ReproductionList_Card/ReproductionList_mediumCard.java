@@ -43,7 +43,7 @@ public class ReproductionList_mediumCard extends ReproductionList_Card{
                 alert.setHeaderText("Are you sure you want to unsubscribe from your own list?");
                 alert.setContentText("If you unsubscribe from your own list, it will be deleted");
                 alert.showAndWait();
-                if (alert.getResult().getText().equals("OK")) {
+                if (alert.getResult().getText().equals("Aceptar")) {
                     ReproductionListDAO.getInstance().removeReproductionList(rl.getId());
                     handleClickSubcribe(false);
                 }

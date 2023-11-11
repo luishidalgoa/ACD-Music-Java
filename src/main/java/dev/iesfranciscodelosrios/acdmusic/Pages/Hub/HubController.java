@@ -25,6 +25,7 @@ import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,6 +64,9 @@ public class HubController extends MediaPlayerController {
         }
 
         userReproductionList = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
+        if (userReproductionList==null){
+            userReproductionList = new HashSet<>();
+        }
         {
             File img = new File(Login.getInstance().getCurrentUser().getPicture());
             if (img.exists()) {
@@ -93,9 +97,13 @@ public class HubController extends MediaPlayerController {
             public void run() {
                 try {
                     Set<ReproductionList> rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
-                    if (!userReproductionList.equals(rl)) {
+                    if (rl!=null && !userReproductionList.equals(rl)) {
                         userReproductionList = rl;
                         updateReproductionListsThread();
+                    }else if (rl==null){
+                        Platform.runLater(()->{
+                            vbox_reproductionLists.getChildren().clear();
+                        });
                     }
                 } catch (Exception e) {
                     ConnectionData.getConnection();
@@ -146,16 +154,18 @@ public class HubController extends MediaPlayerController {
     }
 
     public void updateReproductionLists() {
-        vbox_reproductionLists.getChildren().clear();
-        for (ReproductionList aux : userReproductionList) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_minCard/ReproductionList_minCard.fxml"));
-                Node card = fxmlLoader.load();
-                ReproductionList_minCard controller = fxmlLoader.getController();
-                controller.setData(aux);
-                vbox_reproductionLists.getChildren().add(card);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (userReproductionList!=null){
+            vbox_reproductionLists.getChildren().clear();
+            for (ReproductionList aux : userReproductionList) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_minCard/ReproductionList_minCard.fxml"));
+                    Node card = fxmlLoader.load();
+                    ReproductionList_minCard controller = fxmlLoader.getController();
+                    controller.setData(aux);
+                    vbox_reproductionLists.getChildren().add(card);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

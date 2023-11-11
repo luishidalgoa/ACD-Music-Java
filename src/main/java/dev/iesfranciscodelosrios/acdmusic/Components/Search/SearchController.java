@@ -41,7 +41,7 @@ public class SearchController {
             homeController.clear();
             homeController.setArtist(artists);
             homeController.setAlbumes(albumes);
-            homeController.setReproductionList(rls);
+            homeController.setReproductionList(rls, "Resultados de la busqueda");
 
             TestController.hubController.setViewsContainer(node);
         } catch (IOException e) {

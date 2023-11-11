@@ -28,7 +28,7 @@ public class TestController extends TestViews{
 
     @FXML
     public void initialize() {
-        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(1));
+        Login.getInstance().setCurrentUser(UserDAO.getInstance().searchById(5));
     }
     @FXML
     public void ReproductionList_mediumCard() {

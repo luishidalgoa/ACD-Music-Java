@@ -43,7 +43,7 @@ public class HomeController {
 
 
         Set<ReproductionList>rl = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
-        setReproductionList(rl);
+        setReproductionList(rl,"Yours reproduction list");
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
         setArtist(artist);
@@ -67,11 +67,11 @@ public class HomeController {
             }
         }
     }
-    public void setReproductionList(Set<ReproductionList> rl){
-        Label rlLabel=new Label("Yours Reproduction Lists");
+    public void setReproductionList(Set<ReproductionList> rl,String text){
+        Label rlLabel=new Label(text);
         rlLabel.setStyle(Style.h1.getStyle());
         vbox_container.getChildren().add(rlLabel);
-        if (!rl.isEmpty()){
+        if (rl!=null && !rl.isEmpty()){
             for (ReproductionList aux : rl) {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_mediumCard/ReproductionList_mediumCard.fxml"));
                 try {
