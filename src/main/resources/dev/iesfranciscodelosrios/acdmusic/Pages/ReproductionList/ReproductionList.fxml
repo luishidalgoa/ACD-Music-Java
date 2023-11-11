@@ -81,29 +81,35 @@
          </children>
       </HBox>
       <Line endX="774.3333740234375" endY="0.3333282470703125" layoutX="293.0" layoutY="165.0" startX="-293.0" startY="0.3333282470703125" stroke="#d9d9d9" />
-      <ScrollPane fx:id="Scroll_comment" layoutX="769.0" layoutY="166.0" prefHeight="493.0" prefWidth="297.0">
-         <content>
-            <VBox prefHeight="490.0" prefWidth="293.0">
+      <VBox fx:id="Comment" layoutX="767.0" layoutY="170.0">
+         <children>
+            <Pane prefHeight="51.0" prefWidth="297.0">
                <children>
-                  <VBox>
+                  <Line endX="199.5" layoutX="102.0" layoutY="51.0" startX="-100.0" />
+                  <SVGPath content="M17.345,34.4a1.476,1.476,0,1,0-2.268-1.89L8.834,40,2.592,32.513A1.476,1.476,0,1,0,.324,34.4l6.588,7.906L.324,50.216a1.476,1.476,0,1,0,2.268,1.89l6.242-7.492,6.242,7.492a1.476,1.476,0,1,0,2.268-1.89l-6.588-7.906Z" layoutX="256.0" layoutY="-17.0" />
+                  <Pane layoutX="243.0" onMouseClicked="#comment_close" prefHeight="51.0" prefWidth="45.0" />
+                  <Pane layoutX="8.0" layoutY="3.0" onMouseClicked="#newComment" prefHeight="48.0" prefWidth="51.0">
                      <children>
-                        <Pane prefHeight="51.0" prefWidth="392.0">
-                           <children>
-                              <SVGPath content="M17.345,34.4a1.476,1.476,0,1,0-2.268-1.89L8.834,40,2.592,32.513A1.476,1.476,0,1,0,.324,34.4l6.588,7.906L.324,50.216a1.476,1.476,0,1,0,2.268,1.89l6.242-7.492,6.242,7.492a1.476,1.476,0,1,0,2.268-1.89l-6.588-7.906Z" layoutX="256.0" layoutY="-17.0" />
-                              <Pane layoutX="243.0" onMouseClicked="#comment_close" prefHeight="51.0" prefWidth="45.0" />
-                           </children>
-                        </Pane>
-                        <Line endX="193.5" startX="-100.0" />
+                        <SVGPath content="M23.687,44.374A20.687,20.687,0,1,1,44.374,23.687,20.687,20.687,0,0,1,23.687,44.374Zm0-38.192a17.5,17.5,0,1,0,17.5,17.5A17.5,17.5,0,0,0,23.687,6.183Z" fill="#6b6b6b" layoutX="12.0" layoutY="25.0" translateX="-10.0" translateY="-25.0" />
+                        <SVGPath content="M16.591,31.278A1.591,1.591,0,0,1,15,29.687v-19.1a1.591,1.591,0,0,1,3.183,0v19.1A1.591,1.591,0,0,1,16.591,31.278Z" fill="#6b6b6b" layoutX="19.0" layoutY="28.0" translateX="-10.0" translateY="-25.0" />
+                        <SVGPath content="M29.687,18.183h-19.1a1.591,1.591,0,0,1,0-3.183h19.1a1.591,1.591,0,0,1,0,3.183Z" fill="#6b6b6b" layoutX="16.0" layoutY="32.0" translateX="-10.0" translateY="-25.0" />
                      </children>
-                  </VBox>
+                  </Pane>
+                  <Line endY="24.0" layoutX="2.0" layoutY="27.0" startY="-31.0" />
                </children>
-            </VBox>
-         </content>
-      </ScrollPane>
+            </Pane>
+            <ScrollPane fx:id="Scroll_comment" prefHeight="437.0" prefWidth="297.0" style="-fx-background-color: none;">
+               <content>
+                  <VBox fx:id="comment_container" prefHeight="435.0" prefWidth="294.0" spacing="10.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
       <VBox fx:id="vbox_container" layoutY="166.0" prefHeight="493.0" prefWidth="769.0" spacing="20.0">
          <padding>
             <Insets left="20.0" top="20.0" />
          </padding>
       </VBox>
+
    </children>
 </AnchorPane>

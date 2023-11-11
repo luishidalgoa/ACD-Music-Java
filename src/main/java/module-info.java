@@ -28,5 +28,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens dev.iesfranciscodelosrios.acdmusic.Components.GenericForm;
     exports dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView;
     opens dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.CommentCard;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.CommentCard;
 
 }

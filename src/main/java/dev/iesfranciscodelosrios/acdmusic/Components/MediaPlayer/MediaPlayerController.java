@@ -1,13 +1,19 @@
 package dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer;
 
+import dev.iesfranciscodelosrios.acdmusic.App;
+import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard;
 import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
 import dev.iesfranciscodelosrios.acdmusic.Interfaces.iArrowFunctions;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.SongDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -129,7 +135,9 @@ public class MediaPlayerController {
                 songProgressBar.setProgress(current / end);
 
                 if (current / end == 1) {
-                    handleNext();
+                    Platform.runLater(() -> {
+                        handleNext();
+                    });
                 }
             }
         };
