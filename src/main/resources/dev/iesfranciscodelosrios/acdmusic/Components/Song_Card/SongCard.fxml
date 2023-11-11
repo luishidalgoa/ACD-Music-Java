@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="139.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController">
+   <children>
+      <ImageView fx:id="song_view" fitHeight="122.0" fitWidth="124.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="song_name" fontSmoothingType="LCD" layoutX="190.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Arial Black" size="29.0" />
+         </font>
+      </Text>
+      <Text fx:id="artist_name" layoutX="190.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="total_view" layoutX="388.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="views:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="duration" layoutX="574.0" layoutY="101.0" />
+       <SVGPath fx:id="play_song" content="M19 12L5 21V3z" fill="black" layoutX="561.0" layoutY="43.0" onMouseClicked="#play_song" scaleX="3" scaleY="3" stroke="black" strokeWidth="0.5">
+
+       </SVGPath>
+       <SplitMenuButton  fx:id="add_to_repro" layoutX="657.0" layoutY="42.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="20.0" style="-fx-background-color: transparent; -fx-border-color: black;" text="...">
+        <items>
+            <MenuItem mnemonicParsing="false" text="add "  onAction="#addToReproductionList" />
+            <MenuItem mnemonicParsing="false" text="add "  onAction="#addToNewReproductionList" />
+        </items>
+      </SplitMenuButton>
+      <Label layoutX="551.0" layoutY="100.0" prefHeight="18.0" prefWidth="46.0">
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
