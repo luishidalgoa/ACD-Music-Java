@@ -5,6 +5,7 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView.ReproductionListViewController;
+import dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile.UserProfileController;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,8 +41,16 @@ abstract public class ReproductionList_Card {
             throw new RuntimeException(e);
         }
     }
-    public void loadUserView(){
-
+    public void loadUserProfile(){
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Pages/UserProfile/UserProfile.fxml"));
+        try {
+            Node node = fxmlLoader.load();
+            UserProfileController controller = fxmlLoader.getController();
+            controller.setData(rl.getOwner());
+            TestViews.hubController.setViewsContainer(node);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     /**
      * Le pasara por parametro la informacion necesaria para mostrar la Card de la lista de reproduccion

@@ -105,11 +105,15 @@
             </ScrollPane>
          </children>
       </VBox>
-      <VBox fx:id="vbox_container" layoutY="166.0" prefHeight="493.0" prefWidth="769.0" spacing="20.0">
-         <padding>
-            <Insets left="20.0" top="20.0" />
-         </padding>
-      </VBox>
+      <ScrollPane layoutY="165.0" prefHeight="493.0" prefWidth="767.0">
+         <content>
+            <VBox fx:id="vbox_container" prefHeight="490.0" prefWidth="749.0" spacing="20.0">
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
 
    </children>
 </AnchorPane>

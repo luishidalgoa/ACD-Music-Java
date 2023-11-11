@@ -29,6 +29,6 @@
             <Font name="SansSerif Regular" size="22.0" />
          </font>
       </Label>
-      <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserView" prefHeight="32.0" prefWidth="195.0" />
+      <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserProfile" prefHeight="32.0" prefWidth="195.0" />
     </children>
 </AnchorPane>
