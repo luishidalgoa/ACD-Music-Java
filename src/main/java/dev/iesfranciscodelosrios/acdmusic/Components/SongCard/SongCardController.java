@@ -78,7 +78,6 @@ public class SongCardController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                 String formattedDuration = updatedSong.getTime().format(formatter);
                 duration.setText(formattedDuration);
-
                 //foto heredada del album
                 String albumImageName = album.getName().toLowerCase().replaceAll("\\s", "") + ".png";
                 String albumImagePath = "/dev/iesfranciscodelosrios/acdmusic/resources/" + albumImageName;
