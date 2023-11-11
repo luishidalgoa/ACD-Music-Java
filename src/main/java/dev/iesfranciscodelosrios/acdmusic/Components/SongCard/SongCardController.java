@@ -79,9 +79,10 @@ public class SongCardController {
                 String formattedDuration = updatedSong.getTime().format(formatter);
                 duration.setText(formattedDuration);
 
-                String imageName = updatedSong.getName().toLowerCase().replaceAll("\\s", "") + ".png";
-                String imagePath = "/dev/iesfranciscodelosrios/acdmusic/resources/" + imageName;
-                song_view.setImage(new javafx.scene.image.Image(getClass().getResource(imagePath).toString()));
+                //foto heredada del album
+                String albumImageName = album.getName().toLowerCase().replaceAll("\\s", "") + ".png";
+                String albumImagePath = "/dev/iesfranciscodelosrios/acdmusic/resources/" + albumImageName;
+                song_view.setImage(new javafx.scene.image.Image(getClass().getResource(albumImagePath).toString()));
             }
         }
     }
@@ -113,5 +114,6 @@ public class SongCardController {
             //Agregamos la canción a esta lista
             boolean result = reproductionListDAO.addSong(song.getId_song(), createdReproductionList.getId());
         }
+
     }
 }
