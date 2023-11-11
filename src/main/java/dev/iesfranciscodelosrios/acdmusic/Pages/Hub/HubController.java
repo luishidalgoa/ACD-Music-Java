@@ -101,11 +101,10 @@ public class HubController extends MediaPlayerController {
                         userReproductionList = rl;
                         updateReproductionListsThread();
                     }else if (rl==null){
-                        Platform.runLater(()->{
-                            vbox_reproductionLists.getChildren().clear();
-                        });
+                        userReproductionList= new HashSet<>();
+                        updateReproductionListsThread();
                     }
-                } catch (Exception e) {
+                }catch (Exception e) {
                     ConnectionData.getConnection();
                     // Captura la excepción y realiza las acciones necesarias
                     e.printStackTrace();
