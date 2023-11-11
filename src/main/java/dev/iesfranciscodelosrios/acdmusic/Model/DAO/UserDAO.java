@@ -25,9 +25,9 @@ public class UserDAO extends User implements iUserDAO  {
      * Metodo que obtiene todos los datos de un objeto User y devuelve un objeto UserDTO relleno con
      * los datos del objeto User proporcionado
      * @param user objeto User que se quiere pasar a UserDTO
-     * @return
+     * @return UserDTO del user proporcionado
      */
-    private UserDTO setUserToUserDTO(User user){
+    public UserDTO setUserToUserDTO(User user){
         UserDTO result = new UserDTO();
         result.setId(user.getId());
         result.setName(user.getName());
@@ -185,6 +185,43 @@ public class UserDAO extends User implements iUserDAO  {
                             searchedUser.setNickName((rs.getString("nickName")));
                             searchedUser.setPicture((rs.getString("picture")));
                             searchedUser.setEmail((rs.getString("email")));
+                            return searchedUser;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Este metodo buscca un objeto user dentro de la base de datos el cual lo devolvera si existe
+     * puede devolver null en caso de que nickname sea null, la conexion falle o la base de datos
+     * devuelva cualquier tipo de error(Como no encontrado).
+     * @param nickname nickname del usuario a buscar
+     * @return un objeto UserDTO si ha sido satisfactorio o null sino
+     */
+    public User searchByNicknameLogin(String nickname) {
+        Connection conn = ConnectionData.getConnection();
+        if (conn==null || nickname==null) {
+            return null;
+        } else{
+            User searchedUser = new User();
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYNICKNAME)){
+                ps.setString(1,nickname);
+                if(ps.execute()){
+                    try(ResultSet rs = ps.getResultSet()){
+                        if(rs.next()){
+                            searchedUser.setId((rs.getInt("id_user")));
+                            searchedUser.setName((rs.getString("name")));
+                            searchedUser.setLastName((rs.getString("lastName")));
+                            searchedUser.setNickName((rs.getString("nickName")));
+                            searchedUser.setPicture((rs.getString("picture")));
+                            searchedUser.setEmail((rs.getString("email")));
+                            searchedUser.setPassword((rs.getString("password")));
                             return searchedUser;
                         }
                     }
