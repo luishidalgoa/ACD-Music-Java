@@ -3,10 +3,6 @@ package dev.iesfranciscodelosrios.acdmusic.Components.SongCard;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.SongDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
-import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
-import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Artist;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
@@ -18,8 +14,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 
 import java.io.File;
@@ -31,7 +25,7 @@ import java.util.Set;
 public class SongCardController {
 
     @FXML
-    private ImageView song_view;
+    private ImageView img_picture;
 
     @FXML
     private Text song_name;
@@ -51,7 +45,7 @@ public class SongCardController {
 
     @FXML
     public void initialize() {
-        song_view.setStyle(Style.Shadow.getStyle());
+        img_picture.setStyle(Style.Shadow.getStyle());
     }
 
     public void setData(Song song) {
@@ -63,7 +57,7 @@ public class SongCardController {
 
         File img = new File(AlbumDAO.getInstance().searchAlbumByIdSong(song.getId_song()).getPicture());
         if (img.exists()) {
-            song_view.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+            img_picture.setImage(new javafx.scene.image.Image(img.toURI().toString()));
         }
     }
 
@@ -112,5 +106,9 @@ public class SongCardController {
         Set<Song> songs = new HashSet<>();
         songs.add(song);
         TestViews.hubController.setData(songs, true);
+    }
+    @FXML
+    public void loadArtistView(){
+
     }
 }

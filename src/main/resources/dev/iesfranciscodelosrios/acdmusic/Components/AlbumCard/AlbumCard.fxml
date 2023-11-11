@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxWidth="719.0" prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: black; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController">
+   <Pane layoutX="641.0" layoutY="33.0" onMouseClicked="#showMenu" prefHeight="74.0" prefWidth="55.0">
+      <children>
+         <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-242.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+         <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-230.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+         <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-218.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+         <SplitMenuButton fx:id="menu" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="55.0" visible="false" />
+      </children>
+   </Pane>
+   <Text fx:id="album_name" fontSmoothingType="LCD" layoutX="167.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album Name" wrappingWidth="399.8186950683594">
+      <font>
+         <Font name="Arial Black" size="29.0" />
+      </font>
+   </Text>
+   <Text fx:id="artist_name" layoutX="167.0" layoutY="114.0" onMouseClicked="#loadArtistView" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name" wrappingWidth="196.63348388671875">
+      <font>
+         <Font name="Arial Black" size="18.0" />
+      </font>
+   </Text>
+   <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" layoutX="20.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../assets/pictures/app/image_not_Found.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

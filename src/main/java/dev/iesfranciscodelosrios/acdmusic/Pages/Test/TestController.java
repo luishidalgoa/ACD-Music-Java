@@ -81,7 +81,7 @@ public class TestController extends TestViews{
             FXMLLoader fxmlLoader= TestViews.getFXML("Components/ArtistCard/","ArtistCard");
             TestViews.newStage(fxmlLoader.load());
             ArtistCardController artistCardController=fxmlLoader.getController();
-            artistCardController.setData(ArtistDAO.getInstance().searchArtistByIdUser(2));
+            artistCardController.setData(ArtistDAO.getInstance().searchArtistByIdArtist(2));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

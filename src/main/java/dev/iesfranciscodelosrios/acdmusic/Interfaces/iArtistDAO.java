@@ -27,7 +27,7 @@ public interface iArtistDAO {
      * @param idUser id del usuario
      * @return objeto artista con los datos del artista si no se encuentra devolvera null
      */
-    public ArtistDTO searchArtistByIdUser(int idUser);
+    public ArtistDTO searchArtistByIdArtist(int idUser);
 
     /**
      * a partir del un nombre no bien conocido se debe filtrar para extraer los artistas que aproximadamente tengan el

@@ -67,7 +67,7 @@ public class HomeController {
                 try {
                     Node card = fxmlLoader.load();
                     AlbumCardController albumCardController = fxmlLoader.getController();
-                    //albumCardController.setData(album);
+                    albumCardController.setData(album);
                     vbox_container.getChildren().add(card);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

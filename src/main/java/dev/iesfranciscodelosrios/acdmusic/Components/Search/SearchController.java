@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -25,6 +26,11 @@ public class SearchController {
 
     @FXML
     private void initialize() {
+        input_filter.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                searched();
+            }
+        });
     }
     @FXML
     private void searched(){

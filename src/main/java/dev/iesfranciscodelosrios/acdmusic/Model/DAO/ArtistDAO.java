@@ -90,7 +90,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
      * la conexion falle o la base de datos devuelva cualquier tipo de error(Como no encontrado).
      */
     @Override
-    public ArtistDTO searchArtistByIdUser(int idUser) {
+    public ArtistDTO searchArtistByIdArtist(int idUser) {
         Connection conn= ConnectionData.getConnection();
         if(conn==null || idUser==-1) {
             return null;

@@ -12,7 +12,7 @@
 
 <AnchorPane maxWidth="719.0" prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: gray; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController">
    <children>
-      <ImageView fx:id="song_view" fitHeight="107.0" fitWidth="107.0" layoutX="23.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" layoutX="24.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/pictures/app/image_not_Found.png" />
          </image></ImageView>
@@ -21,7 +21,7 @@
             <Font name="Arial Black" size="29.0" />
          </font>
       </Text>
-      <Text fx:id="artist_name" layoutX="160.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name">
+      <Text fx:id="artist_name" layoutX="160.0" layoutY="119.0" onMouseClicked="#loadArtistView" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
