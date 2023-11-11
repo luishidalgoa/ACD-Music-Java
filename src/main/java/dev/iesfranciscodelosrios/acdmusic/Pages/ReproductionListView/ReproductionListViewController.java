@@ -4,12 +4,14 @@ import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Components.CommentCard.CommentCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormController;
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_mediumCard;
+import dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.CommentDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Comment;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
@@ -61,12 +63,13 @@ public class ReproductionListViewController extends ReproductionList_mediumCard 
         super.setData(rl);
         description.setText(rl.getDescription());
         subs_counter.setText(String.valueOf(ReproductionListDAO.getInstance().getAllSubcriptions(rl.getId())));
+        updateSongsContainer();
 
     }
 
     public void updateSongsContainer() {
         vbox_container.getChildren().clear();
-        /*for (Song aux:this.rl.getSongs()) {
+        for (Song aux:this.rl.getSongs()) {
             FXMLLoader fxmlLoader= new FXMLLoader(App.class.getResource("Components/SongCard/SongCard.fxml"));
             try {
                 Node node=fxmlLoader.load();
@@ -77,7 +80,7 @@ public class ReproductionListViewController extends ReproductionList_mediumCard 
                 throw new RuntimeException(e);
             }
 
-        }*/
+        }
     }
 
     @FXML

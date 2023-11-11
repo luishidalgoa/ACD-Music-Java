@@ -346,3 +346,6 @@ CREATE TRIGGER `updateReproductionsAlbum`
 
 
 
+select a.*,u.* from artist a JOIN user u ON a.id_user = u.id_user
+    JOIN album al on a.id_artist = al.id_artist
+    JOIN song s on al.id_album = s.id_album where s.id_song = ?;

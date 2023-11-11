@@ -2,6 +2,7 @@ package dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card;
 
 import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView.ReproductionListViewController;
@@ -35,7 +36,7 @@ abstract public class ReproductionList_Card {
         try {
             Node node = fxmlLoader.load();
             ReproductionListViewController controller = fxmlLoader.getController();
-            controller.setData(rl);
+            controller.setData(ReproductionListDAO.getInstance().searchReproductionListById(rl.getId()));
             TestViews.hubController.setViewsContainer(node);
         } catch (Exception e) {
             throw new RuntimeException(e);

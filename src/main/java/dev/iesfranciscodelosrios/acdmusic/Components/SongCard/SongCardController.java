@@ -4,19 +4,28 @@ import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.SongDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Artist;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
+import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
+import dev.iesfranciscodelosrios.acdmusic.Services.Login;
+import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class SongCardController {
@@ -31,87 +40,77 @@ public class SongCardController {
     private Text artist_name;
 
     @FXML
-    private Text total_view;
+    private Label total_view;
 
     @FXML
     private Label duration;
 
     @FXML
-    private SplitMenuButton add_to_repro;
-
-    @FXML
-    private SVGPath play_song;
-
+    private SplitMenuButton menu;
     private Song song;
-    private SongDAO songDAO = SongDAO.getInstance();
-    private AlbumDAO albumDAO = AlbumDAO.getInstance();
-    private ArtistDAO artistDAO = ArtistDAO.getInstance();
-    private ReproductionListDAO reproductionListDAO= ReproductionListDAO.getInstance();
 
+    @FXML
+    public void initialize() {
+        song_view.setStyle(Style.Shadow.getStyle());
+    }
 
-    public void initializeSong(Song song) {
+    public void setData(Song song) {
         this.song = song;
-        updateUI();
+        song_name.setText(song.getName());
+        artist_name.setText(ArtistDAO.getInstance().searchArtistByIdSong(song.getId_song()).getName());
+        total_view.setText(String.valueOf(song.getReproductions()));
+        duration.setText(song.getTime().format(DateTimeFormatter.ofPattern("mm:ss")));
+
+        File img = new File(AlbumDAO.getInstance().searchAlbumByIdSong(song.getId_song()).getPicture());
+        if (img.exists()) {
+            song_view.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+        }
     }
 
-    private void updateUI() {
+    @FXML
+    private void handleTogglePlay(MouseEvent event) {
+        Set<Song> songs = new HashSet<>();
+        songs.add(song);
+        TestViews.hubController.setData(songs, true);
+    }
+
+    @FXML
+    private void showMenu(MouseEvent event) {
         if (song != null) {
-            Song updatedSong = songDAO.searchById(song.getId_song());
-
-            if (updatedSong != null) {
-                song_name.setText(updatedSong.getName());
-
-                Album album = albumDAO.getAlbumById(updatedSong.getId_album());
-
-                if (album != null) {
-                    Artist artist = artistDAO.searchArtistByIdUser(album.getId_artist());
-
-                    if (artist != null) {
-                        artist_name.setText(artist.getName());
-                    } else {
-                        artist_name.setText(" ");
-                    }
+            Set<ReproductionList> subscriptions = ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
+            //creamos varios elementos hijos de menuItem para el menu con el mismo nombre que el de las listas de reproduccion
+            for (ReproductionList rl : subscriptions) {
+                if (Login.getInstance().getCurrentUser().equals(rl.getOwner())) {
+                    MenuItem menuItem = new MenuItem(rl.getName());
+                    menuItem.setOnAction(e -> {
+                        boolean isEmpty = false;
+                        try {
+                            //si la cancion no esta en la lista de reproduccion, la añadimos
+                            if (rl.getSongs() != null && rl.getSongs().stream().noneMatch(s -> s.getId_song() == song.getId_song())) {
+                                ReproductionListDAO.getInstance().addSong(song.getId_song(), rl.getId());
+                            } else if (rl.getSongs() != null) {
+                                //si la cancion esta en la lista de reproduccion, la eliminamos
+                                ReproductionListDAO.getInstance().removeSong(song.getId_song(), rl.getId(), Login.getInstance().getCurrentUser());
+                            } else {
+                                ReproductionListDAO.getInstance().addSong(song.getId_song(), rl.getId());
+                                TestViews.hubController.updateReproductionLists();
+                            }
+                        } catch (NullPointerException ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                    menu.getItems().add(menuItem);
                 }
-
-                total_view.setText("Reproducciones: " + updatedSong.getReproductions());
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                String formattedDuration = updatedSong.getTime().format(formatter);
-                duration.setText(formattedDuration);
-
-                String imageName = updatedSong.getName().toLowerCase().replaceAll("\\s", "") + ".png";
-                String imagePath = "/dev/iesfranciscodelosrios/acdmusic/resources/" + imageName;
-                song_view.setImage(new javafx.scene.image.Image(getClass().getResource(imagePath).toString()));
             }
+            //activamos el desplegable del menu
+            menu.show();
         }
     }
 
     @FXML
-    private void play_song(MouseEvent event) {
-        //hay que llamar al método que toque la canción
-    }
-
-    @FXML
-    private void addToReproductionList(MouseEvent event) {
-        if (song != null) {
-            //No se cual método utilizamos para ver las listas del usuario
-            int idReproductionList = 1;
-
-            boolean result = reproductionListDAO.addSong(song.getId_song(), idReproductionList);
-        }
-    }
-
-    @FXML
-    private void addToNewReproductionList(MouseEvent event) {
-        if (song != null) {
-            // Crear una nueva lista de reproducción, no se si llamar a la card de agregar lista o no
-            ReproductionList newReproductionList = new ReproductionList();
-
-            ReproductionList createdReproductionList = reproductionListDAO.add(newReproductionList);
-        }
-        if (createdReproductionList != null) {
-            //Agregamos la canción a esta lista
-            boolean result = reproductionListDAO.addSong(song.getId_song(), createdReproductionList.getId());
-        }
+    private void handleTogglePlay() {
+        Set<Song> songs = new HashSet<>();
+        songs.add(song);
+        TestViews.hubController.setData(songs, true);
     }
 }

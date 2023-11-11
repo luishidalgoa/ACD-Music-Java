@@ -4,12 +4,15 @@ import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard.ArtistCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_mediumCard;
+import dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.SongDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import javafx.fxml.FXML;
@@ -47,6 +50,12 @@ public class HomeController {
 
         Set<ArtistDTO>artist = ArtistDAO.getInstance().searchArtistByName("");
         setArtist(artist);
+
+        Set<Song>latestSongs = SongDAO.getInstance().searchRecientSongs();
+        setSong(latestSongs,"Latest songs");
+
+        Set<Song>topSongs = SongDAO.getInstance().searchTopSongs();
+        setSong(topSongs,"Top songs");
     }
     public void setAlbumes(Set<Album> albums){
         Label albumLabel=new Label("Top Albums");
@@ -96,6 +105,25 @@ public class HomeController {
                 try {
                     Node card = fxmlLoader.load();
                     ArtistCardController controller = fxmlLoader.getController();
+                    controller.setData(aux);
+                    vbox_container.getChildren().add(card);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+    }
+    public void setSong(Set<Song> songs,String text){
+        Label artistLabel=new Label(text);
+        artistLabel.setStyle(Style.h1.getStyle());
+        vbox_container.getChildren().add(artistLabel);
+        if (songs!=null && !songs.isEmpty()){
+            for (Song aux : songs) {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/SongCard/SongCard.fxml"));
+                try {
+                    Node card = fxmlLoader.load();
+                    SongCardController controller = fxmlLoader.getController();
                     controller.setData(aux);
                     vbox_container.getChildren().add(card);
                 } catch (IOException e) {

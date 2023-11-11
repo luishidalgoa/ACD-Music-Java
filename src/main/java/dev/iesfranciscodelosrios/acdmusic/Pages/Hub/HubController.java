@@ -153,6 +153,7 @@ public class HubController extends MediaPlayerController {
     }
 
     public void updateReproductionLists() {
+        userReproductionList= ReproductionListDAO.getInstance().getUserSubcriptions(Login.getInstance().getCurrentUser().getId());
         if (userReproductionList!=null){
             vbox_reproductionLists.getChildren().clear();
             for (ReproductionList aux : userReproductionList) {

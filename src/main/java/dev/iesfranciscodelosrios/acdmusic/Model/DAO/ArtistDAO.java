@@ -15,6 +15,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
     private static final String DELETE ="DELETE FROM artist WHERE id_artist=?";
     private static final String SELECTBYID ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE a.id_artist = ?";
     private static final String SEARCHBYNAME ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE name LIKE CONCAT('%',?,'%') LIMIT 3";
+    private static final String SEARCHBYIDSONG= "select a.*,u.* from artist a JOIN user u ON a.id_user = u.id_user JOIN album al on a.id_artist = al.id_artist JOIN song s on al.id_album = s.id_album where s.id_song = ?;";
 
     private UserDAO udao= new UserDAO();
 
@@ -157,6 +158,33 @@ public class ArtistDAO extends Artist implements iArtistDAO {
                 e.printStackTrace();
                 return null;
             }
+        }
+        return null;
+    }
+    public ArtistDTO searchArtistByIdSong(int idSong){
+        Connection conn= ConnectionData.getConnection();
+        try {
+            ArtistDTO searchedArtist = new ArtistDTO();
+            PreparedStatement ps= conn.prepareStatement(SEARCHBYIDSONG);
+            ps.setInt(1,idSong);
+            if(ps.execute()){
+                try(ResultSet rs = ps.getResultSet()){
+                    if (rs.next()){
+                        searchedArtist.setId_artist((rs.getInt("id_artist")));
+                        searchedArtist.setNacionality((rs.getString("nacionality")));
+                        searchedArtist.setId_user((rs.getInt("id_user")));
+                        searchedArtist.setId((rs.getInt("id_user")));
+                        searchedArtist.setName((rs.getString("name")));
+                        searchedArtist.setLastName((rs.getString("lastname")));
+                        searchedArtist.setNickName(rs.getString("nickname"));
+                        searchedArtist.setPicture((rs.getString("picture")));
+                        searchedArtist.setEmail((rs.getString("email")));
+                        return searchedArtist;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

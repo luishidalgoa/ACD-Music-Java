@@ -6,8 +6,10 @@ import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormCont
 import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController;
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_mediumCard;
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard;
+import dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.SongDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
@@ -169,6 +171,17 @@ public class TestController extends TestViews{
             TestViews.newStage(fxmlLoader.load());
             ReproductionListViewController controller = fxmlLoader.getController();
             controller.setData(ReproductionListDAO.getInstance().searchReproductionListById(1));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void loadSong(){
+        try {
+            FXMLLoader fxmlLoader= TestViews.getFXML("Components/SongCard/","SongCard");
+            TestViews.newStage(fxmlLoader.load());
+            SongCardController controller=fxmlLoader.getController();
+            controller.setData(SongDAO.getInstance().searchById(3));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

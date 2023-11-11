@@ -32,5 +32,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens dev.iesfranciscodelosrios.acdmusic.Components.CommentCard;
     exports dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile;
     opens dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile;
+    exports dev.iesfranciscodelosrios.acdmusic.Components.SongCard;
+    opens dev.iesfranciscodelosrios.acdmusic.Components.SongCard;
 
 }
