@@ -62,7 +62,7 @@ public class ArtistProfileController {
         nacionality.setText(artist.getNacionality());
         updateSongsContainer();
 
-        if (Login.getInstance().getCurrentUser().equals(UserDAO.getInstance().searchById(artist.getId_user()))) {
+        if (Login.getInstance().getCurrentUser().getId()== artist.getId_user()) {
             upload.setVisible(true);
             upload.setDisable(false);
         }
