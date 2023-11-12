@@ -49,7 +49,7 @@ public class AlbumViewController {
         upload.setDisable(true);
     }
     public void setData(Album album){
-        if (Login.getInstance().getCurrentUser().equals(UserDAO.getInstance().searchById(ArtistDAO.getInstance().searchArtistByIdAlbum(album.getIdAlbum()).getId_user()))) {
+        if (Login.getInstance().getCurrentUser().getId()== ArtistDAO.getInstance().searchArtistByIdAlbum(album.getIdAlbum()).getId()) {
             upload.setVisible(true);
             upload.setDisable(false);
         }
