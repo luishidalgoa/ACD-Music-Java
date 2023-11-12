@@ -170,9 +170,9 @@ values (6, 'Emilia', 'Emilia@gmail.es',
         '.\\src\\main\\resources\\dev\\iesfranciscodelosrios\\acdmusic\\assets\\pictures\\user\\Emilia.jpg', '1234',
         'Emilia', 'Mermes');
 insert into rythm.user (id_user, name, email, picture, password, nickname, lastname)
-values (7, 'Michel', 'michael@gmail.com',
+values (7, 'Michel', 'michel@gmail.com',
         '.\\src\\main\\resources\\dev\\iesfranciscodelosrios\\acdmusic\\assets\\pictures\\user\\MichelBubble.jpg',
-        '1234', 'Michael Bublé', 'Bublé');
+        '1234', 'Michel Bublé', 'Bublé');
 
 
 -- Artist Inserts
