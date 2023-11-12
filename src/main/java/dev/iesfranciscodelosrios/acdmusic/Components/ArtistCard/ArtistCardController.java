@@ -1,11 +1,8 @@
 package dev.iesfranciscodelosrios.acdmusic.Components.ArtistCard;
 
 import dev.iesfranciscodelosrios.acdmusic.App;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile.ArtistProfileController;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

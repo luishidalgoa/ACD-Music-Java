@@ -2,38 +2,29 @@ package dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile;
 
 import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Components.AlbumCard.AlbumCardController;
-import dev.iesfranciscodelosrios.acdmusic.Components.CommentCard.CommentCardController;
 import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormController;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
-import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.FilesS;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class ArtistProfileController {

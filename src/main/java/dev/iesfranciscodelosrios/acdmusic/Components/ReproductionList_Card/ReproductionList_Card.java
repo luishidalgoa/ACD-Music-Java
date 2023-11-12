@@ -7,7 +7,6 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Pages.ReproductionListView.ReproductionListViewController;
 import dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile.UserProfileController;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

@@ -14,7 +14,6 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile.ArtistProfileController;
 import dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile.UserProfileController;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -227,7 +226,8 @@ public class HubController extends MediaPlayerController {
     public void logout() {
         Login.getInstance().setCurrentUser(null);
         App.hubController.intervalUpdateUserReproductionLists.cancel();
-        this.mediaPlayer.stop();
+        if (App.hubController.mediaPlayer!=null)
+            App.hubController.mediaPlayer.stop();
         this.mediaPlayer=null;
         App.setRoot("Pages/Login/", "Login");
     }
@@ -235,7 +235,7 @@ public class HubController extends MediaPlayerController {
     @FXML
     public void loadPreview() {
         try {
-            FXMLLoader fxmlLoader = TestViews.getFXML("Pages/Home/", "Home");
+            FXMLLoader fxmlLoader = new FXMLLoader(App.getUrlResource("Pages/Home/", "Home"));
             setViewsContainer(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);

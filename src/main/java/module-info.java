@@ -10,8 +10,6 @@ module dev.iesfranciscodelosrios.acdmusic {
     exports dev.iesfranciscodelosrios.acdmusic;
     exports dev.iesfranciscodelosrios.acdmusic.Pages.Hub;
     opens dev.iesfranciscodelosrios.acdmusic.Pages.Hub to javafx.fxml;
-    exports dev.iesfranciscodelosrios.acdmusic.Pages.Test;
-    opens dev.iesfranciscodelosrios.acdmusic.Pages.Test to javafx.fxml;
     exports dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card to javafx.fxml;
     opens dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card to javafx.fxml;
     exports dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer;

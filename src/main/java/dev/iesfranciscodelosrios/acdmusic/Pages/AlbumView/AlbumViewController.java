@@ -10,17 +10,14 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.FilesS;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -101,7 +98,7 @@ public class AlbumViewController {
         GenericFormController controller;
         if (uploadScene == null) {
             try {
-                FXMLLoader fxmlLoader = TestViews.getFXML("Components/GenericForm/", "GenericForm");
+                FXMLLoader fxmlLoader = new FXMLLoader(App.getUrlResource("Components/GenericForm/", "GenericForm"));
                 uploadScene = App.newStage(fxmlLoader.load());
                 controller = fxmlLoader.getController();
             } catch (IOException e) {

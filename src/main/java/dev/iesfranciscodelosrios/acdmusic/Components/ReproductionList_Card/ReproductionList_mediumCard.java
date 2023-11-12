@@ -1,16 +1,12 @@
 package dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card;
 
 import dev.iesfranciscodelosrios.acdmusic.App;
-import dev.iesfranciscodelosrios.acdmusic.Model.DAO.AlbumDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
-import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
-import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.shape.SVGPath;
 
 public class ReproductionList_mediumCard extends ReproductionList_Card{

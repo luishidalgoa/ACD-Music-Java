@@ -7,7 +7,6 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Pages.Home.HomeController;
-import dev.iesfranciscodelosrios.acdmusic.Pages.Test.TestController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
