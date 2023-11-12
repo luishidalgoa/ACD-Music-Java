@@ -45,7 +45,6 @@ target/
 
 ### REPRODUCTIONLISTDAO
 src/main/java/dev/iesfranciscodelosrios/acdmusic/App.java
-./SQL/Inyector.sql
 ./Desing/Views
 
 src/main/java/dev/iesfranciscodelosrios/acdmusic/Pages/Test
