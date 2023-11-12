@@ -19,7 +19,7 @@ public class Login implements iLogin {
     private Login() {
     }
 
-    UserDTO currentUser;
+    private static UserDTO currentUser;
 
     private UserDAO udao= new UserDAO();
 
@@ -36,7 +36,7 @@ public class Login implements iLogin {
         } else {
             User BDUser = udao.searchByNicknameLogin(user.getNickName());
             if(BDUser!=null && BDUser.getPassword().equals(encryptPassword(user.getPassword()))){
-                UserDTO result = udao.setUserToUserDTO(BDUser);
+                UserDTO result = UserDAO.getInstance().searchById(BDUser.getId());
                 setCurrentUser(result);
                 return result;
             }
