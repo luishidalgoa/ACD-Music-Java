@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxWidth="719.0" prefHeight="139.0" prefWidth="719.0" style="-fx-border-color: gray; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController">
+   <children>
+      <Label fx:id="duration" layoutX="574.0" layoutY="101.0" prefHeight="24.0" prefWidth="145.0" text="Duration">
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </Label>
+      <Pane fx:id="handleTogglePlay" layoutX="565.0" layoutY="37.0" onMouseClicked="#handleTogglePlay" prefHeight="64.0" prefWidth="64.0">
+         <children>
+            <SVGPath content="M6 4v8l6-4z" layoutX="24.0" layoutY="24.0" scaleX="3.0" scaleY="3.0" />
+            <SVGPath content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="24.0" layoutY="24.0" scaleX="3.0" scaleY="3.0" />
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Pane>
+      <Pane layoutX="629.0" layoutY="32.0" onMouseClicked="#showMenu" prefHeight="74.0" prefWidth="55.0">
+         <children>
+            <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-242.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+            <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-230.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+            <SVGPath content="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" layoutX="-218.0" layoutY="-219.0" scaleX="0.02" scaleY="0.02" />
+             <SplitMenuButton fx:id="menu" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="55.0" visible="false" />
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Pane>
+      <Label fx:id="total_view" layoutX="440.0" layoutY="105.0" prefHeight="17.0" prefWidth="133.0" text="views" />
+      <VBox layoutX="-4.0" layoutY="-2.0" prefHeight="150.0" prefWidth="157.0">
+         <children>
+            <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/pictures/app/image_not_Found.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="30.0" top="25.0" />
+         </padding>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </VBox>
+      <Label fx:id="song_name" layoutX="153.0" layoutY="14.0" prefHeight="87.0" prefWidth="405.0" text="Name song" wrapText="true">
+         <font>
+            <Font name="Arial Black" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="artist_name" layoutX="153.0" layoutY="101.0" onMouseClicked="#loadArtistView" prefHeight="24.0" prefWidth="225.0" text="Artist Name">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Pane layoutX="401.0" layoutY="86.0" prefHeight="56.0" prefWidth="39.0">
+         <children>
+            <SVGPath content="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" fill="#989898bd" layoutX="-269.0" layoutY="-228.0" scaleX="0.04" scaleY="0.04" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

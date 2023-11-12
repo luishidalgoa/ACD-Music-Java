@@ -27,6 +27,8 @@ public class ReproductionListDAO implements iReproductionListDAO {
     String searchAllCommentsQuery = "SELECT c.id_comment FROM reproductionlist JOIN commentlistusers c on reproductionlist.id_reproductionList = c.id_reproductionList WHERE c.id_reproductionList LIKE ?";
     String removeSongQuery = "DELETE FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
     String searchSongOnList = "SELECT id_song,id_reproductionList FROM rythm.reproductionsonglist WHERE id_song=? AND id_reproductionList=?;";
+    //Hazme un Like que devuelva varias Listas con un nombre parecido
+    String searchByNameQuery = "SELECT id_reproductionList FROM rythm.reproductionlist WHERE name LIKE CONCAT('%',?,'%') LIMIT 6";
     private ReproductionListDAO() {
     }
 
@@ -55,7 +57,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         }finally {
             ConnectionData.close();
         }
-
         return null;
     }
 
@@ -76,7 +77,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
-
         return false;
     }
 
@@ -129,18 +129,21 @@ public class ReproductionListDAO implements iReproductionListDAO {
     @Override
     public Set<ReproductionList> getUserSubcriptions(int idUser) {
         Connection conn = ConnectionData.getConnection();
-        Set<ReproductionList> result = new HashSet<>();
-        try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
-            ps.setInt(1, idUser);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+        if(conn!=null){
+            Set<ReproductionList> result = new HashSet<>();
+            try (PreparedStatement ps = conn.prepareStatement(getUserSubcriptionQuery)) {
+                ps.setInt(1, idUser);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            ConnectionData.close();
+            return !result.isEmpty() ? result : null;
         }
-        ConnectionData.close();
-        return !result.isEmpty() ? result : null;
+        return null;
     }
 
     @Override
@@ -179,7 +182,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
         } finally {
             ConnectionData.close();
         }
-
         return false;
     }
 
@@ -221,7 +223,6 @@ public class ReproductionListDAO implements iReproductionListDAO {
             ConnectionData.close();
             return existSongOnList(idReproductionList, idSong);
         }
-
     }
 
     @Override
@@ -232,7 +233,10 @@ public class ReproductionListDAO implements iReproductionListDAO {
                 Set<Song>result=new HashSet<>();
                 try (ResultSet rs = ps.getResultSet()) {
                     while (rs.next()) {
-                        result.add(SongDAO.getInstance().searchById(rs.getInt("id_song")));
+                        Song aux;
+                        if((aux=SongDAO.getInstance().searchById(rs.getInt("id_song")))!=null){
+                            result.add(aux);
+                        }
                     }
                 }
                 if (!result.isEmpty())
@@ -282,6 +286,48 @@ public class ReproductionListDAO implements iReproductionListDAO {
         return false;
     }
 
+    @Override
+    public Set<ReproductionList> searchByName(String filter){
+        Connection conn = ConnectionData.getConnection();
+        Set<ReproductionList> result=null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(searchByNameQuery);
+            ps.setString(1, filter);
+            if(ps.execute()){
+                try (ResultSet rs = ps.getResultSet()) {
+                    result = new HashSet<>();
+                    while (rs.next()) {
+                        result.add(searchReproductionListById(rs.getInt("id_reproductionList")));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionData.close();
+        }
+        return result;
+    }
+    public int getAllSubcriptions(int idList){
+        Connection conn = ConnectionData.getConnection();
+        int result=0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT COUNT(id_user) FROM rythm.usersubscriptionlist WHERE id_reproductionList=?;");
+            ps.setInt(1, idList);
+            if(ps.execute()){
+                try (ResultSet rs = ps.getResultSet()) {
+                    if (rs.next()) {
+                        result=rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionData.close();
+        }
+        return result;
+    }
     public static ReproductionListDAO getInstance() {
         if (instance == null) {
             instance = new ReproductionListDAO();

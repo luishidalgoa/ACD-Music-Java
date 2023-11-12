@@ -6,12 +6,14 @@ import java.sql.SQLException;
 public class ConnectionData {
     //Es opcional porque podria interesarnos cerrar la conexion
     private static java.sql.Connection conn =null;
-    //read config from xml file
-    //alpha version
+    //bbdd local
     private final static String uri="jdbc:mysql://localhost:3306/rythm";
+    //bbdd cloud
+    //private final static String uri="jdbc:mysql://34.155.11.50:3306/rythm";
     private final static String user= "root";
     private final static String password="";
-    private ConnectionData(){ }
+
+    public ConnectionData(){ }
     public static java.sql.Connection getConnection(){
         if(conn==null){
             try {
@@ -25,7 +27,7 @@ public class ConnectionData {
     }
 
     public static void close(){
-        if (conn!=null){
+        /*if (conn!=null){
             try {
                 conn.close();
             } catch (SQLException e) {
@@ -33,6 +35,6 @@ public class ConnectionData {
             }finally {
                 conn= null;
             }
-        }
+        }*/
     }
 }

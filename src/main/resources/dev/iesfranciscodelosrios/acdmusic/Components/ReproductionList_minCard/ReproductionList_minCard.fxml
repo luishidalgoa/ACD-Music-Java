@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_Card"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="331.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadReproductionListView" prefHeight="139.0" prefWidth="331.0" style="-fx-border-color: #565656;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard">
+    <children>
+        <ImageView fx:id="img_picture" fitHeight="107.0" fitWidth="107.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../assets/pictures/app/image_not_Found.png" />
+            </image></ImageView>
+        <Text layoutX="137.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By: " wrappingWidth="41.200000000000045">
+            <font>
+                <Font name="SansSerif Regular" size="15.0" />
+            </font>
+        </Text>
+      <Label fx:id="label_username" ellipsisString=".." layoutX="160.0" layoutY="68.0" maxWidth="173.0" prefHeight="17.0" prefWidth="168.0" text="UserName">
+         <font>
+            <Font name="SansSerif Regular" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_nameList" ellipsisString=".." layoutX="137.0" layoutY="31.0" maxWidth="195.0" prefHeight="26.0" prefWidth="189.0" text="Name">
+         <font>
+            <Font name="SansSerif Regular" size="22.0" />
+         </font>
+      </Label>
+      <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserProfile" prefHeight="32.0" prefWidth="195.0" />
+    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

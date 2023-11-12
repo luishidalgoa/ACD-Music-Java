@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="659.0" prefWidth="1067.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile.UserProfileController">
+   <children>
+      <HBox prefHeight="165.0" prefWidth="1067.0">
+         <children>
+            <ImageView fx:id="img_picture" fitHeight="133.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../assets/pictures/user/default.jpeg" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="165.0" prefWidth="677.0">
+               <children>
+                  <Label fx:id="label_name" prefHeight="45.0" prefWidth="679.0" text="Name">
+                     <font>
+                        <Font name="SansSerif Italic" size="40.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <Line endX="774.3333740234375" endY="0.3333282470703125" layoutX="293.0" layoutY="165.0" startX="-293.0" startY="0.3333282470703125" stroke="#d9d9d9" />
+      <ScrollPane layoutY="165.0" prefHeight="494.0" prefWidth="1068.0">
+         <content>
+            <VBox fx:id="vbox_container" prefHeight="491.0" prefWidth="1057.0" spacing="20.0">
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

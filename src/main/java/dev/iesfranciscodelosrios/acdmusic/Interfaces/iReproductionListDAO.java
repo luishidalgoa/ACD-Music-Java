@@ -10,13 +10,12 @@ import java.util.Set;
 
 public interface iReproductionListDAO {
     /**
-     * creara una lista de reproduccion nueva en base a un objeto
+     * creara una lista de reproduccion nueva en base a un objetog
      * @param reproductionList lista de reproduccion que se quiere agregar a la bbdd
      * @return devolvera un DTO de la lista de reproduccion en caso de que se haya encontrado en la base de datos si no devolvera null
      * <h3>NOTA: Devolvera las canciones con Lazy Loading</h3>
      */
     public ReproductionList add(ReproductionList reproductionList);
-
 
     /**
      * eliminara una lista de reproduccion y devolvera true o false en base a si se encuetra o no la lista de reproduccion
@@ -28,7 +27,6 @@ public interface iReproductionListDAO {
     public boolean removeReproductionList(int id);
 
     /**
-
      * buscara una lista de reproduccion a partir de su id
      * @param id id de la lista que se quiere buscar
      * @return lista de reproduccion buscada si no se encuentra devolvera null
@@ -50,7 +48,6 @@ public interface iReproductionListDAO {
      * @return Devolvera true o false en base a si cuando se comprueba
      */
     public boolean unSubcribe(int idUser,ReproductionList reproductionList);
-
 
     /**
      * eliminara una cancion de una lista de reproduccion
@@ -107,4 +104,11 @@ public interface iReproductionListDAO {
      * @return true si existe la relacion
      */
     public boolean existSongOnList(int idList,int idSong);
+
+    /**
+     * filtrara una lista de reproduccion a partir de su nombre de maximo 4 listras
+     * @param filter nombre de la lista que se quiere buscar
+     * @return listas de reproducciones filtrada
+     */
+    public Set<ReproductionList> searchByName(String filter);
 }

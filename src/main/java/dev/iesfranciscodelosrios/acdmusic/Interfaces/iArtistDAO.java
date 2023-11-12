@@ -17,17 +17,17 @@ public interface iArtistDAO {
     /**
      * a partir del id del usuario lo eliminara de la base de datos como artista. Sin embargo podra seguir existiendo
      * como Usuario. (Nota para ser eliminado por completo deberia ser borrado de la tabla User)
-     * @param idUser id del usuario a eliminar
+     * @param artist artista a eliminar
      * @return true si se ha eliminado correctamente
      */
-    public  boolean removeArtist(int idUser);
+    public  boolean removeArtist(Artist artist);
 
     /**
      *  a partir del id de un usuario se buscara el artista que le corresponde
      * @param idUser id del usuario
      * @return objeto artista con los datos del artista si no se encuentra devolvera null
      */
-    public ArtistDTO searchArtistByIdUser(int idUser);
+    public ArtistDTO searchArtistByIdArtist(int idUser);
 
     /**
      * a partir del un nombre no bien conocido se debe filtrar para extraer los artistas que aproximadamente tengan el
@@ -36,4 +36,18 @@ public interface iArtistDAO {
      * @return lista de artistas que coinciden con la palabra clave
      */
     public Set<ArtistDTO> searchArtistByName(String filterWord);
+    /**
+     * Metodo que busca coincidencias con un máximo de tres usuarios y los devuelve.
+     * Por defecto y en caso de que la conexion con la base de datos falle o la constula
+     * no sea existosa devolvera null
+     * @param idUser palabra clave del nombre del artista que se quiere buscar
+     * @return Set de tres usuarios
+     */
+    public ArtistDTO searchArtistByIdUser(int idUser);
+    /**
+     * Metodo que busca un artista por el id del album
+     * @param idAlbum id del album
+     * @return devuelve un objeto ArtistDTO
+     */
+    public ArtistDTO searchArtistByIdAlbum(int idAlbum);
 }
