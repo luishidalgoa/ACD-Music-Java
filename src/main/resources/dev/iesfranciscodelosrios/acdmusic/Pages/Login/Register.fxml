@@ -33,12 +33,12 @@
                      </font>
                   </Text>
                   <TextField fx:id="NameText" layoutX="265.0" layoutY="40.0" prefHeight="60.0" prefWidth="700.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;" />
-                  <Button fx:id="RegisterBtn" layoutX="94.0" layoutY="628.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="REGISTER">
+                  <Button fx:id="RegisterBtn" layoutX="94.0" layoutY="628.0" mnemonicParsing="false" onAction="#BtnRegister" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="REGISTER">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Button>
-                  <Button fx:id="BackBtn" layoutX="532.0" layoutY="628.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="GO BACK">
+                  <Button fx:id="BackBtn" layoutX="532.0" layoutY="628.0" mnemonicParsing="false" onAction="#BtnBack" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="GO BACK">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>

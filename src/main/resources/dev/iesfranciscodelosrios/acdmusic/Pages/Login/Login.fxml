@@ -55,17 +55,22 @@
                      </font>
                   </Text>
                   <TextField fx:id="UserText" layoutX="187.0" layoutY="29.0" prefHeight="60.0" prefWidth="750.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;" />
-                  <Button fx:id="RegisterBtn" layoutX="94.0" layoutY="196.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="REGISTER">
+                  <Button fx:id="RegisterBtn" layoutX="94.0" layoutY="196.0" mnemonicParsing="false" onAction="#BtnRegister" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="REGISTER">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Button>
-                  <Button fx:id="LoginBtn" layoutX="532.0" layoutY="196.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="LOGIN">
+                  <Button fx:id="LoginBtn" layoutX="532.0" layoutY="196.0" mnemonicParsing="false" onAction="#BtnLogin" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="LOGIN">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Button>
                   <PasswordField fx:id="PasswordText" layoutX="254.0" layoutY="115.0" prefHeight="60.0" prefWidth="683.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-width: 0.5; -fx-border-radius: 18;" />
+                  <Text fx:id="TextError" layoutX="265.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="439.13671875">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </children>

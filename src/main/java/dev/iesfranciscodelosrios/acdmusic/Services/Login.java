@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Login implements iLogin {
 
     private static Login instance;
@@ -41,19 +44,48 @@ public class Login implements iLogin {
         return null;
     }
 
+    /**
+     * Metodo para encriptar la contraseña usando SHA-256
+     * @param password contraseña sin encriptar
+     * @return contraseña encriptada en hexademila
+     */
     @Override
     public String encryptPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordBytes = digest.digest(password.getBytes());
+
+            StringBuilder hexString = new StringBuilder();
+            for(byte b : passwordBytes){
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+                return hexString.toString();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
 
+    /**
+     * Metodo para registrar un usuario
+     * @param user objeto usuario con los datos del usuario y la contraseña sin encriptar
+     * @return User provisto en formato DTO o null en caso de que user este vacio
+     */
     @Override
     public UserDTO Register(User user) {
         if (user == null) {
             return null;
         } else {
-
+            udao.addUser(user);
+            UserDTO result = udao.setUserToUserDTO(user);
+            setCurrentUser(result);
+            return result;
         }
-        return null;
     }
 
     /**
@@ -62,7 +94,7 @@ public class Login implements iLogin {
      */
     @Override
     public boolean Logout() {
-        UserDTO current getCurrentUser();
+        UserDTO current = getCurrentUser();
         current = null;
         setCurrentUser(current);
         if (current == null) return true;
@@ -70,10 +102,18 @@ public class Login implements iLogin {
     }
 
 
+    /**
+     * Metodo para obtener el usuario actual
+     * @return UserDTO del user activo en la app
+     */
     public UserDTO getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Metodo para setear el usuario actual en la app
+     * @param currentUser UserDTO del usaurio actual en la app
+     */
     public void setCurrentUser(UserDTO currentUser) {
         this.currentUser = currentUser;
     }
