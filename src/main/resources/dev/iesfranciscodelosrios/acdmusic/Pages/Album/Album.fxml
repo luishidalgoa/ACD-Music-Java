@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="659.0" prefWidth="1067.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Pages.AlbumView.AlbumViewController">
+    <children>
+        <HBox prefHeight="165.0" prefWidth="1067.0">
+            <children>
+                <ImageView fx:id="album_image" fitHeight="133.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
+                    <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                    </HBox.margin>
+                    <image>
+                        <Image url="@../../assets/pictures/app/image_not_Found.png" />
+                    </image>
+                </ImageView>
+                <VBox prefHeight="165.0" prefWidth="677.0">
+                    <children>
+                        <Label fx:id="album_name" prefHeight="69.0" prefWidth="677.0" text="Name" wrapText="true">
+                            <font>
+                                <Font name="SansSerif Italic" size="40.0" />
+                            </font>
+                        </Label>
+                        <Pane prefHeight="23.0" prefWidth="677.0" />
+                        <HBox prefHeight="45.0" prefWidth="677.0">
+                            <children>
+                                <Pane prefHeight="45.0" prefWidth="45.0">
+                                    <children>
+                                        <SVGPath content="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z" fill="#3846c9bd" layoutX="-201.0" layoutY="-233.0" scaleX="0.05" scaleY="0.05" />
+                                    </children>
+                                </Pane>
+                                <Label fx:id="date" prefHeight="45.0" prefWidth="360.0" text="Relased">
+                                    <font>
+                                        <Font name="SansSerif Regular" size="20.0" />
+                                    </font>
+                                </Label>
+                                <Pane layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="45.0">
+                                    <children>
+                                        <SVGPath content="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" fill="#989898bd" layoutX="-265.0" layoutY="-233.0" scaleX="0.05" scaleY="0.05" />
+                                    </children>
+                                </Pane>
+                                <Label fx:id="reproduction" layoutX="55.0" layoutY="10.0" prefHeight="49.0" prefWidth="220.0" text="Views">
+                                    <font>
+                                        <Font name="SansSerif Regular" size="20.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                    </HBox.margin>
+                </VBox>
+                <Pane fx:id="upload" prefHeight="165.0" prefWidth="232.0">
+                    <children>
+                        <SVGPath content="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z" fill="#1a89da" layoutX="-204.0" layoutY="-173.0" scaleX="0.1" scaleY="0.1" />
+                        <Label layoutX="68.0" layoutY="113.0" text="Create new album" />
+                        <Pane layoutX="68.0" layoutY="52.0" onMouseClicked="#uploadSong" prefHeight="78.0" prefWidth="96.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Pane>
+                    </children>
+                </Pane>
+            </children>
+        </HBox>
+        <Line endX="774.3333740234375" endY="0.3333282470703125" layoutX="293.0" layoutY="165.0" startX="-293.0" startY="0.3333282470703125" stroke="#d9d9d9" />
+        <ScrollPane layoutY="165.0" prefHeight="494.0" prefWidth="1068.0">
+            <content>
+                <VBox fx:id="songCardsContainer" prefHeight="491.0" prefWidth="1057.0" spacing="20.0">
+                    <padding>
+                        <Insets left="20.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

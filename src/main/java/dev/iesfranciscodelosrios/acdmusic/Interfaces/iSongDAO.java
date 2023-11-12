@@ -30,6 +30,8 @@ public interface iSongDAO {
      */
     public Set<Song> searchByGenre(Genre genre);
 
+    boolean updateReproductions(int idSong);
+
     /**
      * se devolvera la cancion con el id buscado
      * @param idSong  id de la cancion a buscar

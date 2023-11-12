@@ -11,6 +11,7 @@ public class UserDTO {
     private String lastName;
     private String picture;
     private String email;
+
     public UserDTO(User user){
         this.id = user.getId();
         this.nickName = user.getNickName();
@@ -18,6 +19,24 @@ public class UserDTO {
         this.lastName = user.getLastName();
         this.picture = user.getPicture();
         this.email = user.getEmail();
+    }
+
+    public UserDTO(int id, String nickName, String name, String lastName, String picture, String email) {
+        this.id = id;
+        this.nickName = nickName;
+        this.name = name;
+        this.lastName = lastName;
+        this.picture = picture;
+        this.email = email;
+    }
+
+    public UserDTO() {
+        id = -1;
+        nickName = "";
+        name = "";
+        lastName = "";
+        picture = "";
+        email = "";
     }
 
     public int getId() {

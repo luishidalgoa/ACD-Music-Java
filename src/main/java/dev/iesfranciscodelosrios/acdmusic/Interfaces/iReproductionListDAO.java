@@ -10,11 +10,12 @@ import java.util.Set;
 
 public interface iReproductionListDAO {
     /**
-     * creara una lista de reproduccion nueva en base a un objeto
-     *
-     * @param album album que se agregara a la base de datos
+     * creara una lista de reproduccion nueva en base a un objetog
+     * @param reproductionList lista de reproduccion que se quiere agregar a la bbdd
+     * @return devolvera un DTO de la lista de reproduccion en caso de que se haya encontrado en la base de datos si no devolvera null
+     * <h3>NOTA: Devolvera las canciones con Lazy Loading</h3>
      */
-    public ReproductionList add(Album album);
+    public ReproductionList add(ReproductionList reproductionList);
 
     /**
      * eliminara una lista de reproduccion y devolvera true o false en base a si se encuetra o no la lista de reproduccion
@@ -26,20 +27,27 @@ public interface iReproductionListDAO {
     public boolean removeReproductionList(int id);
 
     /**
+     * buscara una lista de reproduccion a partir de su id
+     * @param id id de la lista que se quiere buscar
+     * @return lista de reproduccion buscada si no se encuentra devolvera null
+     */
+    public ReproductionList searchReproductionListById(int id);
+
+    /**
      * Subcribira un usuario a una lista de reproduccion
-     * @param user recivira el usuario logueado que va a seguir la lista
+     * @param idUser ID del usuario que va a seguir la lista
      * @param idList ID de la lista que van a seguir
      * @return Devolvera un boolean en base si se encuentra la relacion con el metodo getSubcribeToListByUser()
      */
-    public boolean Subcribe(UserDTO user,int idList);
+    public boolean Subcribe(int idUser,int idList);
 
     /**
      * eliminara la relacion entre usuario y la lista de reproduccion indicada
-     * @param user usuario del cual eliminaremos la relacion de la subcripcion de la bbdd
+     * @param idUser id del usuario que se desuscribira de la lista
      * @param reproductionList Lista de reproduccion de la que se desuscribira el usuario
      * @return Devolvera true o false en base a si cuando se comprueba
      */
-    public boolean unSubcribe(UserDTO user,ReproductionList reproductionList);
+    public boolean unSubcribe(int idUser,ReproductionList reproductionList);
 
     /**
      * eliminara una cancion de una lista de reproduccion
@@ -55,7 +63,9 @@ public interface iReproductionListDAO {
      * @param idUser del usuario que se quiere extraer las listas a las que esta subcrito
      * @return lista de reproduccion a las que esta subcrito el usuario
      */
-    public Set<ReproductionList> getUserSubcription(int idUser);
+
+    public Set<ReproductionList> getUserSubcriptions(int idUser);
+
 
     /**
      * este metodo su funcion es verificar que existe la relacion entre un usuario y una lista buscada y
@@ -82,10 +92,23 @@ public interface iReproductionListDAO {
     public boolean addSong(int idSong,int idReproductionList);
 
     /**
-     * buscara una cancion en una lista de reproduccion a partir de su id
-     * @param idSong id de la cancion que se quiere buscar
-     * @param idReproductionList id de la lista en la que se quiere buscar la cancion
+     * buscara una lista de canciones dentro de una lista de reproduccion a traves de una consulta Entre 3 tablas (Song y reproductionSongList)
+     * @param idReproductionList id de la lista en la que se quiere buscar las canciones que tiene
      * @return cancion buscada si no se encuentra devolvera null
      */
-    public Song searchSongById(int idSong,int idReproductionList);
+    public Set<Song> searchSongsById(int idReproductionList);
+    /**
+     * buscara si existe la relacion entre una cancion y una lista de reproduccion
+     * @param idList id de la lista de reproduccion
+     * @param idSong id de la cancion
+     * @return true si existe la relacion
+     */
+    public boolean existSongOnList(int idList,int idSong);
+
+    /**
+     * filtrara una lista de reproduccion a partir de su nombre de maximo 4 listras
+     * @param filter nombre de la lista que se quiere buscar
+     * @return listas de reproducciones filtrada
+     */
+    public Set<ReproductionList> searchByName(String filter);
 }
