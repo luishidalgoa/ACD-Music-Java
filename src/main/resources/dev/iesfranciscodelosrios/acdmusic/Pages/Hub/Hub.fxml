@@ -21,28 +21,35 @@
          <children>
             <HBox prefHeight="120.0" prefWidth="335.0" spacing="10.0">
                <children>
-                  <ImageView fx:id="img_Profile" fitHeight="102.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/pictures/user/default.jpeg" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label fx:id="label_userName" prefHeight="38.0" prefWidth="167.0" text="UserName">
-                     <font>
-                        <Font name="SansSerif Regular" size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="40.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Pane onMouseClicked="#logout" prefHeight="120.0" prefWidth="93.0">
+                  <HBox onMouseClicked="#loadProfile" prefHeight="120.0" prefWidth="303.0" spacing="10.0">
                      <children>
-                        <SVGPath content="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" layoutX="-229.0" layoutY="-196.0" rotate="180.0" scaleX="0.07" scaleY="0.07" />
+                        <ImageView fx:id="img_Profile" fitHeight="102.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/pictures/user/default.jpeg" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="7.0" top="8.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="label_userName" prefHeight="38.0" prefWidth="167.0" text="UserName">
+                           <font>
+                              <Font name="SansSerif Regular" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="40.0" />
+                           </HBox.margin>
+                        </Label>
                      </children>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  <Pane onMouseClicked="#logout" prefHeight="120.0" prefWidth="93.0">
+                     <children>
+                        <SVGPath content="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" layoutX="-227.0" layoutY="-196.0" rotate="180.0" scaleX="0.07" scaleY="0.07" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
                      </HBox.margin>
                   </Pane>
                </children>

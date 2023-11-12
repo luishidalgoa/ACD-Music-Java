@@ -18,6 +18,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
     private static final String SEARCHBYIDSONG= "select a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.nickname, u.lastname from artist a JOIN user u ON a.id_user = u.id_user JOIN album al on a.id_artist = al.id_artist JOIN song s on al.id_album = s.id_album where s.id_song = ?;";
     private static final String SEARCHARTISTBYIDALBUM="select a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.password, u.nickname, u.lastname From artist a JOIN user u ON a.id_user = u.id_user\n" +
             "JOIN album a2 on a.id_artist = a2.id_artist where a2.id_album = ?;";
+    private static final String SELECTBYIDUser ="SELECT a.id_artist, a.nacionality, a.id_user, u.name, u.email, u.picture, u.nickname, u.lastname FROM artist AS a JOIN user AS u ON a.id_user=u.id_user WHERE a.id_user = ?";
 
     private UserDAO udao= new UserDAO();
 
@@ -87,18 +88,49 @@ public class ArtistDAO extends Artist implements iArtistDAO {
 
     /**
      * Este metodo busca un objeto artist dentro de la base de datos
-     * @param idUser id del artista a buscar
+     * @param idArtist id del artista a buscar
      * @return Deveuvle un objeto ArtistDTO si ha sido satisfactorio y null en caso de que IdUser sea null,
      * la conexion falle o la base de datos devuelva cualquier tipo de error(Como no encontrado).
      */
     @Override
-    public ArtistDTO searchArtistByIdArtist(int idUser) {
+    public ArtistDTO searchArtistByIdArtist(int idArtist) {
+        Connection conn= ConnectionData.getConnection();
+        if(conn==null || idArtist==-1) {
+            return null;
+        } else {
+            ArtistDTO searchedArtist = new ArtistDTO();
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYID)){
+                ps.setInt(1,idArtist);
+                if(ps.execute()){
+                    try(ResultSet rs = ps.getResultSet()){
+                        if (rs.next()){
+                            searchedArtist.setId_artist((rs.getInt("id_artist")));
+                            searchedArtist.setNacionality((rs.getString("nacionality")));
+                            searchedArtist.setId_user((rs.getInt("id_user")));
+                            searchedArtist.setId((rs.getInt("id_user")));
+                            searchedArtist.setName((rs.getString("name")));
+                            searchedArtist.setLastName((rs.getString("lastname")));
+                            searchedArtist.setNickName(rs.getString("nickname"));
+                            searchedArtist.setPicture((rs.getString("picture")));
+                            searchedArtist.setEmail((rs.getString("email")));
+                            return searchedArtist;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    @Override
+    public ArtistDTO searchArtistByIdUser(int idUser) {
         Connection conn= ConnectionData.getConnection();
         if(conn==null || idUser==-1) {
             return null;
         } else {
             ArtistDTO searchedArtist = new ArtistDTO();
-            try(PreparedStatement ps = conn.prepareStatement(SELECTBYID)){
+            try(PreparedStatement ps = conn.prepareStatement(SELECTBYIDUser)){
                 ps.setInt(1,idUser);
                 if(ps.execute()){
                     try(ResultSet rs = ps.getResultSet()){
@@ -123,13 +155,6 @@ public class ArtistDAO extends Artist implements iArtistDAO {
         return null;
     }
 
-    /**
-     * Metodo que busca coincidencias con un máximo de tres usuarios y los devuelve.
-     * Por defecto y en caso de que la conexion con la base de datos falle o la constula
-     * no sea existosa devolvera null
-     * @param filterWord palabra clave del nombre del artista que se quiere buscar
-     * @return Set de tres usuarios
-     */
     @Override
     public Set<ArtistDTO> searchArtistByName(String filterWord) {
         Connection conn= ConnectionData.getConnection();
@@ -172,16 +197,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
             if(ps.execute()){
                 try(ResultSet rs = ps.getResultSet()){
                     if (rs.next()){
-                        searchedArtist.setId_artist((rs.getInt("id_artist")));
-                        searchedArtist.setNacionality((rs.getString("nacionality")));
-                        searchedArtist.setId_user((rs.getInt("id_user")));
-                        searchedArtist.setId((rs.getInt("id_user")));
-                        searchedArtist.setName((rs.getString("name")));
-                        searchedArtist.setLastName((rs.getString("lastname")));
-                        searchedArtist.setNickName(rs.getString("nickname"));
-                        searchedArtist.setPicture((rs.getString("picture")));
-                        searchedArtist.setEmail((rs.getString("email")));
-                        return searchedArtist;
+                        return this.searchArtistByIdArtist(rs.getInt("id_artist"));
                     }
                 }
             }
@@ -190,6 +206,7 @@ public class ArtistDAO extends Artist implements iArtistDAO {
         }
         return null;
     }
+    @Override
     public ArtistDTO searchArtistByIdAlbum(int idAlbum){
         Connection conn = ConnectionData.getConnection();
         try {

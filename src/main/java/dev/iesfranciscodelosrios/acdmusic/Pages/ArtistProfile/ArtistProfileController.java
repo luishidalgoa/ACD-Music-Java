@@ -136,10 +136,10 @@ public class ArtistProfileController {
     private void InputUpload(GenericFormController controller) {
         controller.addNode(new Button(), "fileUpload", "Add file image", Style.gap_2.getStyle(),
                 new int[]{1, 0}, () -> {
-                    controller.addNode(new Label(), "textFile", "File selected: ", "", new int[]{1, 1}, () -> {
+                    controller.addNode(new Label(), "textFile", "File selected: ", "", new int[]{1, 0}, () -> {
                     });
                     controller.getNode("textFile").setStyle("-fx-font-size: 10px;");
-                    controller.addNode(new Label(), "FileSelected", "", "", new int[]{1, 2}, () -> {
+                    controller.addNode(new Label(), "FileSelected", "", "", new int[]{0, 0}, () -> {
 
                     });
                     controller.getNode("FileSelected").setStyle("-fx-font-size: 10px;");

@@ -6,9 +6,13 @@ import dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerCont
 import dev.iesfranciscodelosrios.acdmusic.Components.ReproductionList_Card.ReproductionList_minCard;
 import dev.iesfranciscodelosrios.acdmusic.Components.Search.SearchController;
 import dev.iesfranciscodelosrios.acdmusic.Connection.ConnectionData;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ArtistDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DAO.ReproductionListDAO;
+import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.ReproductionList;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
+import dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile.ArtistProfileController;
+import dev.iesfranciscodelosrios.acdmusic.Pages.UserProfile.UserProfileController;
 import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.application.Platform;
@@ -79,7 +83,7 @@ public class HubController extends MediaPlayerController {
             clip.setCenterY(50);
             img_Profile.setClip(clip);
         }
-        label_userName.setText(Login.getInstance().getCurrentUser().getNickName());
+        label_userName.setText(Login.getInstance().getCurrentUser().getName());
         intervalUpdateUserReproductionLists();
         updateReproductionLists();
         loadPreview();
@@ -227,6 +231,29 @@ public class HubController extends MediaPlayerController {
         try {
             FXMLLoader fxmlLoader = TestViews.getFXML("Pages/Home/", "Home");
             setViewsContainer(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void loadProfile(){
+        FXMLLoader fxmlLoader;
+        ArtistDTO isArtist= ArtistDAO.getInstance().searchArtistByIdUser(Login.getInstance().getCurrentUser().getId());
+        if(isArtist==null){
+            fxmlLoader = new FXMLLoader(App.class.getResource("Pages/UserProfile/UserProfile.fxml"));
+        }else{
+            fxmlLoader = new FXMLLoader(App.class.getResource("Pages/ArtistProfile/ArtistProfile.fxml"));
+        }
+        try {
+            Node node=fxmlLoader.load();
+            if (isArtist!=null){
+                ArtistProfileController controller = fxmlLoader.getController();
+                controller.setData(isArtist);
+            }else{
+                UserProfileController controller = fxmlLoader.getController();
+                controller.setData(Login.getInstance().getCurrentUser());
+            }
+            setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -36,4 +36,18 @@ public interface iArtistDAO {
      * @return lista de artistas que coinciden con la palabra clave
      */
     public Set<ArtistDTO> searchArtistByName(String filterWord);
+    /**
+     * Metodo que busca coincidencias con un máximo de tres usuarios y los devuelve.
+     * Por defecto y en caso de que la conexion con la base de datos falle o la constula
+     * no sea existosa devolvera null
+     * @param idUser palabra clave del nombre del artista que se quiere buscar
+     * @return Set de tres usuarios
+     */
+    public ArtistDTO searchArtistByIdUser(int idUser);
+    /**
+     * Metodo que busca un artista por el id del album
+     * @param idAlbum id del album
+     * @return devuelve un objeto ArtistDTO
+     */
+    public ArtistDTO searchArtistByIdAlbum(int idAlbum);
 }
