@@ -2,33 +2,102 @@ package dev.iesfranciscodelosrios.acdmusic.Pages.AlbumView;
 
 import dev.iesfranciscodelosrios.acdmusic.App;
 import dev.iesfranciscodelosrios.acdmusic.Components.GenericForm.GenericFormController;
-import dev.iesfranciscodelosrios.acdmusic.Model.DTO.ArtistDTO;
+import dev.iesfranciscodelosrios.acdmusic.Components.SongCard.SongCardController;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.*;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Album;
+import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Style;
 import dev.iesfranciscodelosrios.acdmusic.Services.FilesS;
+import dev.iesfranciscodelosrios.acdmusic.Services.Login;
 import dev.iesfranciscodelosrios.acdmusic.TestViews;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AlbumViewController {
+    @FXML
+    private ImageView album_image;
+    @FXML
+    private Label album_name;
+    @FXML
+    private Label date;
+    @FXML
+    private Label reproduction;
+    @FXML
+    private VBox songCardsContainer;
+    @FXML
+    private Pane upload;
+    private Album album;
     private List<Integer> index;
     private Scene uploadScene;
+
     @FXML
-    public void uploadSong(){
-        index=new ArrayList<>();
+    public void initialize() {
+        upload.setVisible(false);
+        upload.setDisable(true);
+    }
+    public void setData(Album album){
+        if (Login.getInstance().getCurrentUser().equals(UserDAO.getInstance().searchById(ArtistDAO.getInstance().searchArtistByIdAlbum(album.getIdAlbum()).getId_user()))) {
+            upload.setVisible(true);
+            upload.setDisable(false);
+        }
+        if (album != null) {
+            this.album = album;
+            loadAlbum();
+            loadSongs();
+        }
+    }
+
+    private void loadAlbum() {
+        album_name.setText(album.getName());
+        date.setText(album.getDate().formatted("%d/%m/%Y"));
+        reproduction.setText(String.valueOf(album.getReproductions()));
+        File img = new File(album.getPicture());
+        if (img.exists()) {
+            album_image.setImage(new javafx.scene.image.Image(img.toURI().toString()));
+        }
+    }
+
+    private void addSong() {
+        //método para subir canción dentro del album
+    }
+
+    private void loadSongs() {
+        // Obtener la lista de canciones asociadas al álbum
+        Set<Song> songs = SongDAO.getInstance().searchByAlbumId(album.getIdAlbum());
+
+        // Cargar cada SongCard en el contenedor
+        for (Song song : songs) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/SongCard/SongCard.fxml"));
+                Node node = fxmlLoader.load();
+                SongCardController controller = fxmlLoader.getController();
+                controller.setData(song);
+                songCardsContainer.getChildren().add(node);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    public void uploadSong() {
+        index = new ArrayList<>();
         GenericFormController controller;
         if (uploadScene == null) {
             try {
@@ -39,24 +108,14 @@ public class AlbumViewController {
                 throw new RuntimeException(e);
             }
             {
-                controller.addInput("songName", "Name for the song");
-
-                // agregaremos un nuevo nodo que sera un desplegable con los generos musicales
-                controller.addNode(new ComboBox<>(), "genre", "Select to Genre", "", new int[] { 0, 1 }, () -> {
-                    // le agregaremos los generos musicales del enum
-                    ComboBox nodo = ((ComboBox<String>) controller.getNode("genre"));
-                    for (Genre aux : Genre.values()) {
-                        nodo.getItems().add(aux.toString());
-                    }
-                });
-                controller.addNode(new Button(), "addSong", "", Style.gap_2.getStyle(), new int[] { 0, 0 }, () -> {
+                controller.addNode(new Button(), "addSong", "", Style.gap_2.getStyle(), new int[]{0, 0}, () -> {
                     Button btn = (Button) controller.getNode("addSong");
                     btn.setText("Add song");
                     btn.setOnAction(e -> {
                         // le pasaremos un random del 1-1000
                         int random = (int) (Math.random() * 1000 + 1);
                         index.add(random);
-                        InputUpload(controller,random );
+                        InputUpload(controller, random);
                     });
                     btn.setStyle(Style.btn_primary.getStyle());
                 });
@@ -66,12 +125,24 @@ public class AlbumViewController {
             controller.eventBtnSend(() -> {
                 FilesS fileService = new FilesS();
                 for (int i : index) {
-                    String text =((Label)controller.getNode("FileSelected" + i)).getText();
-                    File selectedFile = text.isEmpty() || text=="" ? null : new File(text);
+                    boolean isUpload;
+                    Label fileUrl = ((Label) controller.getNode("FileSelected" + i));
+                    TextField nameSong = ((TextField) controller.getNode("songName" + i));
+                    ComboBox genre = ((ComboBox) controller.getNode("genre" + i));
+                    Song song = new Song();
+                    song.setId_album(album.getIdAlbum());
+                    song.setName(nameSong.getText());
+                    song.setGenre(Genre.valueOf(genre.getValue().toString()));
+                    String text = fileUrl.getText();
+                    File selectedFile = text.isEmpty() || text == "" ? null : new File(text);
                     try {
-                        fileService.CopyFile(selectedFile.getAbsolutePath(), "./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/music/" + selectedFile.getName().hashCode());
+                        isUpload=fileService.CopyFile(selectedFile.getAbsolutePath(), "./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/music/" + selectedFile.getName().hashCode());
+                        song.setUrl("./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/music/" + selectedFile.getName().hashCode() + "." + fileService.getExtension(selectedFile.getAbsolutePath()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
+                    }
+                    if(isUpload){
+                        SongDAO.getInstance().addSong(song);
                     }
                 }
                 uploadScene.getWindow().hide();
@@ -83,13 +154,24 @@ public class AlbumViewController {
             });
         }
     }
+
     private void InputUpload(GenericFormController controller, int index) {
+        controller.addInput("songName"+index, "Name for the song");
+
+        // agregaremos un nuevo nodo que sera un desplegable con los generos musicales
+        controller.addNode(new ComboBox<>(), "genre"+index, "Select to Genre", "", new int[]{0, 1}, () -> {
+            // le agregaremos los generos musicales del enum
+            ComboBox nodo = ((ComboBox<String>) controller.getNode("genre"+index));
+            for (Genre aux : Genre.values()) {
+                nodo.getItems().add(aux.toString());
+            }
+        });
         controller.addNode(new Button(), "fileUpload" + index, "Add file music", Style.gap_2.getStyle(),
-                new int[] { 1, 0 }, () -> {
-                    controller.addNode(new Label(), "textFile" + index, "File selected: ", "", new int[] { 1, 1 }, () -> {
+                new int[]{1, 0}, () -> {
+                    controller.addNode(new Label(), "textFile" + index, "File selected: ", "", new int[]{0, 0}, () -> {
                     });
                     controller.getNode("textFile" + index).setStyle("-fx-font-size: 10px;");
-                    controller.addNode(new Label(), "FileSelected" + index, "", "", new int[] { 1, 2 }, () -> {
+                    controller.addNode(new Label(), "FileSelected" + index, "", "", new int[]{1,0}, () -> {
 
                     });
                     controller.getNode("FileSelected" + index).setStyle("-fx-font-size: 10px;");

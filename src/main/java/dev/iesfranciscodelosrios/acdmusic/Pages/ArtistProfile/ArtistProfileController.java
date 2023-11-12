@@ -107,22 +107,19 @@ public class ArtistProfileController {
             Album album = new Album();
             album.setIdArtist(this.artist.getId_artist());
             album.setName(((TextField) finalController.getNode("albumName")).getText());
-            boolean isAdded=false;
             {
                 FilesS fileService = new FilesS();
                 String text = ((Label) finalController.getNode("FileSelected")).getText();
                 File selectedFile = text.isEmpty() || text == "" ? null : new File(text);
                 try {
-                    isAdded=fileService.CopyFile(selectedFile.getAbsolutePath(), "./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/pictures/album/" + selectedFile.getName().hashCode());
-                    album.setPicture("./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/pictures/album/" + selectedFile.getName().hashCode()+"."+fileService.getExtension(selectedFile.getAbsolutePath()));
+                    fileService.CopyFile(selectedFile.getAbsolutePath(), "./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/pictures/album/" + selectedFile.getName().hashCode());
+                    album.setPicture("./src/main/resources/dev/iesfranciscodelosrios/acdmusic/assets/pictures/album/" + selectedFile.getName().hashCode() + "." + fileService.getExtension(selectedFile.getAbsolutePath()));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-            if(isAdded){
-                AlbumDAO.getInstance().addAlbum(album);
-                updateSongsContainer();
-            }
+            AlbumDAO.getInstance().addAlbum(album);
+            updateSongsContainer();
 
             uploadScene.getWindow().hide();
             uploadScene = null;

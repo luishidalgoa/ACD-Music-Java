@@ -97,5 +97,17 @@ public class AlbumCardController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void loadAlbumView(){
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Pages/Album/Album.fxml"));
+        try {
+            Node node=fxmlLoader.load();
+            AlbumViewController controller = fxmlLoader.getController();
+            controller.setData(album);
+            TestViews.hubController.setViewsContainer(node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

@@ -20,7 +20,7 @@
          <SplitMenuButton fx:id="menu" layoutX="4.0" layoutY="23.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="55.0" visible="false" />
       </children>
    </Pane>
-   <HBox layoutY="-2.0" prefHeight="140.0" prefWidth="153.0">
+   <HBox layoutY="-2.0" onMouseClicked="#loadAlbumView" prefHeight="140.0" prefWidth="153.0">
       <padding>
          <Insets left="25.0" top="20.0" />
       </padding>
@@ -32,7 +32,7 @@
          </ImageView>
       </children>
    </HBox>
-   <Label fx:id="album_name" layoutX="167.0" layoutY="12.0" prefHeight="86.0" prefWidth="381.0" text="album_name" wrapText="true">
+   <Label fx:id="album_name" layoutX="167.0" layoutY="12.0" onMouseClicked="#loadAlbumView" prefHeight="86.0" prefWidth="381.0" text="album_name" wrapText="true">
       <font>
          <Font name="Arial Black" size="24.0" />
       </font>

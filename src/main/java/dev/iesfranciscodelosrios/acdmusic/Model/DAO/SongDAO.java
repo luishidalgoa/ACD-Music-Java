@@ -6,6 +6,8 @@ import dev.iesfranciscodelosrios.acdmusic.Model.Domain.Song;
 import dev.iesfranciscodelosrios.acdmusic.Model.Enum.Genre;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +42,7 @@ public class SongDAO implements iSongDAO {
             preparedStatement.setInt(1, song.getId_album());
             preparedStatement.setString(2, song.getName());
             preparedStatement.setString(3, song.getUrl());
-            preparedStatement.setTime(4, Time.valueOf(song.getTime()));
+            preparedStatement.setTime(4, Time.valueOf(LocalTime.of(0,2,30))); //No tenemos actualmente forma de calcular la duracion de la cancion
             preparedStatement.setString(5, song.getGenre().toString());
             preparedStatement.setInt(6, song.getReproductions());
 
