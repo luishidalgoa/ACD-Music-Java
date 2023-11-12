@@ -8,7 +8,7 @@ public class MySQLCloudConnection {
     private static java.sql.Connection conn =null;
     //read config from xml file
     //alpha version
-    private final static String uri="jdbc:mysql.sql://34.155.11.50:3306/rythm";
+    private final static String uri="jdbc:mysql://34.155.11.50:3306/rythm";
     private final static String user= "root";
     private final static String password="";
 

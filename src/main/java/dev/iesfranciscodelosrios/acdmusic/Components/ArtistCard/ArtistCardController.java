@@ -38,7 +38,7 @@ public class ArtistCardController {
             Node node=fxmlLoader.load();
             ArtistProfileController controller = fxmlLoader.getController();
             controller.setData(this.artist);
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

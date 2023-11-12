@@ -38,5 +38,7 @@ module dev.iesfranciscodelosrios.acdmusic {
     opens dev.iesfranciscodelosrios.acdmusic.Pages.ArtistProfile;
     exports dev.iesfranciscodelosrios.acdmusic.Pages.AlbumView;
     opens dev.iesfranciscodelosrios.acdmusic.Pages.AlbumView;
+    exports dev.iesfranciscodelosrios.acdmusic.Pages.Login;
+    opens dev.iesfranciscodelosrios.acdmusic.Pages.Login;
 
 }

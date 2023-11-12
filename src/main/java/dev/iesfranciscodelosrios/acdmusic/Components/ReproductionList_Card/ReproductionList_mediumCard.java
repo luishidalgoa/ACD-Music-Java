@@ -66,7 +66,7 @@ public class ReproductionList_mediumCard extends ReproductionList_Card{
     }
     @FXML
     private void handleTogglePlay(){
-        TestViews.hubController.setData(rl.getSongs(),true);
+        App.hubController.setData(rl.getSongs(),true);
     }
 
 }

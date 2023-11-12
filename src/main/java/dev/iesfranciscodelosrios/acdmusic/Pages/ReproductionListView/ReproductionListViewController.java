@@ -59,7 +59,7 @@ public class ReproductionListViewController extends ReproductionList_mediumCard 
     public void toggleSubcribe() {
         super.toggleSubcribe();
         if(!ReproductionListDAO.getInstance().getSubcribeToListByUser(Login.getInstance().getCurrentUser().getId(),rl.getId()))
-            TestViews.hubController.loadPreview();
+            App.hubController.loadPreview();
     }
 
     public void setData(ReproductionList rl) {

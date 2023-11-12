@@ -50,7 +50,7 @@ public class MediaPlayerController {
 
     private List<Song> Songs = new ArrayList<>();
     private int indexSong = 0;
-    private MediaPlayer mediaPlayer;
+    protected MediaPlayer mediaPlayer;
     private Media currentMedia;
     // Timer es una clase que permite programar tareas para que se ejecuten en un hilo en un momento específico o después de un retraso.
     private Timer timer;

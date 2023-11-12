@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class TestViews extends Application {
     private static Scene scene;
-    public static HubController hubController;
     public static void main(String[] args) {
         launch(args);
     }

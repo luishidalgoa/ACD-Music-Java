@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="920.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Pages.Login.RegisterController">
+    <children>
+        <ImageView fitHeight="964.0" fitWidth="1412.0" layoutX="-2.0" layoutY="-3.0">
+            <image>
+                <Image url="@Images/Fondo.jpg" />
+            </image>
+        </ImageView>
+        <VBox alignment="CENTER" layoutX="203.0" layoutY="78.0" prefHeight="805.0" prefWidth="1002.0" AnchorPane.topAnchor="78.0">
+            <children>
+                <Pane accessibleRole="BUTTON" layoutX="216.0" layoutY="507.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="757.0" prefWidth="1002.0" style="-fx-background-radius: 29; -fx-background-color: #b6c6d0; -fx-effect: dropshadow(three-pass-box, black, 10,0,0,0);">
+                    <children>
+                        <Text layoutX="69.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="59.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="NameText" layoutX="265.0" layoutY="40.0" prefHeight="60.0" prefWidth="700.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                        <Button fx:id="RegisterBtn" layoutX="130.0" layoutY="669.0" mnemonicParsing="false" onAction="#BtnRegister" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="REGISTER">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                        <Button fx:id="BackBtn" layoutX="552.0" layoutY="669.0" mnemonicParsing="false" onAction="#BtnBack" prefHeight="60.0" prefWidth="342.0" style="-fx-background-color: #3BACD9; -fx-background-radius: 18;" text="GO BACK">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </Button>
+                        <Text layoutX="90.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="NicknameText" layoutX="265.0" layoutY="325.0" prefHeight="60.0" prefWidth="700.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                        <TextField fx:id="EmailText" layoutX="265.0" layoutY="230.0" prefHeight="60.0" prefWidth="700.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                        <TextField fx:id="LastnameText" layoutX="265.0" layoutY="135.0" prefHeight="60.0" prefWidth="700.0" style="-fx-background-radius: 18; -fx-border-color: #707070; -fx-border-radius: 18; -fx-border-width: 0.5;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                        <Text layoutX="37.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Text>
+                        <Text layoutX="51.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname">
+                            <font>
+                                <Font name="Arial" size="40.0" />
+                            </font>
+                        </Text>
+                        <PasswordField fx:id="PasswordText" layoutX="265.0" layoutY="420.0" prefHeight="60.0" prefWidth="700.0" style="-fx-border-radius: 18; -fx-background-radius: 18; -fx-border-width: 0.5; -fx-border-color: #707070;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></PasswordField>
+                        <PasswordField fx:id="ConfirmPasswordText" layoutX="265.0" layoutY="520.0" prefHeight="60.0" prefWidth="700.0" style="-fx-border-radius: 18; -fx-background-radius: 18; -fx-border-width: 0.5; -fx-border-color: #707070;">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></PasswordField>
+                  <Label layoutX="37.0" layoutY="493.0" prefHeight="101.0" prefWidth="221.0" text="Confirmar contraseña" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="35.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="upload" layoutX="265.0" layoutY="608.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="198.0" text="Select File">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="77.0" layoutY="607.0" prefHeight="47.0" prefWidth="142.0" text="Picture" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="text_url" layoutX="472.0" layoutY="608.0" prefHeight="47.0" prefWidth="464.0" />
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

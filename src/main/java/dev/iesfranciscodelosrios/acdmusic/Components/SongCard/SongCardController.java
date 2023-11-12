@@ -70,7 +70,7 @@ public class SongCardController {
     private void handleTogglePlay(MouseEvent event) {
         Set<Song> songs = new HashSet<>();
         songs.add(song);
-        TestViews.hubController.setData(songs, true);
+        App.hubController.setData(songs, true);
     }
 
     @FXML
@@ -94,7 +94,7 @@ public class SongCardController {
                                 ReproductionListDAO.getInstance().removeSong(song.getId_song(), rl.getId(), Login.getInstance().getCurrentUser());
                             } else {
                                 ReproductionListDAO.getInstance().addSong(song.getId_song(), rl.getId());
-                                TestViews.hubController.updateReproductionLists();
+                                App.hubController.updateReproductionLists();
                             }
                         } catch (NullPointerException ex) {
                             ex.printStackTrace();
@@ -112,7 +112,7 @@ public class SongCardController {
     private void handleTogglePlay() {
         Set<Song> songs = new HashSet<>();
         songs.add(song);
-        TestViews.hubController.setData(songs, true);
+        App.hubController.setData(songs, true);
     }
     @FXML
     public void loadArtistView(){
@@ -121,7 +121,7 @@ public class SongCardController {
             Node node=fxmlLoader.load();
             ArtistProfileController controller = fxmlLoader.getController();
             controller.setData(ArtistDAO.getInstance().searchArtistByIdSong(song.getId_song()));
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

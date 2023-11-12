@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,4 +32,7 @@
       </Label>
       <Pane layoutX="132.0" layoutY="61.0" onMouseClicked="#loadUserProfile" prefHeight="32.0" prefWidth="195.0" />
     </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </AnchorPane>

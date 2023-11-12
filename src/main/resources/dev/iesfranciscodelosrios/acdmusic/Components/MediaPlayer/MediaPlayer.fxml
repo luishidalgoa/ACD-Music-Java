@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
@@ -12,8 +13,14 @@
 
 <AnchorPane prefHeight="138.0" prefWidth="1064.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.iesfranciscodelosrios.acdmusic.Components.MediaPlayer.MediaPlayerController">
    <children>
-      <ProgressBar fx:id="songProgressBar" layoutX="209.0" layoutY="106.0" prefHeight="18.0" prefWidth="646.0" progress="0.0" />
-      <Slider fx:id="volumeSlider" layoutX="898.0" layoutY="108.0" />
+      <ProgressBar fx:id="songProgressBar" layoutX="209.0" layoutY="106.0" prefHeight="18.0" prefWidth="646.0" progress="0.0">
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor></ProgressBar>
+      <Slider fx:id="volumeSlider" layoutX="898.0" layoutY="108.0">
+         <cursor>
+            <Cursor fx:constant="H_RESIZE" />
+         </cursor></Slider>
       <Pane layoutX="860.0" layoutY="99.0" prefHeight="31.0" prefWidth="33.0">
          <children>
             <SVGPath content="M41.813,59.319a1.156,1.156,0,0,1-.779-.3L29.8,48.753H25.466A1.156,1.156,0,0,1,24.31,47.6V36.035a1.156,1.156,0,0,1,1.156-1.156H29.8L41.034,24.616a1.156,1.156,0,0,1,1.936.853V58.163A1.156,1.156,0,0,1,41.813,59.319ZM26.622,46.441h3.628a1.156,1.156,0,0,1,.779.3l9.627,8.787V28.091L31.03,36.879a1.156,1.156,0,0,1-.779.312H26.622Z" layoutX="-27.0" layoutY="-25.0" scaleX="0.8" scaleY="0.8" />
@@ -27,16 +34,25 @@
             <SVGPath fx:id="svg_reproduction_1" content="M8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zM8 0c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8v0z" layoutX="35.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
             <SVGPath fx:id="svg_reproduction_2" content="M6 4v8l6-4z" layoutX="37.0" layoutY="35.0" scaleX="4.0" scaleY="4.0" />
          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Pane>
       <Pane layoutX="403.0" layoutY="3.0" onMouseClicked="#handlePrevious" prefHeight="86.0" prefWidth="86.0">
          <children>
             <SVGPath content="M47.94,103.247a3.338,3.338,0,0,0,5.477-2.567V67.295a3.338,3.338,0,0,0-5.477-2.567L30.047,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,0-5.477-2.567L1.2,81.421a3.345,3.345,0,0,0,0,5.133l20.031,16.693a3.338,3.338,0,0,0,5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Pane>
       <Pane layoutX="575.0" layoutY="3.0" onMouseClicked="#handleNext" prefHeight="86.0" prefWidth="86.0">
          <children>
             <SVGPath content="M5.477,103.247A3.338,3.338,0,0,1,0,100.681V67.295a3.338,3.338,0,0,1,5.477-2.567L23.37,79.637v8.7ZM26.709,94V67.295a3.338,3.338,0,0,1,5.477-2.567L52.217,81.421a3.345,3.345,0,0,1,0,5.133L32.186,103.247a3.338,3.338,0,0,1-5.477-2.567Z" layoutX="16.0" layoutY="-42.0" />
          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Pane>
       <ImageView fx:id="SongImage" fitHeight="107.0" fitWidth="107.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>

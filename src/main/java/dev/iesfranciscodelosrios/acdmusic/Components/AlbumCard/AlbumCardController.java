@@ -72,7 +72,7 @@ public class AlbumCardController {
                                 for (Song song: SongDAO.getInstance().searchByAlbumId(album.getIdAlbum())) {
                                     ReproductionListDAO.getInstance().addSong(song.getId_song(), rl.getId());
                                 }
-                                TestViews.hubController.updateReproductionLists();
+                                App.hubController.updateReproductionLists();
                             }
                         }catch (NullPointerException ex){
                             ex.printStackTrace();
@@ -92,7 +92,7 @@ public class AlbumCardController {
             Node node=fxmlLoader.load();
             ArtistProfileController controller = fxmlLoader.getController();
             controller.setData(ArtistDAO.getInstance().searchArtistByIdAlbum(album.getIdAlbum()));
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -104,7 +104,7 @@ public class AlbumCardController {
             Node node=fxmlLoader.load();
             AlbumViewController controller = fxmlLoader.getController();
             controller.setData(album);
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

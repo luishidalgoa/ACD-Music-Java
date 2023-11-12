@@ -1,11 +1,18 @@
 package dev.iesfranciscodelosrios.acdmusic.Services;
 
 import dev.iesfranciscodelosrios.acdmusic.Interfaces.iLogin;
+import dev.iesfranciscodelosrios.acdmusic.Model.DAO.UserDAO;
 import dev.iesfranciscodelosrios.acdmusic.Model.DTO.UserDTO;
 import dev.iesfranciscodelosrios.acdmusic.Model.Domain.User;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Login implements iLogin {
-
 
     private static Login instance;
 
@@ -14,60 +21,99 @@ public class Login implements iLogin {
 
     UserDTO currentUser;
 
+    private UserDAO udao= new UserDAO();
+
     /**
-     * Comprueba si el usuario recivido no es nulo y si existe en la bbdd , posteriormente
-     * encriptara la contraseña del usuario recibido y la comparara con la contraseña encriptada de la bbdd
-     * si coinciden devolvera un objeto usuario con los datos del usuario logueado y lo guardara en el atributo currentUser
+     * Metodo para autentificar que el usuario se loguea con nickname y password correctos, además
+     * seteará un currentUser en caso de ser satisfactoria la autentificación.
      * @param user objeto usuario con los datos del usuario y la contraseña sin encriptar
-     * @return objeto usuario con los datos del usuario logueado
+     * @return UserDTO en caso de que la autenticación sea satisfactoria y null en cualquier otro caso
      */
     @Override
     public UserDTO Auth(User user) {
+        if (user == null) {
+            return null;
+        } else {
+            User BDUser = udao.searchByNicknameLogin(user.getNickName());
+            if(BDUser!=null && BDUser.getPassword().equals(encryptPassword(user.getPassword()))){
+                UserDTO result = udao.setUserToUserDTO(BDUser);
+                setCurrentUser(result);
+                return result;
+            }
+        }
         return null;
     }
 
     /**
-     * Recive un string de la contraseña sin encriptar y la encriptara para compararla
+     * Metodo para encriptar la contraseña usando SHA-256
      * @param password contraseña sin encriptar
-     * @return contraseña encriptada
+     * @return contraseña encriptada en hexademila
      */
     @Override
     public String encryptPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordBytes = digest.digest(password.getBytes());
+
+            StringBuilder hexString = new StringBuilder();
+            for(byte b : passwordBytes){
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+                return hexString.toString();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
 
     /**
-     * Comprueba si el usuario recivido no es nulo y si existe en la bbdd , posteriormente
-     * encriptara la contraseña del usuario recibido y agregara el usuario a la bbdd.
-     * la contraseña debera tener minimo 2 caracteres
+     * Metodo para registrar un usuario
      * @param user objeto usuario con los datos del usuario y la contraseña sin encriptar
-     * @return
+     * @return User provisto en formato DTO o null en caso de que user este vacio
      */
     @Override
     public UserDTO Register(User user) {
-        return null;
+        if (user == null) {
+            return null;
+        } else {
+            user.setPassword(encryptPassword(user.getPassword()));
+            udao.addUser(user);
+            UserDTO result = udao.setUserToUserDTO(user);
+            setCurrentUser(result);
+            return result;
+        }
     }
 
     /**
-     * Se encargara de setear el atributo currentUser a null
-     * @return true si se ha podido cerrar sesion correctamente
+     * Metodo para cerrar sesión
+     * @return true en caso de que current user se establezca a null, false en cualquier otro caso
      */
     @Override
     public boolean Logout() {
+        UserDTO current = getCurrentUser();
+        current = null;
+        setCurrentUser(current);
+        if (current == null) return true;
         return false;
     }
 
+
     /**
-     * Devolvera el usuario logueado actualmente
-     * @return usuario logueado actualmente
+     * Metodo para obtener el usuario actual
+     * @return UserDTO del user activo en la app
      */
     public UserDTO getCurrentUser() {
         return currentUser;
     }
 
     /**
-     * Seteara el usuario logueado actualmente
-     * @param currentUser usuario logueado actualmente
+     * Metodo para setear el usuario actual en la app
+     * @param currentUser UserDTO del usaurio actual en la app
      */
     public void setCurrentUser(UserDTO currentUser) {
         this.currentUser = currentUser;

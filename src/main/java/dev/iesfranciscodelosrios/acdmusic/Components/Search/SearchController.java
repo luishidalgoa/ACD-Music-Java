@@ -55,7 +55,7 @@ public class SearchController {
             if (songs.size()>0)
                 homeController.setSong(songs, "Songs");
 
-            TestController.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

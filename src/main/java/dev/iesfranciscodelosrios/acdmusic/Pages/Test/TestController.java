@@ -103,7 +103,7 @@ public class TestController extends TestViews{
             Stage stage=TestViews.newStage(fxmlLoader.load());
             stage.setTitle("ACD Music");
             stage.getIcons().add(new javafx.scene.image.Image(App.class.getResource("assets/pictures/app/Logo.png").toString()));
-            hubController=fxmlLoader.getController();
+            App.hubController=fxmlLoader.getController();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -156,7 +156,6 @@ public class ArtistProfileController {
 
                         if (selectedFile != null) {
                             // Aquí puedes realizar operaciones con el archivo seleccionado.
-                            System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
                             Label label = (Label) controller.getNode("FileSelected");
                             label.setText(selectedFile.getAbsolutePath());
                             label.setStyle(label.getStyle() + "-fx-text-fill: green;");

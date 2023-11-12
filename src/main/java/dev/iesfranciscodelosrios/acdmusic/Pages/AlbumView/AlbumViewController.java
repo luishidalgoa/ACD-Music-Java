@@ -190,8 +190,6 @@ public class AlbumViewController {
                         java.io.File selectedFile = fileChooser.showOpenDialog(null);
 
                         if (selectedFile != null) {
-                            // Aquí puedes realizar operaciones con el archivo seleccionado.
-                            System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
                             Label label = (Label) controller.getNode("FileSelected" + index);
                             label.setText(selectedFile.getAbsolutePath());
                             label.setStyle(label.getStyle() + "-fx-text-fill: green;");

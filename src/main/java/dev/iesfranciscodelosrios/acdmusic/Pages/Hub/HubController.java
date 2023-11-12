@@ -142,15 +142,17 @@ public class HubController extends MediaPlayerController {
     public void updateReproductionListsThread() {
         Platform.runLater(() -> {
             vbox_reproductionLists.getChildren().clear();
-            for (ReproductionList aux : userReproductionList) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_minCard/ReproductionList_minCard.fxml"));
-                    Node card = fxmlLoader.load();
-                    ReproductionList_minCard controller = fxmlLoader.getController();
-                    controller.setData(aux);
-                    vbox_reproductionLists.getChildren().add(card);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if(userReproductionList!=null || !userReproductionList.isEmpty()){
+                for (ReproductionList aux : userReproductionList) {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Components/ReproductionList_minCard/ReproductionList_minCard.fxml"));
+                        Node card = fxmlLoader.load();
+                        ReproductionList_minCard controller = fxmlLoader.getController();
+                        controller.setData(aux);
+                        vbox_reproductionLists.getChildren().add(card);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -224,6 +226,10 @@ public class HubController extends MediaPlayerController {
     @FXML
     public void logout() {
         Login.getInstance().setCurrentUser(null);
+        App.hubController.intervalUpdateUserReproductionLists.cancel();
+        this.mediaPlayer.stop();
+        this.mediaPlayer=null;
+        App.setRoot("Pages/Login/", "Login");
     }
 
     @FXML

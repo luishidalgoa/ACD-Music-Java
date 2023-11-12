@@ -37,7 +37,7 @@ abstract public class ReproductionList_Card {
             Node node = fxmlLoader.load();
             ReproductionListViewController controller = fxmlLoader.getController();
             controller.setData(ReproductionListDAO.getInstance().searchReproductionListById(rl.getId()));
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -48,7 +48,7 @@ abstract public class ReproductionList_Card {
             Node node = fxmlLoader.load();
             UserProfileController controller = fxmlLoader.getController();
             controller.setData(rl.getOwner());
-            TestViews.hubController.setViewsContainer(node);
+            App.hubController.setViewsContainer(node);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
